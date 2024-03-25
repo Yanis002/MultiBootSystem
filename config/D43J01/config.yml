@@ -4,4 +4,3 @@ hash: 7e785ecf59e526ed0c87492f05af06a1265bb06a
 symbols: config/D43J01/symbols.txt
 splits: config/D43J01/splits.txt
 mw_comment_version: 8
-map: orig/D43J01/files/MultiBootSystem.map
