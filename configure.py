@@ -184,7 +184,7 @@ cflags_runtime = [
     *cflags_base,
     "-use_lmw_stmw on",
     "-str reuse,pool,readonly",
-    "-gccinc",
+    # "-gccinc",
     "-common off",
     "-inline auto",
 ]
@@ -244,13 +244,13 @@ config.libs = [
         "cflags": cflags_runtime,
         "host": False,
         "objects": [
-            Object(NonMatching, "main.o"),
-            Object(NonMatching, "dtk_stuff.o"),
-            Object(NonMatching, "graphics.o"),
-            Object(NonMatching, "mixedcontroller.o"),
-            Object(NonMatching, "mtrand.o"),
-            Object(NonMatching, "discerror.o"),
-            Object(NonMatching, "soundeffect.o"),
+            Object(NonMatching, "main.c"),
+            Object(NonMatching, "dtk_stuff.c"),
+            Object(NonMatching, "graphics.c"),
+            Object(NonMatching, "mixedcontroller.c"),
+            Object(NonMatching, "mtrand.c"),
+            Object(Matching, "discerror.c"),
+            Object(NonMatching, "soundeffect.c"),
         ]
     },
     DolphinLib(
