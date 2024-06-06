@@ -7,12 +7,11 @@ extern "C" {
 
 #include "dolphin/types.h"
 
-// eof.h
 #define EOF -1L
 
-extern const u8 __ctype_map[];
-extern const u8 __lower_map[];
-extern const u8 __upper_map[];
+extern u8 __ctype_map[];
+extern u8 __lower_map[];
+extern u8 __upper_map[];
 
 #define __control_char 0x01
 #define __motion_char 0x02
@@ -43,9 +42,10 @@ static inline int isspace(int c) { return __ctype_map[__zero_fill(c)] & __whites
 static inline int isupper(int c) { return __ctype_map[__zero_fill(c)] & __upper_case; }
 static inline int isxdigit(int c) { return __ctype_map[__zero_fill(c)] & __hex_digit; }
 static inline int iswblank(int c) { return ((c == (int)L' ') || (c == (int)L'\t')); }
+static inline int toupper(int c) { return c == EOF ? EOF : __upper_map[__zero_fill(c)]; }
+static inline int _tolower(int c) { return c == EOF ? EOF : __lower_map[__zero_fill(c)]; }
 
 int tolower(int c);
-int toupper(int c);
 
 #ifdef __cplusplus
 };

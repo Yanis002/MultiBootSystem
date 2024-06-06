@@ -1113,7 +1113,7 @@ libc/direct_io.c:
 libc/file_io.c:
 	.text       start:0x80096260 end:0x80096458
 
-libc/FILE_POS.C:
+libc/file_pos.c:
 	.text       start:0x80096458 end:0x80096724
 
 libc/mbstring.c:

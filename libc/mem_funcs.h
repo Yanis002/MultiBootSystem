@@ -10,11 +10,12 @@ extern "C" {
 
 #define __min_bytes_for_long_copy 32
 
-INIT int memcmp(void*, const void*, size_t);
-INIT void* memcpy(void* dst, const void* src, size_t n);
-INIT void* memset(void* dst, int val, size_t n);
-INIT void __fill_mem(void* dst, int val, size_t n);
+int memcmp(const void* lhs, const void* rhs, size_t count);
+void* memcpy(void* dst, const void* src, size_t n);
+void* memset(void* dst, int val, size_t n);
+void __fill_mem(void* dst, int val, size_t n);
 
+void* __memrchr(const void* ptr, int ch, size_t count);
 void __copy_mem(void* dst, const void* src, unsigned long n);
 void __move_mem(void* dst, const void* src, unsigned long n);
 void __copy_longs_aligned(void* dst, const void* src, unsigned long n);
