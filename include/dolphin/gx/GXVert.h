@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXVERT_H_
 #define _DOLPHIN_GX_GXVERT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 #include "macros.h"
 
@@ -91,5 +95,9 @@ static inline void GXParam1u16(const u16 u) { GXWGFifo.u16 = u; }
 static inline void GXParam1u32(const u32 u) { GXWGFifo.u32 = u; }
 
 static inline void GXEnd(void) {}
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

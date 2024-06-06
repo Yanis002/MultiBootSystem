@@ -1,7 +1,7 @@
 #ifndef J3DGD_H
 #define J3DGD_H
 
-#include "dolphin/gx/GX.h"
+#include "dolphin/gx.h"
 #include "dolphin/gd/GDBase.h"
 
 inline void J3DGDWrite_u8(u8 param) {
@@ -50,7 +50,7 @@ inline void J3DGDWriteXFCmdHdr(u16 cmd, u8 len) {
 }
 
 inline void J3DGXCmd1f32ptr(f32* value) {
-    GXFIFO.u32 = *(u32*)value;
+    GXWGFifo.u32 = *(u32*)value;
 }
 
 void J3DGDSetGenMode(u8 texGenNum, u8 colorChanNum, u8 tevStageNum, u8 IndTexStageNum, _GXCullMode cullMode);
@@ -79,15 +79,15 @@ void J3DGDSetFog(GXFogType, f32, f32, f32, f32, GXColor);
 void J3DGDSetFogRangeAdj(u8, u16, GXFogAdjTable*);
 
 static inline void J3DFifoLoadIndx(u8 cmd, u16 indx, u16 addr) {
-    GXFIFO.u8 = cmd;
-    GXFIFO.u16 = indx;
-    GXFIFO.u16 = addr;
+    GXWGFifo.u8 = cmd;
+    GXWGFifo.u16 = indx;
+    GXWGFifo.u16 = addr;
 }
 
 inline void J3DFifoWriteXFCmdHdr(u16 addr, u8 len) {
-    GXFIFO.u8 = GX_CMD_LOAD_XF_REG;
-    GXFIFO.u16 = len - 1;
-    GXFIFO.u16 = addr;
+    GXWGFifo.u8 = GX_CMD_LOAD_XF_REG;
+    GXWGFifo.u16 = len - 1;
+    GXWGFifo.u16 = addr;
 }
 
 inline void J3DGDSetNumChans(u8 numChans) {

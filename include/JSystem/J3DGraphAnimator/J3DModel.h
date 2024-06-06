@@ -72,9 +72,9 @@ public:
     void calcBBoard();
     void calcDrawMtx();
     void prepareShapePackets();
-    MtxP getAnmMtx(int idx) { return mpNodeMtx[idx]; }
+    Mtx44Ptr getAnmMtx(int idx) { return mpNodeMtx[idx]; }
     void setAnmMtx(int idx, Mtx mtx) { MTXCopy(mtx, mpNodeMtx[idx]); }
-    MtxP getWeightAnmMtx(int idx) { return mpWeightEnvMtx[idx]; }
+    Mtx44Ptr getWeightAnmMtx(int idx) { return mpWeightEnvMtx[idx]; }
     void setWeightAnmMtx(int idx, Mtx mtx) { MTXCopy(mtx, mpWeightEnvMtx[idx]); }
 
     s32 setNoUseDrawMtx();

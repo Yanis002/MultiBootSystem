@@ -4,7 +4,7 @@
 #include "dolphin/gx/GXStruct.h"
 #include "dolphin/os/OSMessage.h"
 #include "dolphin/os/OSTime.h"
-#include "dolphin/vi/vi.h"
+#include "dolphin/vi.h"
 
 typedef u8 (*Pattern)[2];
 
@@ -27,14 +27,14 @@ public:
     static void postRetraceProc(u32);
     static void drawDoneCallback();
 
-    u32 getFbWidth() const { return mRenderObj->fb_width; }
-    u32 getEfbHeight() const { return mRenderObj->efb_height; }
+    u32 getFbWidth() const { return mRenderObj->fbWidth; }
+    u32 getEfbHeight() const { return mRenderObj->efbHeight; }
     void getBounds(u16& width, u16& height) const {
         width = (u16)getFbWidth();
         height = (u16)getEfbHeight();
     }
-    u32 getXfbHeight() const { return mRenderObj->xfb_height & 0xFFFF; }
-    u32 isAntiAliasing() const { return mRenderObj->antialiasing; }
+    u32 getXfbHeight() const { return mRenderObj->xfbHeight & 0xFFFF; }
+    u32 isAntiAliasing() const { return mRenderObj->aa; }
     Pattern getSamplePattern() const { return mRenderObj->sample_pattern; }
     u8* getVFilter() const { return mRenderObj->vfilter; }
     OSMessageQueue* getMessageQueue() { return &mMessageQueue; }
@@ -51,7 +51,7 @@ private:
     static OSTick sVideoInterval;
 
 private:
-    /* 0x04 */ _GXRenderModeObj* mRenderObj;
+    /* 0x04 */ GXRenderModeObj* mRenderObj;
     /* 0x08 */ u32 field_0x8;
     /* 0x0C */ u32 mRetraceCount;
     /* 0x10 */ u32 field_0x10;

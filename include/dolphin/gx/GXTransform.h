@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXTRANSFORM_H_
 #define _DOLPHIN_GX_GXTRANSFORM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/mtx.h"
 
@@ -24,5 +28,9 @@ void GXGetScissor(u32* left, u32* top, u32* width, u32* height);
 void GXSetScissorBoxOffset(s32 x, s32 y);
 void GXSetClipMode(GXClipMode mode);
 void __GXSetMatrixIndex(GXAttr index);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

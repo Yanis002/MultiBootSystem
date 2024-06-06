@@ -2,8 +2,8 @@
 #define OSDSP_TASK_H
 
 #include "dolphin/types.h"
+#include "dolphin/dsp.h"
 
-typedef struct STRUCT_DSP_TASK DSPTaskInfo;
 typedef struct OSContext OSContext;
 
 extern DSPTaskInfo* DSP_prior_task;

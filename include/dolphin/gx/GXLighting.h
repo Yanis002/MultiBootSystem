@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXLIGHTING_H_
 #define _DOLPHIN_GX_GXLIGHTING_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXStruct.h"
 
@@ -12,5 +16,9 @@ void GXSetChanCtrl(GXChannelID chan, GXBool enable, GXColorSrc amb_src, GXColorS
                    GXDiffuseFn diff_fn, GXAttnFn attn_fn);
 void GXSetChanAmbColor(GXChannelID chan, GXColor amb_color);
 void GXSetChanMatColor(GXChannelID chan, GXColor mat_color);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

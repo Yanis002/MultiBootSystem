@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXMANAGE_H_
 #define _DOLPHIN_GX_GXMANAGE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXFifo.h"
 
 typedef void (*GXDrawSyncCallback)(u16 token);
@@ -17,5 +21,9 @@ void GXDrawDone(void);
 void GXPixModeSync(void);
 GXDrawSyncCallback GXSetDrawSyncCallback(GXDrawSyncCallback cb);
 GXDrawDoneCallback GXSetDrawDoneCallback(GXDrawDoneCallback cb);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

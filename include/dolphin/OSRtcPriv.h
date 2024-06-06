@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSRTCPRIV
 #define _DOLPHIN_OSRTCPRIV
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 typedef struct SramControl {
@@ -39,5 +43,9 @@ OSSram* __OSLockSram(void);
 OSSramEx* __OSLockSramEx(void);
 void OSSetWirelessID(s32 chan, u16 id);
 u16 OSGetWirelessID(s32 chan);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSRTCPRIV

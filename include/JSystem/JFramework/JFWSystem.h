@@ -3,7 +3,7 @@
 
 #include "JSystem/JUtility/JUTAssert.h"
 
-typedef struct _GXRenderModeObj GXRenderModeObj;
+typedef struct GXRenderModeObj GXRenderModeObj;
 class JKRExpHeap;
 class JKRThread;
 class JUTConsole;

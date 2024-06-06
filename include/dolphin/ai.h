@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_AI_H_
 #define _DOLPHIN_AI_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/hw_regs.h"
 #include "dolphin/types.h"
 
@@ -9,7 +13,7 @@ typedef void (*AIDCallback)(void);
 
 AIDCallback AIRegisterDMACallback(AIDCallback);
 void AIInitDMA(u32 start_addr, u32 length);
-bool AIGetDMAEnableFlag(void);
+BOOL AIGetDMAEnableFlag(void);
 void AIStartDMA(void);
 void AIStopDMA(void);
 u32 AIGetDMABytesLeft(void);
@@ -31,5 +35,9 @@ u8 AIGetStreamVolLeft(void);
 void AISetStreamVolRight(u8 volume);
 u8 AIGetStreamVolRight(void);
 void AIInit(u8* stack);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

@@ -1,7 +1,8 @@
 #ifndef JUTGRAPHFIFO_H
 #define JUTGRAPHFIFO_H
 
-#include "dolphin/gx/GX.h"
+#include "dolphin/gx.h"
+#include "dolphin/types.h"
 
 class JUTGraphFifo {
 public:

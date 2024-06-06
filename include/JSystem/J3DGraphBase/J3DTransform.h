@@ -31,7 +31,7 @@ extern Mtx const j3dDefaultMtx;
 extern f32 PSMulUnit01[];
 
 void J3DGQRSetup7(u32 param_0, u32 param_1, u32 param_2, u32 param_3);
-f32 J3DCalcZValue(MtxP m, Vec v);
+f32 J3DCalcZValue(Mtx44Ptr m, Vec v);
 void J3DCalcBBoardMtx(Mtx);
 void J3DCalcYBBoardMtx(Mtx);
 void J3DPSCalcInverseTranspose(f32 (*param_0)[4], f32 (*param_1)[3]);
@@ -44,11 +44,11 @@ void J3DGetTextureMtxMayaOld(const J3DTextureSRTInfo&, f32(*)[4]);
 void J3DScaleNrmMtx(Mtx, const Vec&);
 void J3DScaleNrmMtx33(Mtx33, const Vec&);
 void J3DMtxProjConcat(f32(*)[4], f32(*)[4], f32(*)[4]);
-void J3DPSMtx33Copy(Mtx3P src, Mtx3P dst);
-void J3DPSMtx33CopyFrom34(MtxP src, Mtx3P dst);
+void J3DPSMtx33Copy(Mtx33Ptr src, Mtx33Ptr dst);
+void J3DPSMtx33CopyFrom34(Mtx44Ptr src, Mtx33Ptr dst);
 
 // regalloc issues
-inline void J3DPSMulMtxVec(register MtxP mtx, register Vec* vec, register Vec* dst) {
+inline void J3DPSMulMtxVec(register Mtx44Ptr mtx, register Vec* vec, register Vec* dst) {
     register f32 fr12;
     register f32 fr11;
     register f32 fr10;
@@ -65,6 +65,7 @@ inline void J3DPSMulMtxVec(register MtxP mtx, register Vec* vec, register Vec* d
     register f32 fra2;
     register f32 fr01;
     register f32 fr00;
+#ifdef __MWERKS__ // clang-format off
     asm {
         psq_l fr00, 0(vec), 0, 0
         psq_l fr2, 0(mtx), 0, 0
@@ -87,10 +88,11 @@ inline void J3DPSMulMtxVec(register MtxP mtx, register Vec* vec, register Vec* d
         ps_sum0 fra6, fra5, fra6, fra5
         psq_st fra6, 8(dst), 1, 0
     }
+#endif // clang-format on
 }
 
 // regalloc issues
-inline void J3DPSMulMtxVec(register MtxP mtx, register SVec* vec, register SVec* dst) {
+inline void J3DPSMulMtxVec(register Mtx44Ptr mtx, register SVec* vec, register SVec* dst) {
     register f32 fr12;
     register f32 fr11;
     register f32 fr10;
@@ -107,6 +109,7 @@ inline void J3DPSMulMtxVec(register MtxP mtx, register SVec* vec, register SVec*
     register f32 fra2;
     register f32 fr01;
     register f32 fr00;
+#ifdef __MWERKS__ // clang-format off
     asm {
         psq_l fr00, 0(vec), 0, 7
         psq_l fr2, 0(mtx), 0, 0
@@ -129,10 +132,11 @@ inline void J3DPSMulMtxVec(register MtxP mtx, register SVec* vec, register SVec*
         ps_sum0 fra6, fra5, fra6, fra5
         psq_st fra6, 4(dst), 1, 7
     }
+#endif // clang-format on
 }
 
 // regalloc issues
-inline void J3DPSMulMtxVec(register Mtx3P mtx, register Vec* vec, register Vec* dst) {
+inline void J3DPSMulMtxVec(register Mtx33Ptr mtx, register Vec* vec, register Vec* dst) {
     register f32* punit;
     register f32 unit;
     register f32 fr12;
@@ -147,6 +151,7 @@ inline void J3DPSMulMtxVec(register Mtx3P mtx, register Vec* vec, register Vec* 
     register f32 fr2;
     register f32 fr01;
     register f32 fr00;
+#ifdef __MWERKS__ // clang-format off
     asm {
         lis punit, PSMulUnit01@ha
         psq_l fr00, 0(vec), 0, 0
@@ -173,10 +178,11 @@ inline void J3DPSMulMtxVec(register Mtx3P mtx, register Vec* vec, register Vec* 
         ps_sum0 fr6, fr5, fr6, fr5
         psq_st fr6, 8(dst), 1, 0
     }
+#endif // clang-format on
 }
 
 // regalloc issues
-inline void J3DPSMulMtxVec(register Mtx3P mtx, register SVec* vec, register SVec* dst) {
+inline void J3DPSMulMtxVec(register Mtx33Ptr mtx, register SVec* vec, register SVec* dst) {
     register f32* punit;
     register f32 unit;
     register f32 fr6;
@@ -186,6 +192,7 @@ inline void J3DPSMulMtxVec(register Mtx3P mtx, register SVec* vec, register SVec
     register f32 fr2;
     register f32 fr01;
     register f32 fr00;
+#ifdef __MWERKS__ // clang-format off
     asm {
         lis punit, PSMulUnit01@ha
         psq_l fr00, 0(vec), 0, 7
@@ -212,6 +219,7 @@ inline void J3DPSMulMtxVec(register Mtx3P mtx, register SVec* vec, register SVec
         ps_sum0 fr6, fr5, fr6, fr5
         psq_st fr6, 4(dst), 1, 7
     }
+#endif // clang-format on
 }
 
 #endif /* J3DTRANSFORM_H */

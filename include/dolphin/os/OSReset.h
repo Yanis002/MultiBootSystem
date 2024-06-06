@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSRESET
 #define _DOLPHIN_OSRESET
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define OS_RESETCODE_RESTART 0x80000000
@@ -22,7 +26,7 @@
 #define OS_RESET_PRIO_GX 127
 #define OS_RESET_PRIO_ALARM 4294967295
 
-typedef bool (*OSResetFunction)(bool final);
+typedef BOOL (*OSResetFunction)(BOOL final);
 typedef struct OSResetFunctionInfo OSResetFunctionInfo;
 
 struct OSResetFunctionInfo {
@@ -36,7 +40,11 @@ struct OSResetFunctionInfo {
 };
 
 void OSRegisterResetFunction(OSResetFunctionInfo* func);
-void OSResetSystem(int reset, u32 resetCode, bool forceMenu);
+void OSResetSystem(int reset, u32 resetCode, BOOL forceMenu);
 u32 OSGetResetCode(void);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSRESET

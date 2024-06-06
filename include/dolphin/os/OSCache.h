@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSCACHE
 #define _DOLPHIN_OSCACHE
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 void DCInvalidateRange(void* addr, u32 nBytes);
@@ -20,5 +24,9 @@ void LCDisable(void);
 void LCStoreBlocks(void* destAddr, void* srcTag, u32 numBlocks);
 u32 LCStoreData(void* destAddr, void* srcAddr, u32 nBytes);
 void LCQueueWait(u32 len);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSCACHE

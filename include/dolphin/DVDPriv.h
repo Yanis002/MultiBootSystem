@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_DVDPRIV
 #define _DOLPHIN_DVDPRIV
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/dvd.h"
 #include "dolphin/hw_regs.h"
 #include "dolphin/types.h"
@@ -35,12 +39,16 @@ typedef void (*DVDOptionalCommandChecker)(DVDCommandBlock* block, void (*cb)(u32
 typedef void (*DVDLowCallback)(u32 intType);
 extern DVDDiskID* DVDGetCurrentDiskID(void);
 DVDLowCallback DVDLowClearCallback(void);
-bool DVDLowSeek(u32 offset, DVDLowCallback callback);
+BOOL DVDLowSeek(u32 offset, DVDLowCallback callback);
 void __DVDLowSetWAType(u32 type, u32 location);
 DVDCommandBlock* __DVDPopWaitingQueue(void);
-bool DVDInquiryAsync(DVDCommandBlock* block, DVDDriveInfo* info, DVDCBCallback callback);
+BOOL DVDInquiryAsync(DVDCommandBlock* block, DVDDriveInfo* info, DVDCBCallback callback);
 void __DVDPrepareResetAsync(DVDCBCallback callback);
-bool DVDReadAbsAsyncPrio(DVDCommandBlock* block, void* addr, s32 length, s32 offset, DVDCBCallback callback, s32 prio);
-bool __DVDLowTestAlarm(struct OSAlarm* alarm);
+BOOL DVDReadAbsAsyncPrio(DVDCommandBlock* block, void* addr, s32 length, s32 offset, DVDCBCallback callback, s32 prio);
+BOOL __DVDLowTestAlarm(struct OSAlarm* alarm);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_DVDPRIV

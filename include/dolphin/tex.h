@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_TEX_H_
 #define _DOLPHIN_TEX_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx.h"
 #include "dolphin/types.h"
 
@@ -41,5 +45,9 @@ typedef struct {
 
 TEXDescriptor* TEXGet(TEXPalette* pal, u32 id);
 void TEXGetGXTexObjFromPalette(TEXPalette* pal, GXTexObj* to, u32 id);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

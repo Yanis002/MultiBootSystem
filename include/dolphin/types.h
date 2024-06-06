@@ -26,13 +26,14 @@ typedef double f64;
 typedef volatile f32 vf32;
 typedef volatile f64 vf64;
 
-typedef int bool;
+typedef int BOOL;
+typedef unsigned int uint;
 
 #define false 0
 #define true 1
 
-#define ATTRIBUTE_ALIGN(num) __attribute__((aligned(num)))
-
-#define NULL (void*)0
+//! TODO: find something better?
+#define NULL 0
+#define NULL_PTR (void*)0
 
 #endif

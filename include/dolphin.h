@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_H_
 #define _DOLPHIN_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/ai.h"
 #include "dolphin/ar.h"
 #include "dolphin/base.h"
@@ -19,5 +23,9 @@
 #include "dolphin/thp.h"
 #include "dolphin/types.h"
 #include "dolphin/vi.h"
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

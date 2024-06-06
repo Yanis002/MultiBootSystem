@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_HARDWARE_H
 #define _DOLPHIN_GX_HARDWARE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXFifo.h"
 #include "dolphin/types.h"
 #include "intrinsics.h"
@@ -101,5 +105,9 @@
         u32 cmd = (size) << 16 | addr; \
         GX_XF_LOAD_REG_HDR(cmd);       \
     }
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OS_OSTIME_H_
 #define _DOLPHIN_OS_OSTIME_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 typedef s64 OSTime;
@@ -38,5 +42,9 @@ OSTime OSGetTime(void);
 OSTick OSGetTick(void);
 OSTime __OSGetSystemTime(void);
 void OSTicksToCalendarTime(OSTime ticks, struct OSCalendarTime* td);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

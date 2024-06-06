@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_DEMOPUTS_H_
 #define _DOLPHIN_DEMOPUTS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx.h"
 #include "dolphin/pad.h"
 #include "dolphin/types.h"
@@ -78,5 +82,9 @@ void DEMOPadInit(void);
 void DEMOUpdateStats(u8 inc);
 void DEMOPrintStats(void);
 void DEMOSetGPHangMetric(GXBool enable);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

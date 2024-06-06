@@ -1,6 +1,10 @@
 #ifndef _CTYPE_H_
 #define _CTYPE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 // eof.h
@@ -42,5 +46,9 @@ static inline int iswblank(int c) { return ((c == (int)L' ') || (c == (int)L'\t'
 
 int tolower(int c);
 int toupper(int c);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

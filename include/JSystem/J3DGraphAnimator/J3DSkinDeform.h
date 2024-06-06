@@ -4,7 +4,8 @@
 #include "JSystem/J3DGraphAnimator/J3DCluster.h"
 #include "JSystem/J3DGraphBase/J3DTransform.h"
 #include "dolphin/types.h"
-#include "global.h"
+#include "macros.h"
+#include "dolphin/types.h"
 
 class J3DModelData;
 class J3DModel;
@@ -54,10 +55,10 @@ public:
     void deformVtxPos_S16(J3DModel*) const;
     void deformVtxNrm_F32(J3DModel*) const;
     void deformVtxNrm_S16(J3DModel*) const;
-    void setNrmMtx(int i, MtxP mtx) {
-        J3DPSMtx33CopyFrom34(mtx, (Mtx3P)mNrmMtx[i]);
+    void setNrmMtx(int i, Mtx44Ptr mtx) {
+        J3DPSMtx33CopyFrom34(mtx, (Mtx33Ptr)mNrmMtx[i]);
     }
-    Mtx3P getNrmMtx(int i) { return mNrmMtx[i]; }
+    Mtx33Ptr getNrmMtx(int i) { return mNrmMtx[i]; }
     void onFlag(u32 flag) { mFlags |= flag; }
     void offFlag(u32 flag) { mFlags &= ~flag; }
     bool checkFlag(u32 flag) { return mFlags & flag; }

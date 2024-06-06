@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_SI_H
 #define _DOLPHIN_SI_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/hw_regs.h"
 #include "dolphin/os.h"
 #include "dolphin/types.h"
@@ -46,10 +50,10 @@ typedef struct SIPacket {
     OSTime fire;
 } SIPacket;
 
-bool SIBusy(void);
-bool SIIsChanBusy(s32 chan);
-bool SIRegisterPollingHandler(__OSInterruptHandler handler);
-bool SIUnregisterPollingHandler(__OSInterruptHandler handler);
+BOOL SIBusy(void);
+BOOL SIIsChanBusy(s32 chan);
+BOOL SIRegisterPollingHandler(__OSInterruptHandler handler);
+BOOL SIUnregisterPollingHandler(__OSInterruptHandler handler);
 void SIInit(void);
 u32 SIGetStatus(s32 chan);
 void SISetCommand(s32 chan, u32 command);
@@ -57,8 +61,8 @@ void SITransferCommands(void);
 u32 SISetXY(u32 x, u32 y);
 u32 SIEnablePolling(u32 poll);
 u32 SIDisablePolling(u32 poll);
-bool SIGetResponse(s32 chan, void* data);
-bool SITransfer(s32 chan, void* output, u32 outputBytes, void* input, u32 inputBytes,
+BOOL SIGetResponse(s32 chan, void* data);
+BOOL SITransfer(s32 chan, void* output, u32 outputBytes, void* input, u32 inputBytes,
                 void (*callback)(s32, u32, OSContext*), s64 time);
 u32 SIGetType(s32 chan);
 u32 SIGetTypeAsync(s32 chan, SITypeAndStatusCallback callback);
@@ -69,5 +73,9 @@ void SIRefreshSamplingRate(void);
 u32 SISync(void);
 u32 SIGetCommand(s32 chan);
 u32 SIDecodeType(u32 type);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

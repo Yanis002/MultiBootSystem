@@ -28,14 +28,14 @@ namespace JAInter {
 
     class Camera {
     public:
-        Camera(Vec* p1 = NULL, Vec* p2 = NULL, MtxP p3 = NULL) {
+        Camera(Vec* p1 = NULL, Vec* p2 = NULL, Mtx44Ptr p3 = NULL) {
             field_0x0 = p1;
             field_0x4 = p2;
             field_0x8 = p3;
         }
         /* 0x00 */ Vec* field_0x0;
         /* 0x04 */ Vec* field_0x4;
-        /* 0x08 */ MtxP field_0x8;
+        /* 0x08 */ Mtx44Ptr field_0x8;
     };
 
     namespace Const {

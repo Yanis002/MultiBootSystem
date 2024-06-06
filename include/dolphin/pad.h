@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_PAD_H_
 #define _DOLPHIN_PAD_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define PAD_SPEC_0 0
@@ -18,11 +22,6 @@
 #define PAD_CHAN1 1
 #define PAD_CHAN2 2
 #define PAD_CHAN3 3
-
-#define PAD_CHAN0_BIT 0x80000000
-#define PAD_CHAN1_BIT 0x40000000
-#define PAD_CHAN2_BIT 0x20000000
-#define PAD_CHAN3_BIT 0x10000000
 
 #define PAD_MAX_CONTROLLERS 4
 
@@ -49,6 +48,13 @@
 #define PAD_ERR_NOT_READY -2
 #define PAD_ERR_TRANSFER -3
 
+typedef enum PADMask {
+    PAD_CHAN3_BIT = (1 << 28),
+    PAD_CHAN2_BIT = (1 << 29),
+    PAD_CHAN1_BIT = (1 << 30),
+    PAD_CHAN0_BIT = (1 << 31),
+} PADMask;
+
 typedef void (*PADSamplingCallback)(void);
 
 typedef struct PADStatus {
@@ -66,14 +72,19 @@ typedef struct PADStatus {
 
 extern u32 __PADFixBits;
 
-bool PADInit(void);
+BOOL PADInit(void);
+void PADSetAnalogMode(u32 mode);
 u32 PADRead(PADStatus* status);
-bool PADRecalibrate(u32 mask);
-bool PADReset(u32 mask);
+BOOL PADRecalibrate(u32 mask);
+BOOL PADReset(u32 mask);
 void PADControlMotor(s32 chan, u32 command);
 void PADSetSpec(u32 spec);
 void PADClamp(PADStatus* status);
-bool __PADDisableRecalibration(bool disable);
+BOOL __PADDisableRecalibration(BOOL disable);
 PADSamplingCallback PADSetSamplingCallback(PADSamplingCallback callback);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

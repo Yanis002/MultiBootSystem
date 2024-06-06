@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_CARD_H_
 #define _DOLPHIN_CARD_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/dsp.h"
 #include "dolphin/dvd.h"
 #include "dolphin/os/OSAlarm.h"
@@ -170,7 +174,7 @@ typedef struct CARDDirCheck {
 } CARDDirCheck;
 
 typedef struct CARDControl {
-    /* 0x000 */ bool attached;
+    /* 0x000 */ BOOL attached;
     /* 0x004 */ s32 result;
     /* 0x008 */ u16 size;
     /* 0x00A */ u16 pageSize;
@@ -267,5 +271,9 @@ s32 CARDGetStatus(s32 chan, s32 fileNo, CARDStat* stat);
 s32 CARDDeleteAsync(s32 chan, char* fileName, CARDCallback callback);
 s32 CARDMount(s32 chan, void* workArea, CARDCallback detachCallback);
 s32 CARDUnmount(s32 chan);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

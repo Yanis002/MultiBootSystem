@@ -508,8 +508,8 @@ public:
     /* 0x170 */ u32 mTevRegOffset;
 };  // Size: 0x174
 
-STATIC_ASSERT(offsetof(J3DTevBlock16, mTexNo) == 0x008);
-STATIC_ASSERT(offsetof(J3DTevBlock16, mTevStage) == 0x059);
+STATIC_ASSERT(OFFSETOF(J3DTevBlock16, mTexNo) == 0x008);
+STATIC_ASSERT(OFFSETOF(J3DTevBlock16, mTevStage) == 0x059);
 
 class J3DTevBlock1 : public J3DTevBlock {
 public:
@@ -844,7 +844,7 @@ struct J3DIndTexMtx : public J3DIndTexMtxInfo {
         J3DGDSetIndTexMtx(GXIndTexMtxID(id + GX_ITM_0), getOffsetMtx(), getScaleExp());
     }
 
-    Mtx3P getOffsetMtx() {
+    Mtx33Ptr getOffsetMtx() {
         return mOffsetMtx;
     }
 

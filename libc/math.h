@@ -1,12 +1,19 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 #include "intrinsics.h"
 #include "macros.h"
 
 #define M_PI 3.1415926535897932
 #define M_SQRT3 1.7320499420166016
+
+#define DEG_TO_RAD(degrees) (degrees * (M_PI / 180.0f))
+#define RAD_TO_DEG(radians) (radians / (180.0f / M_PI))
 
 extern int __float_nan[];
 extern int __float_huge[];
@@ -23,6 +30,11 @@ f64 pow(f64 x, f64 y);
 f64 ceil(f64 x);
 f64 floor(f64 x);
 f64 copysign(f64 x, f64 y);
+
+f64 fmod(double, double);
+inline f32 fmodf(float f1, float f2) {
+    return fmod(f1, f2);
+}
 
 f32 sinf(f32 x);
 f32 cosf(f32 x);
@@ -105,5 +117,9 @@ static inline f32 _inv_sqrtf(f32 x) {
     }
     return INFINITY;
 }
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_VITYPES_H_
 #define _DOLPHIN_VITYPES_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define VI_TVMODE(format, interlace) (((format) << 2) + (interlace))
@@ -97,12 +101,16 @@ typedef struct VIPositionInfo {
     /* 0x34 */ u32 tfbb;
     /* 0x38 */ u32 bfbb;
     /* 0x3C */ u8 xof;
-    /* 0x40 */ bool isBlack;
-    /* 0x44 */ bool is3D;
+    /* 0x40 */ BOOL isBlack;
+    /* 0x44 */ BOOL is3D;
     /* 0x48 */ u32 rbufAddr;
     /* 0x4C */ u32 rtfbb;
     /* 0x50 */ u32 rbfbb;
     /* 0x54 */ VITimingInfo* timing;
 } VIPositionInfo; // size = 0x58
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

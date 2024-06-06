@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSBOOTINFO
 #define _DOLPHIN_OSBOOTINFO
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/DVDPriv.h"
 #include "dolphin/types.h"
 
@@ -17,12 +21,12 @@ typedef struct OSBootInfo {
 } OSBootInfo;
 
 typedef struct {
-    bool valid;
+    BOOL valid;
     u32 restartCode;
     u32 bootDol;
     void* regionStart;
     void* regionEnd;
-    bool argsUseDefault;
+    BOOL argsUseDefault;
     void* argsAddr; // valid only when argsUseDefault = false
 
 } OSExecParams;
@@ -46,5 +50,9 @@ typedef struct BI2Debug {
 #define OS_THREAD_STACK_MAGIC 0xDEADBABE
 
 #define OS_BOOTROM_ADDR 0x81300000
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSBOOTINFO

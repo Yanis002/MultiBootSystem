@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXFRAMEBUFFER_H_
 #define _DOLPHIN_GX_GXFRAMEBUFFER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXStruct.h"
 
@@ -27,5 +31,9 @@ void GXCopyTex(void* dest, GXBool clear);
 void GXSetCopyClamp(GXFBClamp clamp);
 void GXClearBoundingBox(void);
 void GXSetDispCopyFrame2Field(GXCopyMode mode);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

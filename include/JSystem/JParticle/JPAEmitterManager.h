@@ -11,14 +11,14 @@ class JKRHeap;
 
 class JPADrawInfo {
 public:
-    JPADrawInfo(MtxP cameraMtxPtr, f32 fovy, f32 aspect) : mCameraMtxPtr(cameraMtxPtr), mFovy(fovy), mAspect(aspect) {}
-    MtxP getCameraMtxPtr() { return mCameraMtxPtr; }
+    JPADrawInfo(Mtx44Ptr cameraMtxPtr, f32 fovy, f32 aspect) : mCameraMtxPtr(cameraMtxPtr), mFovy(fovy), mAspect(aspect) {}
+    Mtx44Ptr getCameraMtxPtr() { return mCameraMtxPtr; }
     f32 getFovy() { return mFovy; }
     void setFovy(f32 fovy) { mFovy = fovy; }
     f32 getAspect() { return mAspect; }
     void setAspect(f32 aspect) { mAspect = aspect; }
 
-    /* 0x00 */ MtxP mCameraMtxPtr;
+    /* 0x00 */ Mtx44Ptr mCameraMtxPtr;
     /* 0x04 */ f32 mFovy;
     /* 0x08 */ f32 mAspect;
 };

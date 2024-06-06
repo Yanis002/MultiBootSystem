@@ -201,7 +201,7 @@ struct TAdaptor {
 
 struct TAdaptor_actor : public TAdaptor {
     TAdaptor_actor()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }
@@ -224,7 +224,7 @@ struct TObject_actor : public TObject {
 
 struct TAdaptor_ambientLight : public TAdaptor {
     TAdaptor_ambientLight()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }
@@ -246,7 +246,7 @@ struct TObject_ambientLight : public TObject {
 
 struct TAdaptor_camera : public TAdaptor {
     TAdaptor_camera()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }
@@ -269,7 +269,7 @@ struct TObject_camera : public TObject {
 
 struct TAdaptor_fog : public TAdaptor {
     TAdaptor_fog()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }
@@ -292,7 +292,7 @@ struct TObject_fog : public TObject {
 
 struct TAdaptor_light : public TAdaptor {
     TAdaptor_light()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }
@@ -334,7 +334,7 @@ struct TObject_message : public TObject {
 
 struct TAdaptor_particle : public TAdaptor {
     TAdaptor_particle()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }
@@ -370,7 +370,7 @@ struct TAdaptor_sound : public TAdaptor {
     };
 
     TAdaptor_sound()
-        : TAdaptor(mValue, ARRAY_SIZE(mValue))
+        : TAdaptor(mValue, ARRAY_COUNT(mValue))
         , mValue()
     {
     }

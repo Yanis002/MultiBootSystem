@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXBUMP_H_
 #define _DOLPHIN_GX_GXBUMP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 
 void GXSetTevDirect(GXTevStageID tev_stage);
@@ -10,5 +14,9 @@ void GXSetTevDirect(GXTevStageID tev_stage);
 void __GXFlushTextureState(void);
 void __GXUpdateBPMask(void);
 void __GXSetIndirectMask(u32 mask);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

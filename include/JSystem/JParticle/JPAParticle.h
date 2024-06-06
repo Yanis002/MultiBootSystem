@@ -4,7 +4,6 @@
 #include "JSystem/JSupport/JSUList.h"
 #include "JSystem/JParticle/JPAEmitter.h"
 #include "JSystem/JGeometry.h"
-#include "SSystem/SComponent/c_xyz.h"
 #include "dolphin/gx/GXStruct.h"
 
 class JKRHeap;

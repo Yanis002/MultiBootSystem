@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXGEOMETRY_H_
 #define _DOLPHIN_GX_GXGEOMETRY_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXAttr.h"
 #include "dolphin/gx/GXEnum.h"
 
@@ -22,5 +26,9 @@ void __GXSetDirtyState(void);
 static inline void GXSetTexCoordGen(GXTexCoordID dst_coord, GXTexGenType func, GXTexGenSrc src_param, u32 mtx) {
     GXSetTexCoordGen2(dst_coord, func, src_param, mtx, GX_FALSE, GX_PTIDENTITY);
 }
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

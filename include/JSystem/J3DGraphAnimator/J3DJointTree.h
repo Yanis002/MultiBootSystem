@@ -3,7 +3,8 @@
 
 #include "JSystem/J3DGraphAnimator/J3DJoint.h"
 #include "dolphin/types.h"
-#include "global.h"
+#include "macros.h"
+#include "dolphin/types.h"
 
 class JUTNameTab;
 

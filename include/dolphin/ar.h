@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_AR_H_
 #define _DOLPHIN_AR_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define AR_STACK_INDEX_ENTRY_SIZE sizeof(u32)
@@ -38,5 +42,9 @@ void ARStartDMA(u32 type, u32 mainmem_addr, u32 aram_addr, u32 length);
 
 #define ARStartDMARead(mmem, aram, len) ARStartDMA(ARAM_DIR_ARAM_TO_MRAM, mmem, aram, len)
 #define ARStartDMAWrite(mmem, aram, len) ARStartDMA(ARAM_DIR_MRAM_TO_ARAM, mmem, aram, len)
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

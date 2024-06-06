@@ -1,6 +1,10 @@
 #ifndef DEBUGGER_H
 #define DEBUGGER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin.h"
 
 // EXI error codes
@@ -11,13 +15,17 @@ typedef enum {
 
 void EXI2_Init(void);
 void EXI2_EnableInterrupts(void);
-bool EXI2_Poll(void);
+BOOL EXI2_Poll(void);
 AmcExiError EXI2_ReadN(void);
 AmcExiError EXI2_WriteN(void);
 void EXI2_Reserve(void);
 void EXI2_Unreserve(void);
-bool AMC_IsStub(void);
+BOOL AMC_IsStub(void);
 
-bool Hu_IsStub(void);
+BOOL Hu_IsStub(void);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

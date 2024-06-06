@@ -4,10 +4,11 @@
 #include "JSystem/JUtility/TColor.h"
 #include "stdarg.h"
 
+typedef va_list __tag_va_List;
 
 namespace std {
     // no idea what this is or why it is used instead of va_list
-    struct __tag_va_List : __va_list_struct {};
+    struct __tag_va_List {};
 }
 
 class JUTDirectPrint {

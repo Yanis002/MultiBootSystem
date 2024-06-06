@@ -5,6 +5,7 @@
 #include "JSystem/JGadget/linklist.h"
 #include "JSystem/JMessage/data.h"
 #include "JSystem/JUtility/JUTDataHeader.h"
+#include "stddef.h"
 
 namespace JMessage {
     namespace data {
@@ -47,7 +48,7 @@ namespace JMessage {
         /* 0x18 */ data::JUTMesgIDData* mMessageID;
     };
 
-    class TResourceContainer : public JGadget::TLinkList_factory<TResource, -offsetof(TResource, mLinkNode)> {
+    class TResourceContainer : public JGadget::TLinkList_factory<TResource, -OFFSETOF(TResource, mLinkNode)> {
     public:
         TResourceContainer();
         virtual TResource* Do_create();

@@ -1,7 +1,7 @@
 #ifndef J3DSYS_H
 #define J3DSYS_H
 
-#include "dolphin/gx/GX.h"
+#include "dolphin/gx.h"
 #include "dolphin/types.h"
 
 // Perhaps move to a new J3DEnum.h?
@@ -43,7 +43,7 @@ public:
         /* 0x4 */ XLU,
     };
 
-    MtxP getViewMtx() { return mViewMtx; }
+    Mtx44Ptr getViewMtx() { return mViewMtx; }
     void setViewMtx(Mtx m) { MTXCopy(m, mViewMtx); }
 
     void setDrawModeOpaTexEdge() { mDrawMode = OPA_TEX_EDGE; }

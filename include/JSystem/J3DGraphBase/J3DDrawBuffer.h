@@ -53,7 +53,7 @@ public:
     void setNonSort() { mSortType = (u32)SORT_NON; }
     void setZSort() { mSortType = (u32)SORT_Z; }
     void setInvalidSort() { mSortType = (u32)SORT_INVALID; }
-    void setZMtx(MtxP mtx) { mpZMtx = mtx; }
+    void setZMtx(Mtx44Ptr mtx) { mpZMtx = mtx; }
     void calcZRatio() {
         mZRatio = (mZFar - mZNear) / (f32)mBufSize;
     }
@@ -68,7 +68,7 @@ public:
     /* 0x10 */ f32 mZNear;
     /* 0x14 */ f32 mZFar;
     /* 0x18 */ f32 mZRatio;
-    /* 0x1C */ MtxP mpZMtx;
+    /* 0x1C */ Mtx44Ptr mpZMtx;
     /* 0x20 */ J3DPacket* mpCallBackPacket;
 
     static sortFunc sortFuncTable[6];

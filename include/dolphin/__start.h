@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN__START
 #define _DOLPHIN__START
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/db.h"
 #include "dolphin/types.h"
 #include "macros.h"
@@ -24,7 +28,7 @@ extern void __init_user(void);
 extern void InitMetroTRK_BBA(void);
 extern void OSInit(void);
 extern void DBInit(void);
-extern void OSResetSystem(bool reset, u32 resetCode, bool forceMenu);
+extern void OSResetSystem(BOOL reset, u32 resetCode, BOOL forceMenu);
 extern void __OSCacheInit(void);
 extern void __OSPSInit(void);
 
@@ -36,5 +40,9 @@ INIT extern void __init_data(void);
 INIT extern char _stack_addr[];
 INIT extern char _SDA_BASE_[];
 INIT extern char _SDA2_BASE_[];
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN__START

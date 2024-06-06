@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OS_H
 #define _DOLPHIN_OS_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx.h"
 #include "dolphin/types.h"
 #include "macros.h"
@@ -16,7 +20,7 @@
 typedef s64 OSTime;
 typedef u32 OSTick;
 
-extern bool __OSInIPL;
+extern BOOL __OSInIPL;
 extern OSTime __OSGetSystemTime(void);
 extern OSTime __OSStartTime;
 
@@ -131,9 +135,9 @@ void OSSetSoundMode(u32 mode);
 
 void OSRegisterVersion(const char* id);
 
-bool OSDisableInterrupts(void);
-bool OSEnableInterrupts(void);
-bool OSRestoreInterrupts(bool level);
+BOOL OSDisableInterrupts(void);
+BOOL OSEnableInterrupts(void);
+BOOL OSRestoreInterrupts(BOOL level);
 
 #define OSHalt(msg) OSPanic(__FILE__, __LINE__, msg)
 
@@ -224,5 +228,9 @@ void OSPanic(const char* file, int line, const char* msg, ...);
 #include "dolphin/os/OSRtc.h"
 #include "dolphin/os/OSSerial.h"
 #include "dolphin/os/OSThread.h"
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

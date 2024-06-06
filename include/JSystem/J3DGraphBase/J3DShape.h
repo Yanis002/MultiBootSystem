@@ -3,7 +3,7 @@
 
 #include "JSystem/J3DGraphBase/J3DShapeDraw.h"
 #include "JSystem/J3DGraphBase/J3DShapeMtx.h"
-#include "dolphin/gx/GX.h"
+#include "dolphin/gx.h"
 #include "dolphin/types.h"
 
 class J3DCurrentMtxInfo {
@@ -13,15 +13,15 @@ public:
 };
 
 static inline void JRNLoadCPCmd(u8 cmd, u32 param) {
-    GXFIFO.u8 = GX_CMD_LOAD_CP_REG;
-    GXFIFO.u8 = cmd;
-    GXFIFO.u32 = param;
+    GXWGFifo.u8 = GX_CMD_LOAD_CP_REG;
+    GXWGFifo.u8 = cmd;
+    GXWGFifo.u32 = param;
 }
 
 inline void JRNLoadXFCmdHdr(u16 cmd, u8 len) {
-    GXFIFO.u8 = GX_CMD_LOAD_XF_REG;
-    GXFIFO.u16 = len - 1;
-    GXFIFO.u16 = cmd;
+    GXWGFifo.u8 = GX_CMD_LOAD_XF_REG;
+    GXWGFifo.u16 = len - 1;
+    GXWGFifo.u16 = cmd;
 }
 
 class J3DCurrentMtx : public J3DCurrentMtxInfo {
@@ -43,8 +43,8 @@ public:
         JRNLoadCPCmd(0x30, getMtxIdxRegA());  // CP_MATINDEX_A
         JRNLoadCPCmd(0x40, getMtxIdxRegB());  // CP_MATINDEX_B
         JRNLoadXFCmdHdr(0x1018, 2);
-        GXFIFO.u32 = getMtxIdxRegA();
-        GXFIFO.u32 = getMtxIdxRegB();
+        GXWGFifo.u32 = getMtxIdxRegA();
+        GXWGFifo.u32 = getMtxIdxRegB();
     }
 
     void setCurrentTexMtx(u8 t0, u8 t1, u8 t2, u8 t3, u8 t4, u8 t5, u8 t6, u8 t7) {

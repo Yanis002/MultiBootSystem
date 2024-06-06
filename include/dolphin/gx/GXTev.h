@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXTEV_H_
 #define _DOLPHIN_GX_GXTEV_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXStruct.h"
 
@@ -23,5 +27,9 @@ void GXSetAlphaCompare(GXCompare comp0, u8 ref0, GXAlphaOp op, GXCompare comp1, 
 void GXSetZTexture(GXZTexOp op, GXTexFmt fmt, u32 bias);
 void GXSetTevOrder(GXTevStageID stage, GXTexCoordID coord, GXTexMapID map, GXChannelID color);
 void GXSetNumTevStages(u8 nStages);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

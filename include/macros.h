@@ -17,8 +17,6 @@
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 #define ARRAY_COUNTU(arr) (u32)(sizeof(arr) / sizeof(arr[0]))
 
-#define OFFSETOF(p, field) ((u8*)&(p)->field - (u8*)(p))
-
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 #define SQ(x) ((x) * (x))
@@ -46,40 +44,34 @@
 inline void padStack(void) { int pad = 0; }
 #define PAD_STACK() padStack()
 
+#ifndef __INTELLISENSE__
+#define GLUE(a, b) a##b
+#define GLUE2(a, b) GLUE(a, b)
+#define STATIC_ASSERT(cond) typedef char GLUE2(static_assertion_failed, __LINE__)[(cond) ? 1 : -1]
+#define ATTRIBUTE_ALIGN(num) __attribute__((aligned(num)))
+#else
+#define STATIC_ASSERT(...)
+#define ATTRIBUTE_ALIGN(...)
+#endif
+
 #ifdef __MWERKS__
 #define ASM asm
-#else
-#define ASM
-#endif
-
-#ifdef __MWERKS__
 #define WEAK __declspec(weak)
-#else
-#define WEAK
-#endif
-
-#ifdef __MWERKS__
 #define INIT __declspec(section ".init")
-#else
-#define INIT
-#endif
-
-#ifdef __MWERKS__
 #define CTORS __declspec(section ".ctors")
-#else
-#define CTORS
-#endif
-
-#ifdef __MWERKS__
 #define DTORS __declspec(section ".dtors")
-#else
-#define DTORS
-#endif
-
-#ifdef __MWERKS__
 #define AT_ADDRESS(xyz) : (xyz)
 #else
+#define ASM
+#define WEAK
+#define INIT
+#define CTORS
+#define DTORS
 #define AT_ADDRESS(xyz)
 #endif
+
+#define JUT_EXPECT(...)
+#define ASSERT(...)
+#define LOGF(FMT, ...)
 
 #endif

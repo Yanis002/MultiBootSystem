@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_DSP_H_
 #define _DOLPHIN_DSP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/hw_regs.h"
 #include "dolphin/os.h"
 
@@ -54,5 +58,9 @@ void __DSPHandler(__OSInterrupt interrupt, OSContext* context);
 void __DSP_debug_printf(const char* fmt, ...);
 void __DSP_exec_task(DSPTaskInfo* curr, DSPTaskInfo* next);
 void __DSP_remove_task(DSPTaskInfo* task);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

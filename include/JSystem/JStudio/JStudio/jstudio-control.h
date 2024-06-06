@@ -3,7 +3,7 @@
 
 #include "JSystem/JStudio/JStudio/fvb.h"
 #include "JSystem/JStudio/JStudio/stb.h"
-#include "dolphin/gx/GX.h"
+#include "dolphin/gx.h"
 #include "dolphin/mtx.h"
 
 namespace JStudio {
@@ -73,8 +73,8 @@ public:
     }
 
     f32 transformOnSet_getRotationY() const { return mTransformOnSet_RotationY; }
-    CMtxP transformOnSet_getMatrix() const { return mTransformOnSet_Matrix; }
-    CMtxP transformOnGet_getMatrix() const { return mTransformOnGet_Matrix; }
+    CMtx44Ptr transformOnSet_getMatrix() const { return mTransformOnSet_Matrix; }
+    CMtx44Ptr transformOnGet_getMatrix() const { return mTransformOnGet_Matrix; }
 
     void setSecondPerFrame(f64 param_0) { mSecondPerFrame = param_0; }
     f64 getSecondPerFrame() const { return mSecondPerFrame; }
@@ -121,7 +121,7 @@ public:
     void transformOnSet_transform(const JStudio::TControl::TTransform_position&, JStudio::TControl::TTransform_position*) const {}
     void transformOnSet_transform(const JStudio::TControl::TTransform_position_direction&, JStudio::TControl::TTransform_position_direction*) const {}
     void transformOnSet_transform(const JStudio::TControl::TTransform_translation_rotation&, JStudio::TControl::TTransform_translation_rotation*) const {}
-    void transformOnSet_transform(CMtxP, MtxP) const {}
+    void transformOnSet_transform(CMtx44Ptr, Mtx44Ptr) const {}
     void transformOnSet_transformDirection(const Vec&, Vec*) const {}
     void transformOnSet_transformDirection_ifEnabled(const Vec&, Vec*) const {}
     void transformOnSet_transformRotation(const Vec&, Vec*) const {}
@@ -129,7 +129,7 @@ public:
     void transformOnSet_transformTranslation_ifEnabled(const Vec&, Vec*) const {}
     void transformOnSet_transform_ifEnabled(const JStudio::TControl::TTransform_position_direction&, JStudio::TControl::TTransform_position_direction*) const {}
     void transformOnSet_transform_ifEnabled(const JStudio::TControl::TTransform_translation_rotation&, JStudio::TControl::TTransform_translation_rotation*) const {}
-    void transformOnSet_transform_ifEnabled(CMtxP, MtxP) const {}
+    void transformOnSet_transform_ifEnabled(CMtx44Ptr, Mtx44Ptr) const {}
 
     /* 0x58 */ f64 mSecondPerFrame;
     /* 0x60 */ fvb::TControl fvb_Control;

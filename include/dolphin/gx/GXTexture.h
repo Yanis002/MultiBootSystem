@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXTEXTURE_H_
 #define _DOLPHIN_GX_GXTEXTURE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXStruct.h"
 
@@ -30,5 +34,9 @@ GXTlutRegionCallback GXSetTlutRegionCallback(GXTlutRegionCallback func);
 void __SetSURegs(u32 texImgIndex, u32 setUpRegIndex);
 void __GXSetSUTexRegs(void);
 void __GXSetTmemConfig(u32 config);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

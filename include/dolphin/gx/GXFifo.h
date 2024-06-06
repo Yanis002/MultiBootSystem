@@ -1,7 +1,12 @@
 #ifndef _DOLPHIN_GX_GXFIFO_H_
 #define _DOLPHIN_GX_GXFIFO_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
+#include "dolphin/gx/GXData.h"
 #include "dolphin/os/OSContext.h"
 
 #define GX_WRITE_U8(val) (GXWGFifo.u8 = val)
@@ -47,6 +52,7 @@ void GXInitFifoPtrs(GXFifoObj* fifo, void* readPtr, void* writePtr);
 void GXInitFifoLimits(GXFifoObj* fifo, u32 highWatermark, u32 lowWatermark);
 void GXSetCPUFifo(GXFifoObj* fifo);
 void GXSetGPFifo(GXFifoObj* fifo);
+void GXSaveCPUFifo(GXFifoObj* fifo);
 void GXGetGPStatus(GXBool* overhi, GXBool* underlow, GXBool* readIdle, GXBool* cmdIdle, GXBool* brkpt);
 void* GXGetFifoBase(const GXFifoObj* obj);
 u32 GXGetFifoSize(const GXFifoObj* obj);
@@ -108,5 +114,9 @@ inline u32 __GXReadMEMCounterU32(u32 regAddrL, u32 regAddrH) {
 
     return (ctrH0 << 0x10) | ctrL;
 }
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

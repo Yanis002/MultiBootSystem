@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_ATTR_H
 #define _DOLPHIN_GX_ATTR_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXData.h"
 #include "dolphin/gx/GXEnum.h"
 
@@ -16,5 +20,9 @@ void GXInvalidateVtxCache(void);
 void GXSetTexCoordGen2(GXTexCoordID id, GXTexGenType type, GXTexGenSrc src, u32 texMtxIdx, GXBool normalize,
                        u32 dualTexMtxIdx);
 void GXSetNumTexGens(u8 count);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

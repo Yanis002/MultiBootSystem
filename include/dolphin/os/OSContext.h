@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSCONTEXT
 #define _DOLPHIN_OSCONTEXT
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define __OS_CONTEXT_FRAME 768
@@ -164,5 +168,9 @@ void OSClearContext(register OSContext* context);
 void OSInitContext(register OSContext* context, register u32 pc, register u32 newsp);
 void OSDumpContext(OSContext* context);
 void __OSContextInit(void);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSCONTEXT

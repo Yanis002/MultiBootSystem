@@ -137,6 +137,7 @@ config.asflags = [
     "-mgekko",
     "-I include",
     "-I libc",
+    "-I libcpp",
 ]
 
 config.ldflags = [
@@ -163,6 +164,7 @@ cflags_base = [
     "-sym on",
     "-i include",
     "-i libc",
+    "-i libcpp",
 ]
 
 if config.non_matching:

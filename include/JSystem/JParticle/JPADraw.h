@@ -7,7 +7,8 @@
 #include "dolphin/gx/GXStruct.h"
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/mtx.h"
-#include "global.h"
+#include "macros.h"
+#include "dolphin/types.h"
 
 class JPADrawClipBoard {
 public:
@@ -24,7 +25,7 @@ public:
     /* 0x0C */ f32 mPivotX;
     /* 0x10 */ f32 mPivotY;
     /* 0x14 */ JGeometry::TVec2<f32> mTexCoordPt[4];
-    /* 0x34 */ MtxP mDrawMtxPtr;
+    /* 0x34 */ Mtx44Ptr mDrawMtxPtr;
     /* 0x34 */ Mtx mDrawYBBMtx;
     /* 0x68 */ Mtx mDrawMtx;
     /* 0x98 */ GXColor mPrmColor;
@@ -49,7 +50,7 @@ public:
     };
 
     bool initialize(JPABaseEmitter*, JPATextureResource*);
-    void draw(MtxP);
+    void draw(Mtx44Ptr);
     void calc();
     void calcParticle(JPABaseParticle*);
     void calcChild(JPABaseParticle*);
@@ -66,7 +67,7 @@ public:
     void zDraw();
     void zDrawParticle();
     void zDrawChild();
-    void loadYBBMtx(MtxP);
+    void loadYBBMtx(Mtx44Ptr);
 
     static JPADrawVisitorContainer vc;
     static JPADrawClipBoard cb;

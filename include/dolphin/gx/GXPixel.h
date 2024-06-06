@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXPIXEL_H_
 #define _DOLPHIN_GX_GXPIXEL_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 
 void GXSetFog(GXFogType type, f32 startz, f32 endz, f32 nearz, f32 farz, GXColor color);
@@ -16,5 +20,9 @@ void GXSetDither(GXBool dither);
 void GXSetDstAlpha(GXBool enable, u8 alpha);
 void GXSetFieldMask(GXBool odd_mask, GXBool even_mask);
 void GXSetFieldMode(GXBool field_mode, GXBool half_aspect_ratio);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

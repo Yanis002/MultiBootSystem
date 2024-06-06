@@ -1,6 +1,10 @@
 #ifndef _STRING_H_
 #define _STRING_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "mem_funcs.h"
 #include "stddef.h"
 
@@ -10,5 +14,9 @@ char* strncpy(char* dest, const char* src, size_t num);
 int strcmp(const char* s1, const char* s2);
 int strncmp(const char* s1, const char* s2, size_t n);
 char* strncat(char* dest, const char* src, size_t n);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

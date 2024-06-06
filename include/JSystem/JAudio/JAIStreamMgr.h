@@ -1,7 +1,7 @@
 #ifndef JAISTREAMMGR_H
 #define JAISTREAMMGR_H
 
-#include "dolphin/dvd/dvd.h"
+#include "dolphin/dvd.h"
 #include "JSystem/JAudio/JAISound.h"
 #include "JSystem/JAudio/JASHeapCtrl.h"
 

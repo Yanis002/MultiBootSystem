@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_BASE_PPCARCH_H
 #define _DOLPHIN_BASE_PPCARCH_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define CTR 9
@@ -488,5 +492,9 @@ void PPCMtwpar(u32 newwpar);
 void PPCEnableSpeculation(void);
 void PPCDisableSpeculation(void);
 void PPCSetFpNonIEEEMode(void);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

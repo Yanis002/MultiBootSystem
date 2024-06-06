@@ -8,8 +8,6 @@
 #include "JSystem/JMath/random.h"
 #include "JSystem/JGeometry.h"
 #include "JSystem/TPosition3.hh"
-#include "SSystem/SComponent/c_xyz.h"
-#include "SSystem/SComponent/c_sxyz.h"
 #include "dolphin/gx/GXStruct.h"
 #include "dolphin/mtx.h"
 
@@ -198,10 +196,10 @@ public:
 
     u8 getGlobalAlpha() { return mGlobalPrmColor.a; }
     void setGlobalAlpha(u8 alpha) { mGlobalPrmColor.a = alpha; }
-    void setGlobalRTMatrix(MtxP mtx) {
+    void setGlobalRTMatrix(Mtx44Ptr mtx) {
         JPASetRMtxTVecfromMtx(mtx, mGlobalRotation, mGlobalTranslation);
     }
-    void setGlobalSRTMatrix(MtxP mtx) {
+    void setGlobalSRTMatrix(Mtx44Ptr mtx) {
         JPASetRMtxSTVecfromMtx(mtx, mGlobalRotation, mGlobalDynamicsScale, mGlobalTranslation);
     }
     void setGlobalRotation(const JGeometry::TVec3<s16>& rot) {
@@ -276,7 +274,7 @@ public:
     void setFieldList(JSUList<JPAFieldData>* list) { mFieldManager.mVacList = list; }
     JSULink<JPABaseEmitter>* getLinkBufferPtr() { return &mLink; }
     void initDrawMgr(JPATextureResource* texRes) { mDraw.initialize(this, texRes); }
-    void draw(MtxP cameraMtxP) { mDraw.draw(cameraMtxP); }
+    void draw(Mtx44Ptr cameraMtxP) { mDraw.draw(cameraMtxP); }
 
     f32 getRandomF() { return mRandomSeed.get_ufloat_1(); }
     f32 getRandomRF() { f32 x = mRandomSeed.get_ufloat_1(); return x + x - 1.0f; }

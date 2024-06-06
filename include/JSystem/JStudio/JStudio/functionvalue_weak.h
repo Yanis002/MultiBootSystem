@@ -4,7 +4,7 @@
 // Note: These weak functions need to go in a separate file for functionvalue's .sdata2 section to match properly.
 // The actual name of this file and its exact contents are unknown, this is a guess.
 
-#include "global.h"
+#include "dolphin/types.h"
 #include "math.h"
 
 namespace JStudio {

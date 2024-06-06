@@ -1,6 +1,8 @@
 #ifndef JSUPPORT_H
 #define JSUPPORT_H
 
+#include "dolphin/types.h"
+
 template <typename T>
 T* JSUConvertOffsetToPtr(const void* ptr, u32 offset) {
     if (offset == NULL) {

@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSMUTEX
 #define _DOLPHIN_OSMUTEX
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/os/OSThread.h"
 #include "dolphin/types.h"
 
@@ -15,6 +19,13 @@ struct OSCond {
     OSThreadQueue queue;
 };
 
+void OSLockMutex(OSMutex* mutex);
+void OSUnlockMutex(OSMutex* mutex);
+
 void __OSUnlockAllMutex(OSThread* thread);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSMUTEX

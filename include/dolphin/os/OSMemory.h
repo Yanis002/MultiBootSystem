@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSMEMORY
 #define _DOLPHIN_OSMEMORY
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define OS_PROTECT_CHAN0 0
@@ -17,5 +21,9 @@ void Config24MB(void);
 void Config48MB(void);
 void RealMode(register u32 addr);
 void __OSInitMemoryProtection(void);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSMEMORY

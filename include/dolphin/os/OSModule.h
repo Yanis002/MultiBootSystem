@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSMODULE
 #define _DOLPHIN_OSMODULE
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define OS_MODULE_VERSION 2
@@ -92,16 +96,20 @@ struct OSRel {
 #define R_DOLPHIN_MRKREF 204 //  CCh
 
 void OSSetStringTable(const void* stringTable);
-bool OSLink(OSModuleInfo* newModule, void* bss);
+BOOL OSLink(OSModuleInfo* newModule, void* bss);
 #if (3 <= OS_MODULE_VERSION)
-bool OSLinkFixed(OSModuleInfo* newModule, void* bss);
+BOOL OSLinkFixed(OSModuleInfo* newModule, void* bss);
 #endif
-bool OSUnlink(OSModuleInfo* oldModule);
+BOOL OSUnlink(OSModuleInfo* oldModule);
 
 OSModuleInfo* OSSearchModule(void* ptr, u32* section, u32* offset);
 
 // debugger notification
 void OSNotifyLink(OSModuleInfo* module);
 void OSNotifyUnlink(OSModuleInfo* module);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSMODULE

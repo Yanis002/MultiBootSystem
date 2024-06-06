@@ -2,7 +2,8 @@
 #define JUTASSERT_H
 
 #include "dolphin/types.h"
-#include "dolphin/os/OS.h"
+#include "dolphin/os.h"
+#include "stdarg.h"
 
 #define JUT_ASSERT(LINE, COND) (void)((COND) || (JUTAssertion::showAssert(JUTAssertion::getSDevice(), __FILE__, LINE, #COND), OSPanic(__FILE__, LINE, "Halt"), 0));
 

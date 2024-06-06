@@ -1,7 +1,8 @@
 #ifndef JAIANIMATION_H
 #define JAIANIMATION_H
 
-#include "global.h"
+#include "macros.h"
+#include "dolphin/types.h"
 
 class Vec;
 class JAISound;

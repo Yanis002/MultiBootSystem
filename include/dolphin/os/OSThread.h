@@ -1,7 +1,12 @@
 #ifndef _DOLPHIN_OSTHREAD
 #define _DOLPHIN_OSTHREAD
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/os/OSContext.h"
+#include "macros.h"
 
 #define OS_THREAD_SPECIFIC_MAX 2
 
@@ -84,7 +89,7 @@ s32 OSDisableScheduler(void);
 s32 OSEnableScheduler(void);
 OSPriority __OSGetEffectivePriority(OSThread* thread);
 void __OSReschedule(void);
-bool OSCreateThread(OSThread* thread, void* (*func)(void*), void* param, void* stack, u32 stackSize,
+BOOL OSCreateThread(OSThread* thread, void* (*func)(void*), void* param, void* stack, u32 stackSize,
                     OSPriority priority, u16 attr);
 void OSExitThread(void* val);
 void OSCancelThread(OSThread* thread);
@@ -93,5 +98,9 @@ s32 OSSuspendThread(OSThread* thread);
 void OSSleepThread(OSThreadQueue* queue);
 void OSWakeupThread(OSThreadQueue* queue);
 void OSClearStack(u8 val);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSTHREAD

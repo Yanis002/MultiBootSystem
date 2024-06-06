@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXENUM_H_
 #define _DOLPHIN_GX_GXENUM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 typedef u8 GXBool;
@@ -2113,5 +2117,19 @@ typedef enum _GXBPFogColor {
     GX_BP_FOGCOLOR_RGB_ST = 8,
     GX_BP_FOGCOLOR_RGB_END = 31,
 } GXBPFogColor;
+
+typedef enum _GXCommand {
+    GX_CMD_LOAD_INDX_A = 0x20,
+    GX_CMD_LOAD_INDX_B = 0x28,
+    GX_CMD_LOAD_INDX_C = 0x30,
+    GX_CMD_LOAD_INDX_D = 0x38,
+
+    GX_CMD_LOAD_CP_REG = 0x08,
+    GX_CMD_LOAD_XF_REG = 0x10,
+} GXCommand;
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

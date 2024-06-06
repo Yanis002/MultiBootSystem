@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSSERIAL
 #define _DOLPHIN_OSSERIAL
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 #define SI_MAX_CHAN 4
@@ -57,5 +61,9 @@ u32 SIProbe(s32 chan);
 char* SIGetTypeString(u32 type);
 void SIRefreshSamplingRate(void);
 void SISetSamplingRate(u32 msec);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSSERIAL

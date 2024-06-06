@@ -1,6 +1,10 @@
 #ifndef _STDLIB_H_
 #define _STDLIB_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stddef.h"
 #include "wchar.h"
 
@@ -14,5 +18,9 @@ int atoi(const char* str);
 
 typedef int (*_compare_function)(const void*, const void*);
 void qsort(void*, size_t, size_t, _compare_function);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

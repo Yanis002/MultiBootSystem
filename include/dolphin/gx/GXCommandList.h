@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXCOMMANDLIST_H_
 #define _DOLPHIN_GX_GXCOMMANDLIST_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define GX_LOAD_BP_REG 0x61
 #define GX_LOAD_CP_REG 0x08
 #define GX_LOAD_XF_REG 0x10
@@ -17,5 +21,9 @@
 #define GX_DRAW_LINES 0xA8
 #define GX_DRAW_LINE_STRIP 0xB0
 #define GX_DRAW_POINTS 0xB8
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

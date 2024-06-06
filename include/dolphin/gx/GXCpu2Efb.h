@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXCPU2EFB_H_
 #define _DOLPHIN_GX_GXCPU2EFB_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 
 void GXPokeColorUpdate(GXBool update_enable);
@@ -11,5 +15,9 @@ void GXPokeAlphaMode(GXCompare func, u8 threshold);
 void GXPokeAlphaRead(GXAlphaReadMode mode);
 void GXPokeDstAlpha(GXBool enable, u8 alpha);
 void GXPokeZMode(GXBool compare_enable, GXCompare func, GXBool update_enable);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

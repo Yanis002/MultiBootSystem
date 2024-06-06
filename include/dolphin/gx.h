@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_H_
 #define _DOLPHIN_GX_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXAttr.h"
 #include "dolphin/gx/GXBump.h"
 #include "dolphin/gx/GXCommandList.h"
@@ -22,5 +26,9 @@
 #include "dolphin/gx/GXTexture.h"
 #include "dolphin/gx/GXTransform.h"
 #include "dolphin/gx/GXVert.h"
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

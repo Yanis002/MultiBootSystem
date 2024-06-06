@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_GXSTRUCT_H_
 #define _DOLPHIN_GX_GXSTRUCT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 #include "dolphin/vi/vitypes.h"
 
@@ -57,5 +61,9 @@ typedef struct _GXTlutRegion {
 typedef struct _GXFogAdjTable {
     u16 r[10];
 } GXFogAdjTable;
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

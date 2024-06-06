@@ -4,7 +4,8 @@
 #include "JSystem/JGadget/linklist.h"
 #include "JSystem/JStudio/JStudio/object-id.h"
 #include "JSystem/JStudio/JStudio/stb-data-parse.h"
-#include "global.h"
+#include "macros.h"
+#include "dolphin/types.h"
 
 namespace JStudio {
 struct TObject;

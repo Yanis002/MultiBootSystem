@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_OSINTERRUPT
 #define _DOLPHIN_OSINTERRUPT
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/os/OSContext.h"
 #include "dolphin/os/OSPriv.h"
 #include "dolphin/types.h"
@@ -91,8 +95,8 @@ extern volatile __OSInterrupt __OSLastInterrupt;
 extern volatile u32 __OSLastInterruptSrr0;
 extern volatile OSTime __OSLastInterruptTime;
 
-bool OSDisableInterrupts(void);
-bool OSRestoreInterrupts(register bool level);
+BOOL OSDisableInterrupts(void);
+BOOL OSRestoreInterrupts(register BOOL level);
 __OSInterruptHandler __OSSetInterruptHandler(__OSInterrupt interrupt, __OSInterruptHandler handler);
 __OSInterruptHandler __OSGetInterruptHandler(__OSInterrupt interrupt);
 void __OSInterruptInit(void);
@@ -100,5 +104,9 @@ u32 SetInterruptMask(OSInterruptMask mask, OSInterruptMask current);
 OSInterruptMask __OSMaskInterrupts(OSInterruptMask global);
 OSInterruptMask __OSUnmaskInterrupts(OSInterruptMask global);
 void __OSDispatchInterrupt(__OSException exception, OSContext* context);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif // _DOLPHIN_OSINTERRUPT

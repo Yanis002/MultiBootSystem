@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_THP_H_
 #define _DOLPHIN_THP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/types.h"
 
 typedef u8 THPSample;
@@ -63,7 +67,11 @@ typedef struct _THPFileInfo {
 } THPFileInfo;
 
 s32 THPVideoDecode(void* file, void* tileY, void* tileU, void* tileV, void* work);
-bool THPInit(void);
+BOOL THPInit(void);
 u32 THPAudioDecode(s16* buffer, u8* audioFrame, s32 flag);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

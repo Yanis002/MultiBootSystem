@@ -1,7 +1,7 @@
 #ifndef JKRFILEFINDER_H
 #define JKRFILEFINDER_H
 
-#include "dolphin/dvd/dvd.h"
+#include "dolphin/dvd.h"
 
 struct JKRFileFinder_UnknownBase {
     /* 0x00 */ const char* mEntryName;
@@ -64,7 +64,7 @@ private:
     /* 0x00 */  // JKRFileFinder_UnknownBase
     /* 0x0C */  // vtable
     /* 0x10 */  // JKRFileFinder
-    /* 0x14 */ DVDDirectory mDvdDirectory;
+    /* 0x14 */ DVDDir mDvdDirectory;
     /* 0x20 */ bool mDvdIsOpen;
     /* 0x21 */ u8 field_0x21[3];
 };

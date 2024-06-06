@@ -5,6 +5,7 @@
 #include "JSystem/JKernel/JKRDisposer.h"
 #include "JSystem/JUtility/JUTFont.h"
 #include "stdarg.h"
+#include "dolphin/types.h"
 
 class JUTConsole : public JKRDisposer {
 public:
@@ -131,7 +132,7 @@ public:
 
     static JUTConsoleManager* sManager;
 
-    typedef JGadget::TLinkList<JUTConsole, -offsetof(JUTConsole, mLinkNode)> ConsoleList;
+    typedef JGadget::TLinkList<JUTConsole, -OFFSETOF(JUTConsole, mLinkNode)> ConsoleList;
 
 private:
     /* 0x00 */ ConsoleList soLink_;

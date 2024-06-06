@@ -1,6 +1,10 @@
 #ifndef _DOLPHIN_GX_DATA_H
 #define _DOLPHIN_GX_DATA_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXTexture.h"
 #include "dolphin/types.h"
@@ -281,5 +285,9 @@ static inline u32 GXReadPIReg(u32 addrLo, u32 addrHi) {
 
     return ((hiStart << 16) | lo);
 }
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif

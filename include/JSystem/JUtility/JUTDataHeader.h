@@ -3,7 +3,7 @@
 
 // Note: The name of this header is fake.
 
-#include "global.h"
+#include "dolphin/types.h"
 
 struct JUTDataBlockHeader {
     /* 0x0 */ u32 mType;

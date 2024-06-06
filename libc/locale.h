@@ -1,6 +1,10 @@
 #ifndef _LOCALE_H_
 #define _LOCALE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct lconv {
     char* decimal_point;
     char* thousands_sep;
@@ -27,5 +31,9 @@ struct lconv {
     char int_p_sign_posn;
     char int_n_sign_posn;
 };
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif
