@@ -2,10 +2,10 @@
 
 # Wrapper for `dtk dol diff` to locate the first diff in the dol.
 # Usage: ./dol-diff [VERSION]
-# If VERSION is not provided, it defaults to ce-j.
+# If VERSION is not provided, it defaults to mq-j.
 
 set -euo pipefail
 
-VERSION=${1:-ce-j}
+VERSION=${1:-mq-j}
 ninja "build/$VERSION/main.elf"
 build/tools/dtk dol diff "config/$VERSION/config.yml" "build/$VERSION/main.elf"
