@@ -37,7 +37,7 @@ This repository does **not** contain any game assets or assembly whatsoever. An 
 
 Supported versions:
 
-- `D43J01`: Rev ? (JP)
+- `mq-j`: Rev ? (JP)
 
 Dependencies
 ============
@@ -90,7 +90,7 @@ Building
   git clone https://github.com/my/repo.git
   ```
 
-- Using [Dolphin Emulator](https://dolphin-emu.org/), extract your game to `orig/D43J01`.
+- Using [Dolphin Emulator](https://dolphin-emu.org/), extract your game to `orig/mq-j`.
 ![](assets/dolphin-extract.png)
   - To save space, the only necessary files are the following. Any others can be deleted.
     - `sys/main.dol`
@@ -100,7 +100,7 @@ Building
   python configure.py
   ```
 
-  To use a version other than `D43J01` (USA), specify it with `--version`.
+  To use a version other than `mq-j` (USA), specify it with `--version`.
 - Build:
 
   ```sh

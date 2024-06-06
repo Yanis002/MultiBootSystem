@@ -28,7 +28,7 @@ from tools.project import (
 # Game versions
 DEFAULT_VERSION = 0
 VERSIONS = [
-    "D43J01",  # 0
+    "mq-j",  # 0
 ]
 
 parser = argparse.ArgumentParser()
@@ -42,7 +42,7 @@ parser.add_argument(
 parser.add_argument(
     "--version",
     choices=VERSIONS,
-    type=str.upper,
+    type=str.lower,
     default=VERSIONS[DEFAULT_VERSION],
     help="version to build",
 )
@@ -189,13 +189,6 @@ cflags_runtime = [
     "-inline auto",
 ]
 
-# REL flags
-cflags_rel = [
-    *cflags_base,
-    "-sdata 0",
-    "-sdata2 0",
-]
-
 config.linker_version = "GC/1.1"
 
 
@@ -203,7 +196,7 @@ config.linker_version = "GC/1.1"
 def GenericLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.3.2",
+        "mw_version": "GC/1.2.5",
         "cflags": cflags_runtime,
         "host": False,
         "objects": objects,
@@ -219,18 +212,6 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "host": False,
         "objects": objects,
     }
-
-
-# Helper function for REL script objects
-def Rel(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
-    return {
-        "lib": lib_name,
-        "mw_version": "GC/1.3.2",
-        "cflags": cflags_rel,
-        "host": True,
-        "objects": objects,
-    }
-
 
 Matching = True
 NonMatching = False
