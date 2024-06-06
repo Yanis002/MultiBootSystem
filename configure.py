@@ -162,6 +162,9 @@ cflags_base = [
     "-nodefaults",
     "-msgstyle gcc",
     "-sym on",
+    '-pragma "cats off"',
+    '-pragma "warn_notinlined off"',
+    "-maxerrors 1",
     "-i include",
     "-i libc",
     "-i libcpp",
@@ -211,7 +214,7 @@ def JSystemLib(lib_name, objects):
 def GenericLib(lib_name: str, cflags: List[str], objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.2.5",
+        "mw_version": "GC/1.3.2",
         "cflags": cflags,
         "host": False,
         "objects": objects,
@@ -609,16 +612,16 @@ config.libs = [
     ),
     GenericLib(
         "runtime",
-        [*cflags_base, "-inline deferred"],
+        [*cflags_base, "-use_lmw_stmw on", "-str reuse,readonly", "-inline auto,deferred"],
         [
-            Object(NonMatching, "runtime/__va_arg.c"),
-            Object(NonMatching, "runtime/global_destructor_chain.c"),
+            Object(MatchingFor("mq-j"), "runtime/__va_arg.c"),
+            Object(MatchingFor("mq-j"), "runtime/global_destructor_chain.c"),
             Object(NonMatching, "runtime/NMWException.cp"),
-            Object(NonMatching, "runtime/ptmf.c"),
-            Object(NonMatching, "runtime/runtime.c"),
-            Object(NonMatching, "runtime/__init_cpp_exceptions.cpp"),
-            Object(NonMatching, "runtime/Gecko_ExceptionPPC.cp"),
-            Object(NonMatching, "runtime/GCN_mem_alloc.c"),
+            Object(MatchingFor("mq-j"), "runtime/ptmf.c"),
+            Object(MatchingFor("mq-j"), "runtime/runtime.c"),
+            Object(MatchingFor("mq-j"), "runtime/__init_cpp_exceptions.cpp"),
+            Object(MatchingFor("mq-j"), "runtime/Gecko_ExceptionPPC.cp"),
+            Object(MatchingFor("mq-j"), "runtime/GCN_mem_alloc.c"),
         ]
     ),
     GenericLib(
@@ -701,9 +704,9 @@ config.libs = [
         "debugger",
         cflags_base,
         [
-            Object(NonMatching, "debugger/AmcExi2Stubs.c"),
+            Object(MatchingFor("mq-j"), "debugger/AmcExi2Stubs.c"),
             Object(NonMatching, "debugger/DebuggerDriver.c"),
-            Object(NonMatching, "debugger/odenotstub.c"),
+            Object(MatchingFor("mq-j"), "debugger/odenotstub.c"),
         ]
     ),
 ]
