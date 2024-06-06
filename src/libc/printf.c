@@ -7,6 +7,7 @@
 #include "stdarg.h"
 #include "string.h"
 #include "wchar.h"
+#include "ansi_fp.h"
 
 #define TARGET_FLOAT_BITS 64
 #define TARGET_FLOAT_BYTES (TARGET_FLOAT_BITS / 8)
@@ -15,23 +16,6 @@
 #define TARGET_FLOAT_IMPLICIT_J_BIT 1
 #define TARGET_FLOAT_MANT_BITS (TARGET_FLOAT_MANT_DIG - TARGET_FLOAT_IMPLICIT_J_BIT)
 #define TARGET_FLOAT_EXP_BITS (TARGET_FLOAT_BITS - TARGET_FLOAT_MANT_BITS - 1)
-
-typedef struct decimal {
-	char sign;
-	char unk1;
-	short exp;
-	struct {
-		unsigned char length;
-		unsigned char text[36];
-		unsigned char unk41;
-	} sig;
-} decimal;
-
-typedef struct decform {
-	char style;
-	char unk1;
-	short digits;
-} decform;
 
 enum justification_options { left_justification, right_justification, zero_fill };
 

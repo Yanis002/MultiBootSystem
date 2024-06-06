@@ -40,6 +40,7 @@ f32 sinf(f32 x);
 f32 cosf(f32 x);
 f32 tanf(f32 x);
 f32 log10f(f32);
+double atan(double x);
 
 static inline f64 fabs(f64 x) { return __fabs(x); }
 

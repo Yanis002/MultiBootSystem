@@ -17,6 +17,8 @@ extern "C" {
 #define CHAR_MAX SCHAR_MAX
 #endif
 
+#define CHAR_BIT 8
+
 #define SHRT_MIN (-0x7FFF - 1)
 #define SHRT_MAX 0x7FFF
 #define USHRT_MAX 0xFFFFU
@@ -28,6 +30,8 @@ extern "C" {
 #define LONG_MIN (-0x7FFFFFFFL - 1)
 #define LONG_MAX 0x7FFFFFFFL
 #define ULONG_MAX 0xFFFFFFFFUL
+
+#define DBL_MANT_DIG   53
 
 #ifdef __cplusplus
 } // extern "C"
