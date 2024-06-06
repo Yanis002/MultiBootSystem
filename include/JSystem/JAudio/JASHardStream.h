@@ -15,11 +15,11 @@ namespace JASystem {
         void getAddrCallback(s32, DVDCommandBlock*);
 
         class TPlayPair {
-        public:
+          public:
             u16 getIntro() { return mIntroNum; }
             u16 getLoop() { return mLoopNum; }
 
-        public:
+          public:
             /* 0x00 */ u16 field_0x0;
             /* 0x02 */ u16 field_0x2;
             /* 0x04 */ u16 mIntroNum;
@@ -27,7 +27,7 @@ namespace JASystem {
         };
 
         class TPlayList {
-        public:
+          public:
             void clear() {
                 mpPair = NULL;
                 mpNextList = NULL;
@@ -36,14 +36,14 @@ namespace JASystem {
             TPlayPair* getPair() { return mpPair; }
             TPlayList* getNext() { return mpNextList; }
 
-        public:
+          public:
             /* 0x00 */ TPlayPair* mpPair;
             /* 0x04 */ TPlayList* mpNextList;
             /* 0x08 */ u32 field_0x8;
         };
 
         class TControl {
-        public:
+          public:
             TControl();
             ~TControl() {}
             u16 getIntroNum();
@@ -98,7 +98,7 @@ namespace JASystem {
         extern TPlayList* playList;
         extern int playListMax;
         extern char rootDir[];
-    }
-}
+    } // namespace HardStream
+} // namespace JASystem
 
 #endif /* JASHARDSTREAM_H */

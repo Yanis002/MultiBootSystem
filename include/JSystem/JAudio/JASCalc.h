@@ -16,7 +16,7 @@ namespace JASystem {
 
         extern f32* JASC_SINTABLE;
         extern f32* JASC_DOL2TABLE;
-    }
-}
+    } // namespace Calc
+} // namespace JASystem
 
 #endif /* JASCALC_H */

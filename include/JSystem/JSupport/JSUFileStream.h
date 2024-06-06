@@ -6,7 +6,7 @@
 class JKRFile;
 
 class JSUFileInputStream : public JSURandomInputStream {
-public:
+  public:
     virtual ~JSUFileInputStream() {}
 
     // TODO: fix return values
@@ -16,9 +16,9 @@ public:
     s32 getLength() const;
     s32 getPosition() const;
 
-private:
+  private:
     /* 0x08 */ JKRFile* mFile;
     /* 0x0C */ s32 mPosition;
-};  // Size = 0x10
+}; // Size = 0x10
 
 #endif /* JSUFILESTREAM_H */

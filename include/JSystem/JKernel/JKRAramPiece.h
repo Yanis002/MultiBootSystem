@@ -9,13 +9,13 @@
 class JKRAramBlock;
 class JKRDecompCommand;
 class JKRAMCommand {
-public:
+  public:
     typedef void (*AsyncCallback)(u32);
 
     JKRAMCommand();
     ~JKRAMCommand();
 
-public:
+  public:
     /* 0x00 */ ARQRequest mRequest;
     /* 0x20 */ JSULink<JKRAMCommand> mPieceLink;
     /* 0x30 */ JSULink<JKRAMCommand> field_0x30;
@@ -38,20 +38,19 @@ public:
 };
 
 class JKRAramPiece {
-public:
+  public:
     static OSMutex mMutex;
     // TODO: fix type
     static JSUList<JKRAMCommand> sAramPieceCommandList;
 
-public:
+  public:
     struct Message {
         s32 field_0x00;
         JKRAMCommand* command;
     };
 
-public:
-    static JKRAMCommand* prepareCommand(int, u32, u32, u32, JKRAramBlock*,
-                                        JKRAMCommand::AsyncCallback);
+  public:
+    static JKRAMCommand* prepareCommand(int, u32, u32, u32, JKRAramBlock*, JKRAMCommand::AsyncCallback);
     static void sendCommand(JKRAMCommand*);
 
     static JKRAMCommand* orderAsync(int, u32, u32, u32, JKRAramBlock*, JKRAMCommand::AsyncCallback);
@@ -60,13 +59,12 @@ public:
     static void startDMA(JKRAMCommand*);
     static void doneDMA(u32);
 
-private:
+  private:
     static void lock() { OSLockMutex(&mMutex); }
     static void unlock() { OSUnlockMutex(&mMutex); }
 };
 
-inline BOOL JKRAramPcs(int direction, u32 source, u32 destination, u32 length,
-                       JKRAramBlock* block) {
+inline BOOL JKRAramPcs(int direction, u32 source, u32 destination, u32 length, JKRAramBlock* block) {
     return JKRAramPiece::orderSync(direction, source, destination, length, block);
 }
 

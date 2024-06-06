@@ -1,7 +1,7 @@
-#include "stdio.h"
-#include "file_io.h"
 #include "critical_regions.h"
 #include "dolphin/types.h"
+#include "file_io.h"
+#include "stdio.h"
 
 static unsigned char stdin_buff[0x100];
 

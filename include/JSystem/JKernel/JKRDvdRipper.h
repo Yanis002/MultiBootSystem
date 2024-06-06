@@ -23,7 +23,7 @@ class JKRDMCommand {
 class JKRHeap;
 class JKRDvdFile;
 class JKRDvdRipper {
-public:
+  public:
     static JSUList<JKRDMCommand> sDvdAsyncList;
     static u32 sSzpBufferSize;
     static bool errorRetry;
@@ -36,12 +36,9 @@ public:
 
     static void setSzpBufferSize(u32 size) { sSzpBufferSize = size; }
 
-    static void* loadToMainRAM(char const*, u8*, JKRExpandSwitch, u32, JKRHeap*, EAllocDirection,
-                               u32, int*);
-    static void* loadToMainRAM(s32, u8*, JKRExpandSwitch, u32, JKRHeap*, EAllocDirection, u32,
-                               int*);
-    static void* loadToMainRAM(JKRDvdFile*, u8*, JKRExpandSwitch, u32, JKRHeap*, EAllocDirection,
-                               u32, int*);
+    static void* loadToMainRAM(char const*, u8*, JKRExpandSwitch, u32, JKRHeap*, EAllocDirection, u32, int*);
+    static void* loadToMainRAM(s32, u8*, JKRExpandSwitch, u32, JKRHeap*, EAllocDirection, u32, int*);
+    static void* loadToMainRAM(JKRDvdFile*, u8*, JKRExpandSwitch, u32, JKRHeap*, EAllocDirection, u32, int*);
 
     static bool isErrorRetry(void) { return errorRetry; }
     inline static u32 getSzpBufferSize() { return sSzpBufferSize; }
@@ -49,18 +46,15 @@ public:
 
 // void JKRDecompressFromDVD(JKRDvdFile*, void*, u32, u32, u32, u32, u32*);
 
-inline void* JKRDvdToMainRam(s32 entryNum, u8* dst, JKRExpandSwitch expandSwitch, u32 dstLength,
-                             JKRHeap* heap, JKRDvdRipper::EAllocDirection allocDirection,
-                             u32 offset, int* returnSize) {
-    return JKRDvdRipper::loadToMainRAM(entryNum, dst, expandSwitch, dstLength, heap, allocDirection,
-                                       offset, returnSize);
+inline void* JKRDvdToMainRam(s32 entryNum, u8* dst, JKRExpandSwitch expandSwitch, u32 dstLength, JKRHeap* heap,
+                             JKRDvdRipper::EAllocDirection allocDirection, u32 offset, int* returnSize) {
+    return JKRDvdRipper::loadToMainRAM(entryNum, dst, expandSwitch, dstLength, heap, allocDirection, offset,
+                                       returnSize);
 }
 
-inline void* JKRDvdToMainRam(const char* name, u8* dst, JKRExpandSwitch expandSwitch, u32 dstLength,
-                             JKRHeap* heap, JKRDvdRipper::EAllocDirection allocDirection,
-                             u32 offset, int* returnSize) {
-    return JKRDvdRipper::loadToMainRAM(name, dst, expandSwitch, dstLength, heap, allocDirection,
-                                       offset, returnSize);
+inline void* JKRDvdToMainRam(const char* name, u8* dst, JKRExpandSwitch expandSwitch, u32 dstLength, JKRHeap* heap,
+                             JKRDvdRipper::EAllocDirection allocDirection, u32 offset, int* returnSize) {
+    return JKRDvdRipper::loadToMainRAM(name, dst, expandSwitch, dstLength, heap, allocDirection, offset, returnSize);
 }
 
 #endif /* JKRDVDRIPPER_H */

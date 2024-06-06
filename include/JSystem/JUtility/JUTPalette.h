@@ -4,7 +4,10 @@
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXStruct.h"
 
-enum JUTTransparency { UNK0, UNK1 };
+enum JUTTransparency {
+    UNK0,
+    UNK1
+};
 
 struct ResTLUT {
     u8 format;
@@ -13,10 +16,8 @@ struct ResTLUT {
 };
 
 class JUTPalette {
-public:
-    JUTPalette(_GXTlut p1, _GXTlutFmt p2, JUTTransparency p3, u16 p4, void* p5) {
-        this->storeTLUT(p1, p2, p3, p4, p5);
-    }
+  public:
+    JUTPalette(_GXTlut p1, _GXTlutFmt p2, JUTTransparency p3, u16 p4, void* p5) { this->storeTLUT(p1, p2, p3, p4, p5); }
 
     JUTPalette(GXTlut tlutNo, ResTLUT* p_tlutRes) { storeTLUT(tlutNo, p_tlutRes); }
 
@@ -30,7 +31,7 @@ public:
     u16 getNumColors() const { return mNumColors; }
     ResTLUT* getColorTable() const { return mColorTable; }
 
-private:
+  private:
     /* 0x00 */ _GXTlutObj mTlutObj;
     /* 0x0C */ u8 mTlutName;
     /* 0x0D */ u8 mFormat;

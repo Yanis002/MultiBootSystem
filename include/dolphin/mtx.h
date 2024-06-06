@@ -25,7 +25,7 @@ typedef f32 Mtx33[3][3];
 typedef f32 Mtx44[4][4];
 typedef f32 (*Mtx33Ptr)[3];
 typedef f32 (*Mtx44Ptr)[4];
-typedef const f32 (*CMtx44Ptr)[4];  // Change name later?
+typedef const f32 (*CMtx44Ptr)[4]; // Change name later?
 
 void PSMTXIdentity(Mtx m);
 void PSMTXConcat(const Mtx a, const Mtx b, Mtx ab);

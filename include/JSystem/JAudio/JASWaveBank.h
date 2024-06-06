@@ -26,14 +26,14 @@ namespace JASystem {
     };
 
     class TWaveHandle {
-    public:
+      public:
         virtual ~TWaveHandle() {}
         virtual const TWaveInfo* getWaveInfo() const = 0;
         virtual const void* getWavePtr() const = 0;
     };
 
     class TWaveBank {
-    public:
+      public:
         TWaveBank() {}
         virtual ~TWaveBank() {}
         virtual TWaveHandle* getWaveHandle(u32) const = 0;
@@ -42,6 +42,6 @@ namespace JASystem {
 
         static JKRHeap* sCurrentHeap;
     };
-}
+} // namespace JASystem
 
 #endif /* JASWAVEBANK_H */

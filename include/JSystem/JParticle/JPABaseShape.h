@@ -7,7 +7,7 @@
 class JKRHeap;
 
 class JPABaseShape {
-public:
+  public:
     enum Type {
         /*  0 */ JPAType_Point,
         /*  1 */ JPAType_Line,
@@ -128,11 +128,11 @@ struct JPABaseShapeData {
 };
 
 class JPABaseShapeArc : public JPABaseShape {
-public:
+  public:
     static GXTevColorArg stTevColorArg[6][4];
     static GXTevAlphaArg stTevAlphaArg[2][4];
 
-    JPABaseShapeArc(const u8 * pData, JKRHeap * pHeap);
+    JPABaseShapeArc(const u8* pData, JKRHeap* pHeap);
     virtual ~JPABaseShapeArc() {}
     virtual u8 getType() { return pBsd->mFlags & 0x0F; }
     virtual u8 getDirType() { return (pBsd->mFlags >> 4) & 0x07; }
@@ -196,9 +196,9 @@ public:
     virtual f32 getTexScrollRotate() { return pBsd->mTexScrollRotate; }
 
     /* 0x04 */ const JPABaseShapeData* pBsd;
-    /* 0x08 */ const u8 * mpTexAnmIdxArr;
-    /* 0x0C */ const GXColor * mpPrmColorArr;
-    /* 0x10 */ const GXColor * mpEnvColorArr;
+    /* 0x08 */ const u8* mpTexAnmIdxArr;
+    /* 0x0C */ const GXColor* mpPrmColorArr;
+    /* 0x10 */ const GXColor* mpEnvColorArr;
     /* 0x14 */ s16 mColLoopOffset;
     /* 0x16 */ s16 mTexLoopOffset;
     /* 0x18 */ u8 mGlobalAnmFlags;

@@ -34,7 +34,7 @@ class J3DMatPacket;
 class J3DShapePacket;
 
 class J3DVisibilityManager {
-public:
+  public:
     J3DVisibilityManager(J3DAnmVisibilityFull* visibility) {
         mAnmVisibility = visibility;
         mbActive = 1;
@@ -47,12 +47,12 @@ public:
 };
 
 class J3DUnkCallBack {
-public:
+  public:
     virtual void calc(J3DModel*);
 };
 
 class J3DModel {
-public:
+  public:
     J3DModel();
 
     void initialize();
@@ -163,10 +163,10 @@ public:
     /* 0x0B8 */ J3DShapePacket* mpShapePacket;
     /* 0x0BC */ J3DDeformData* mpDeformData;
     /* 0x0C0 */ J3DSkinDeform* mpSkinDeform;
-    /* 0x0C4 */ J3DUnkCallBack * field_0xc4;
-    /* 0x0C8 */ J3DUnkCallBack * field_0xc8;
+    /* 0x0C4 */ J3DUnkCallBack* field_0xc4;
+    /* 0x0C8 */ J3DUnkCallBack* field_0xc8;
     /* 0x0CC */ J3DVertexBuffer mVertexBuffer;
-    /* 0x104 */ J3DVisibilityManager * mpVisibilityManager;
+    /* 0x104 */ J3DVisibilityManager* mpVisibilityManager;
 
     static Mtx sNoUseDrawMtx;
     static Mtx33 sNoUseNrmMtx;

@@ -3,8 +3,7 @@
 
 #include "dolphin/types.h"
 
-template <typename T>
-class JSUList;
+template <typename T> class JSUList;
 
 //
 // Link
@@ -12,7 +11,7 @@ class JSUList;
 
 class JSUPtrList;
 class JSUPtrLink {
-public:
+  public:
     JSUPtrLink(void* object);
     ~JSUPtrLink();
 
@@ -24,16 +23,15 @@ public:
 
     JSUPtrLink* getPrev() const { return mPrev; }
 
-public:
+  public:
     void* mObject;
     JSUPtrList* mList;
     JSUPtrLink* mPrev;
     JSUPtrLink* mNext;
 };
 
-template <typename T>
-class JSULink : public JSUPtrLink {
-public:
+template <typename T> class JSULink : public JSUPtrLink {
+  public:
     JSULink(T* object) : JSUPtrLink((void*)object) {}
 
     T* getObject() const { return (T*)getObjectPtr(); }
@@ -50,7 +48,7 @@ public:
 //
 
 class JSUPtrList {
-public:
+  public:
     JSUPtrList() { this->initiate(); }
     JSUPtrList(bool init);
     ~JSUPtrList();
@@ -69,15 +67,14 @@ public:
 
     u32 getNumLinks() const { return mLength; }
 
-private:
+  private:
     JSUPtrLink* mHead;
     JSUPtrLink* mTail;
     u32 mLength;
 };
 
-template <typename T>
-class JSUList : public JSUPtrList {
-public:
+template <typename T> class JSUList : public JSUPtrList {
+  public:
     JSUList() : JSUPtrList() {}
     JSUList(bool init) : JSUPtrList(init) {}
 
@@ -102,9 +99,8 @@ public:
     u32 getNumLinks() const { return this->JSUPtrList::getNumLinks(); }
 };
 
-template <typename T>
-class JSUListIterator {
-public:
+template <typename T> class JSUListIterator {
+  public:
     JSUListIterator() : mLink(NULL) {}
     JSUListIterator(JSULink<T>* link) : mLink(link) {}
     JSUListIterator(JSUList<T>* list) : mLink(list->getFirst()) {}
@@ -147,7 +143,7 @@ public:
 
     T* operator->() { return this->getObject(); }
 
-// private:
+    // private:
     JSULink<T>* mLink;
 };
 
@@ -155,9 +151,8 @@ public:
 // Tree
 //
 
-template <typename T>
-class JSUTree : public JSUList<T>, public JSULink<T> {
-public:
+template <typename T> class JSUTree : public JSUList<T>, public JSULink<T> {
+  public:
     JSUTree(T* owner) : JSUList<T>(), JSULink<T>(owner) {}
     ~JSUTree() {}
 
@@ -184,9 +179,8 @@ public:
     JSUTree<T>* getParent() const { return (JSUTree<T>*)this->getList(); }
 };
 
-template <typename T>
-class JSUTreeIterator {
-public:
+template <typename T> class JSUTreeIterator {
+  public:
     JSUTreeIterator() : mTree(NULL) {}
     JSUTreeIterator(JSUTree<T>* tree) : mTree(tree) {}
 
@@ -216,7 +210,7 @@ public:
 
     T* operator->() const { return this->getObject(); }
 
-private:
+  private:
     JSUTree<T>* mTree;
 };
 

@@ -15,7 +15,7 @@ struct JPATextureData {
 };
 
 class JPATexture {
-public:
+  public:
     virtual ~JPATexture() {}
     virtual const char* getName() const = 0;
     virtual void load(GXTexMapID) = 0;
@@ -23,7 +23,7 @@ public:
 };
 
 class JPATextureArc : public JPATexture {
-public:
+  public:
     JPATextureArc(u8 const*);
     virtual ~JPATextureArc() {}
 
@@ -31,22 +31,20 @@ public:
     virtual void load(GXTexMapID texMapID) { mTexture.load(texMapID); }
     virtual JUTTexture* getJUTTexture() { return &mTexture; }
 
-public:
+  public:
     /* 0x00 */ JUTTexture mTexture;
     /* 0x40 */ const JPATextureData* mpData;
 };
 
 struct JPADefaultTexture {
-public:
+  public:
     JPADefaultTexture() : imgBuf(NULL) {}
-    void initialize(JKRHeap *);
+    void initialize(JKRHeap*);
 
-    inline void load(GXTexMapID texMap) {
-        GXLoadTexObj(&mTexObj, texMap);
-    }
+    inline void load(GXTexMapID texMap) { GXLoadTexObj(&mTexObj, texMap); }
 
-public:
-    /* 0x00 */ u8 * imgBuf;
+  public:
+    /* 0x00 */ u8* imgBuf;
     /* 0x04 */ GXTexObj mTexObj;
 };
 

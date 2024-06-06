@@ -1,9 +1,9 @@
 #ifndef JPAPARTICLE_H
 #define JPAPARTICLE_H
 
-#include "JSystem/JSupport/JSUList.h"
-#include "JSystem/JParticle/JPAEmitter.h"
 #include "JSystem/JGeometry.h"
+#include "JSystem/JParticle/JPAEmitter.h"
+#include "JSystem/JSupport/JSUList.h"
 #include "dolphin/gx/GXStruct.h"
 
 class JKRHeap;
@@ -15,17 +15,15 @@ class JPAParticleCallBack;
 class JPAResourceManager;
 struct JPAEmitterWorkData;
 
-template<typename T>
-class JPACallBackBase;
-template<typename T, typename U>
-class JPACallBackBase2;
+template <typename T> class JPACallBackBase;
+template <typename T, typename U> class JPACallBackBase2;
 
 enum JPAParticleStatus {
     JPAPtclStts_Invisible = 0x08,
 };
 
 class JPABaseParticle {
-public:
+  public:
     void initParticle();
     void initChild(JPABaseParticle*);
     void incFrame();
@@ -61,7 +59,7 @@ public:
     void setDeleteParticleFlag() {}
     void setStatus(u32) {}
 
-public:
+  public:
     /* 0x00 */ JSULink<JPABaseParticle> mLink;
     /* 0x10 */ JGeometry::TVec3<f32> mGlobalPosition;
     /* 0x1C */ JGeometry::TVec3<f32> mLocalPosition;
@@ -98,7 +96,7 @@ public:
 };
 
 class JPAParticleCallBack {
-public:
+  public:
     JPAParticleCallBack() {}
     virtual ~JPAParticleCallBack();
     virtual void execute(JPABaseEmitter*, JPABaseParticle*);

@@ -11,6 +11,6 @@ namespace JStage {
         virtual GXColor JSGGetColor() const;
         virtual void JSGSetColor(GXColor);
     };
-};
+}; // namespace JStage
 
 #endif /* JSGAMBIENTLIGHT_H */

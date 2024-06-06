@@ -121,6 +121,6 @@ namespace JAIGlobalParameter {
     extern u16 seDefaultFx;
     extern u32 interfaceHeapSize;
     extern f32 minDistanceVolume;
-}
+} // namespace JAIGlobalParameter
 
 #endif /* JAIGLOBALPARAMETER_H */

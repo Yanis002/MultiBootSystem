@@ -16,7 +16,7 @@ namespace JAInter {
         extern u32 mDatasize;
         extern u8** mPointerCategory;
         extern u8* mAddress;
-    }
-}
+    } // namespace SoundTable
+} // namespace JAInter
 
 #endif /* JAISOUNDTABLE_H */

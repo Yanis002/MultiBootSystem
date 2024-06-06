@@ -21,7 +21,7 @@ namespace JASystem {
         extern u32 audioAramSize;
         extern int audioAramTop;
         extern int CARD_SECURITY_BUFFER;
-    }
-}
+    } // namespace Kernel
+} // namespace JASystem
 
 #endif /* JASSYSTEMHEAP_H */

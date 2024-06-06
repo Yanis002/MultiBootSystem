@@ -14,7 +14,7 @@ struct JPAExTexShapeData {
 };
 
 class JPAExTexShape {
-public:
+  public:
     virtual ~JPAExTexShape() {}
     virtual u32 getIndTexMode() = 0;
     virtual GXIndTexMtxID getIndTexMtxID() = 0;
@@ -27,7 +27,7 @@ public:
 };
 
 class JPAExTexShapeArc : public JPAExTexShape {
-public:
+  public:
     JPAExTexShapeArc(const u8*);
     virtual ~JPAExTexShapeArc() {}
     virtual u32 getIndTexMode() { return (mpData->mFlag >> 0) & 0x03; }
@@ -39,7 +39,7 @@ public:
     virtual BOOL isEnableSecondTex() { return (mpData->mFlag & 0x100); }
     virtual u8 getSecondTexIndex() { return mpData->mSecondTextureID; }
 
-public:
+  public:
     static GXIndTexMtxID indMtxID[4];
 
     /* 0x04 */ const JPAExTexShapeData* mpData;

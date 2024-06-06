@@ -37,7 +37,7 @@ struct JUTGbaThreadVar {
 };
 
 class JUTGba {
-public:
+  public:
     JUTGba();
 
     static JUTGba* create();

@@ -1,8 +1,8 @@
 #ifndef JUTDIRECTFILE_H
 #define JUTDIRECTFILE_H
 
-#include "dolphin/types.h"
 #include "dolphin/dvd.h"
+#include "dolphin/types.h"
 
 #define JUTDF_BUFSIZE (0x800)
 

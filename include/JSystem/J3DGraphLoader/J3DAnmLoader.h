@@ -3,7 +3,9 @@
 
 #include "dolphin/types.h"
 
-enum J3DAnmLoaderDataBaseFlag { J3DLOADER_UNK_FLAG0 };
+enum J3DAnmLoaderDataBaseFlag {
+    J3DLOADER_UNK_FLAG0
+};
 
 class J3DAnmBase;
 class J3DAnmClusterFull;
@@ -37,14 +39,14 @@ struct J3DAnmLoaderDataBase {
 };
 
 class J3DAnmLoader {
-public:
+  public:
     virtual J3DAnmBase* load(const void*) = 0;
     virtual void setResource(J3DAnmBase*, const void*) = 0;
     virtual ~J3DAnmLoader() {}
 };
 
 class J3DAnmFullLoader_v15 : public J3DAnmLoader {
-public:
+  public:
     J3DAnmFullLoader_v15();
     ~J3DAnmFullLoader_v15();
     J3DAnmBase* load(const void*);
@@ -66,7 +68,7 @@ public:
 };
 
 class J3DAnmKeyLoader_v15 : public J3DAnmLoader {
-public:
+  public:
     J3DAnmKeyLoader_v15();
     ~J3DAnmKeyLoader_v15();
     J3DAnmBase* load(const void*);

@@ -2,22 +2,22 @@
 #define JPADRAW_H
 
 #include "JSystem/JGeometry.h"
-#include "JSystem/JParticle/JPADrawVisitor.h"
 #include "JSystem/JParticle/JPADrawSetupTev.h"
-#include "dolphin/gx/GXStruct.h"
+#include "JSystem/JParticle/JPADrawVisitor.h"
 #include "dolphin/gx/GXEnum.h"
+#include "dolphin/gx/GXStruct.h"
 #include "dolphin/mtx.h"
-#include "macros.h"
 #include "dolphin/types.h"
+#include "macros.h"
 
 class JPADrawClipBoard {
-public:
+  public:
     JPADrawClipBoard() {}
     ~JPADrawClipBoard() {}
 
-    typedef void(*DirTypeFunc)(JPABaseParticle*, JPABaseEmitter*, JGeometry::TVec3<f32>&);
-    typedef void(*RotTypeFunc)(f32, f32, Mtx&);
-    typedef void(*BasePlaneTypeFunc)(f32, f32, f32, f32, JGeometry::TVec3<f32>*);
+    typedef void (*DirTypeFunc)(JPABaseParticle*, JPABaseEmitter*, JGeometry::TVec3<f32>&);
+    typedef void (*RotTypeFunc)(f32, f32, Mtx&);
+    typedef void (*BasePlaneTypeFunc)(f32, f32, f32, f32, JGeometry::TVec3<f32>*);
 
     /* 0x00 */ JPADrawSetupTev mSetupTev;
     /* 0x04 */ f32 mGlobalScaleX;
@@ -39,7 +39,7 @@ public:
 };
 
 class JPADraw {
-public:
+  public:
     struct JPADrawVisitorDefFlags {
         /* 0x00 */ BOOL mbIsEnableDrawParent;
         /* 0x04 */ BOOL mbHasPrmAnm;

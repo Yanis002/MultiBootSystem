@@ -7,7 +7,7 @@
 namespace JASystem {
     class TInstEffect;
     class TBasicInst : public TInst {
-    public:
+      public:
         struct TVeloRegion {
             /* 0x00 */ s32 mBaseVel;
             /* 0x04 */ s32 field_0x04;
@@ -16,7 +16,7 @@ namespace JASystem {
         };
 
         class TKeymap {
-        public:
+          public:
             TKeymap() {
                 mBaseKey = -1;
                 mVeloRegionCount = 0;
@@ -53,6 +53,6 @@ namespace JASystem {
         /* 0x1C */ u32 mKeyRegionCount;
         /* 0x20 */ TKeymap* mKeymap;
     };
-}
+} // namespace JASystem
 
 #endif /* JASBASICINST_H */

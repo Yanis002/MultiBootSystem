@@ -1,7 +1,7 @@
 #include "runtime/ptmf.h"
 #include "macros.h"
 
-const __ptmf __ptmf_null = { 0, 0, 0 };
+const __ptmf __ptmf_null = {0, 0, 0};
 
 ASM void __ptmf_scall(...) {
 #ifdef __MWERKS__ // clang-format off

@@ -9,7 +9,7 @@
 typedef u8 (*Pattern)[2];
 
 class JUTVideo {
-public:
+  public:
     typedef void (*Callback)(u32);
 
     JUTVideo(GXRenderModeObj const*);
@@ -45,12 +45,12 @@ public:
 
     GXRenderModeObj* getRenderMode() const { return mRenderObj; }
 
-private:
+  private:
     static JUTVideo* sManager;
     static OSTick sVideoLastTick;
     static OSTick sVideoInterval;
 
-private:
+  private:
     /* 0x04 */ GXRenderModeObj* mRenderObj;
     /* 0x08 */ u32 field_0x8;
     /* 0x0C */ u32 mRetraceCount;
@@ -67,8 +67,6 @@ private:
     /* 0x38 */ OSMessageQueue mMessageQueue;
 };
 
-inline JUTVideo* JUTGetVideoManager() {
-    return JUTVideo::getManager();
-}
+inline JUTVideo* JUTGetVideoManager() { return JUTVideo::getManager(); }
 
 #endif /* JUTVIDEO_H */

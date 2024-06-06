@@ -17,24 +17,24 @@ typedef void (*JFWDisplayUnkFunc)(void);
 extern bool JFWAutoAbortGfx;
 
 class JFWAlarm : public OSAlarm {
-public:
+  public:
     JFWAlarm() /* : mLink(this) */ {}
     ~JFWAlarm() {}
     void createAlarm() { OSCreateAlarm(this); }
     void cancelAlarm() { OSCancelAlarm(this); }
-    //void removeLink() { sList.remove(&mLink); }
-    //void appendLink() { sList.append(&mLink); }
+    // void removeLink() { sList.remove(&mLink); }
+    // void appendLink() { sList.append(&mLink); }
     OSThread* getThread() const { return mThread; }
     void setThread(OSThread* thread) { mThread = thread; }
 
     static JSUList<JFWAlarm> sList;
 
-public:
+  public:
     /* 0x30 */ OSThread* mThread;
 };
 
 class JFWDisplay {
-public:
+  public:
     enum EDrawDone {
         /* 0x0 */ UNK_METHOD_0 = 0,
         /* 0x1 */ UNK_METHOD_1 = 1
@@ -86,12 +86,12 @@ public:
 
     void setDrawDoneMethod(EDrawDone drawDone) { mDrawDoneMethod = drawDone; }
     void setFader(JUTFader* fader) { mpFader = fader; }
-    JUTFader * getFader() { return mpFader; }
+    JUTFader* getFader() { return mpFader; }
     void setClearColor(JUtility::TColor color) { mClearColor = color; }
 
     static JFWDisplay* sManager;
 
-private:
+  private:
     /* 0x04 */ JUTFader* mpFader;
     /* 0x08 */ const GXRenderModeObj* mpRenderMode;
     /* 0x0C */ JUtility::TColor mClearColor;

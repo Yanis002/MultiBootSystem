@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TOscillator {
-    public:
+      public:
         struct Osc_ {
             /* 0x00 */ u8 field_0x0;
             /* 0x04 */ f32 field_0x4;
@@ -35,6 +35,6 @@ namespace JASystem {
         /* 0x18 */ u16 field_0x18;
         /* 0x1C */ f32 field_0x1c;
     };
-}
+} // namespace JASystem
 
 #endif /* JASOSCILLATOR_H */

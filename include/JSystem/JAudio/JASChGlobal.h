@@ -18,7 +18,7 @@ namespace JASystem {
         extern TChannelMgr* sChannelMgr;
         extern TChannel* sChannel;
         extern TOscillator* sOscillator;
-    }
-}
+    } // namespace TGlobalChannel
+} // namespace JASystem
 
 #endif /* JASCHGLOBAL_H */

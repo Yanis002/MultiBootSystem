@@ -7,7 +7,7 @@
 class J3DModel;
 
 class J3DUClipper {
-public:
+  public:
     J3DUClipper() { init(); }
     virtual ~J3DUClipper() {}
     void init();
@@ -23,7 +23,7 @@ public:
 
     f32 getFar() { return mFar; }
 
-private:
+  private:
     /* 0x04 */ Vec mPlane[4];
     /* 0x34 */ u8 _34[0x4C - 0x34];
     /* 0x4C */ f32 mFovY;

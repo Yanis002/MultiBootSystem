@@ -34,10 +34,10 @@ struct ResTIMG {
     /* 0x19 */ u8 unknown;
     /* 0x1A */ s16 LODBias;
     /* 0x1C */ u32 imageOffset;
-};  // Size: 0x20
+}; // Size: 0x20
 
 class JUTTexture {
-public:
+  public:
     JUTTexture() {
         setCaptureFlag(false);
         mEmbPalette = NULL;
@@ -70,14 +70,13 @@ public:
     void setEmbPaletteDelFlag(bool flag) { mFlags = (mFlags & 1) | (flag << 1); }
     u8 getTlutName() const { return mTlutName; }
     bool operator==(const JUTTexture& other) {
-        return mTexInfo == other.mTexInfo && mAttachedPalette == other.mAttachedPalette &&
-               mWrapS == other.mWrapS && mWrapT == other.mWrapT && mMinFilter == other.mMinFilter &&
-               mMagFilter == other.mMagFilter && mMinLOD == other.mMinLOD &&
-               mMinLOD == other.mMinLOD && mLODBias == other.mLODBias;
+        return mTexInfo == other.mTexInfo && mAttachedPalette == other.mAttachedPalette && mWrapS == other.mWrapS &&
+               mWrapT == other.mWrapT && mMinFilter == other.mMinFilter && mMagFilter == other.mMagFilter &&
+               mMinLOD == other.mMinLOD && mMinLOD == other.mMinLOD && mLODBias == other.mLODBias;
     }
     bool operator!=(const JUTTexture& other) { return !operator==(other); }
 
-private:
+  private:
     /* 0x00 */ GXTexObj mTexObj;
     /* 0x20 */ const ResTIMG* mTexInfo;
     /* 0x24 */ void* mTexData;

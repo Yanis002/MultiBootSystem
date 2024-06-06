@@ -14,7 +14,7 @@ namespace JASystem {
     class TChannel;
 
     class TVibrate {
-    public:
+      public:
         TVibrate();
         void init();
         void incCounter();
@@ -26,9 +26,9 @@ namespace JASystem {
     };
 
     class TTrack {
-    public:
+      public:
         class TOuterParam {
-        public:
+          public:
             TOuterParam();
             void initExtBuffer();
             void setOuterSwitch(u16);
@@ -52,7 +52,7 @@ namespace JASystem {
         };
 
         class MoveParam_ {
-        public:
+          public:
             MoveParam_();
 
             /* 0x00 */ f32 field_0x0;
@@ -62,7 +62,7 @@ namespace JASystem {
         };
 
         class AInnerParam_ {
-        public:
+          public:
             AInnerParam_();
 
             /* 0x000 */ f32 field_0x0[48];
@@ -71,7 +71,7 @@ namespace JASystem {
         };
 
         class TimedParam_ {
-        public:
+          public:
             TimedParam_();
 
             union {
@@ -81,7 +81,7 @@ namespace JASystem {
         };
 
         class TNoteMgr {
-        public:
+          public:
             void init();
             void endProcess();
             void setChannel(int, TChannel*);
@@ -206,6 +206,6 @@ namespace JASystem {
         static TSeqParser sParser;
         static TTrack* sFreeList;
     };
-}
+} // namespace JASystem
 
 #endif /* JASTRACK_H */

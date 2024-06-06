@@ -7,9 +7,9 @@
 class JKRHeap;
 
 class JUTProcBar {
-public:
+  public:
     class CTime {
-    public:
+      public:
         CTime() { clear(); }
 
         void clear() {
@@ -51,7 +51,7 @@ public:
     };
 
     class CParamSet {
-    public:
+      public:
         /* 0x00 */ int mBarWidth;
         /* 0x04 */ int mPosX;
         /* 0x08 */ int mPosY;
@@ -72,8 +72,7 @@ public:
     static JUTProcBar* create();
     static void destroy();
     static void clear();
-    void bar_subroutine(int, int, int, int, int, int, int, JUtility::TColor,
-                                       JUtility::TColor);
+    void bar_subroutine(int, int, int, int, int, int, int, JUtility::TColor, JUtility::TColor);
     void adjustMeterLength(u32, f32*, f32, f32, int*);
     void draw();
     void drawProcessBar();
@@ -97,7 +96,7 @@ public:
 
     static JUTProcBar* sManager;
 
-private:
+  private:
     /* 0x000 */ CTime mIdle;
     /* 0x014 */ CTime mGp;
     /* 0x028 */ CTime mCpu;

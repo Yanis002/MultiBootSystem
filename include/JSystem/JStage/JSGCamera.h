@@ -34,6 +34,6 @@ namespace JStage {
         virtual f32 JSGGetViewRoll() const;
         virtual void JSGSetViewRoll(f32);
     };
-};
+}; // namespace JStage
 
 #endif /* JSGCAMERA_H */

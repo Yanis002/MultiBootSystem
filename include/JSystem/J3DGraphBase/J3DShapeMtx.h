@@ -7,20 +7,21 @@ class J3DTexMtx;
 class J3DTexGenBlock;
 
 class J3DTexMtxObj {
-public:
+  public:
     Mtx& getMtx(u16 idx) { return mpTexMtx[idx]; }
 
-private:
+  private:
     /* 0x00 */ Mtx* mpTexMtx;
 };
 
 class J3DDifferedTexMtx {
-public:
+  public:
     static void loadExecute(f32 const (*)[4]);
 
     static inline void load(Mtx m) {
-        if (sTexGenBlock != NULL)
+        if (sTexGenBlock != NULL) {
             loadExecute(m);
+        }
     }
 
     static J3DTexGenBlock* sTexGenBlock;
@@ -28,7 +29,7 @@ public:
 };
 
 class J3DShapeMtx {
-public:
+  public:
     typedef void (J3DShapeMtx::*MtxLoadIndx)(int mtxNo, u16 index) const;
 
     J3DShapeMtx(u16 useMtxIndex) : mUseMtxIndex(useMtxIndex) {}
@@ -52,12 +53,12 @@ public:
 
     static void setCurrentPipeline(u32 pipeline) { sCurrentPipeline = pipeline; }
 
-protected:
+  protected:
     /* 0x04 */ u16 mUseMtxIndex;
 };
 
 class J3DShapeMtxImm : public J3DShapeMtx {
-public:
+  public:
     typedef void (J3DShapeMtxImm::*MtxLoadImm)(int mtxNo, u16 index) const;
 
     J3DShapeMtxImm(u16 useMtxIndex) : J3DShapeMtx(useMtxIndex) {}
@@ -77,7 +78,7 @@ public:
 };
 
 class J3DShapeMtxMultiImm : public J3DShapeMtxImm {
-public:
+  public:
     J3DShapeMtxMultiImm(u16 useMtxIndex, u16 useMtxNum, u16* useMtxIndexTable)
         : J3DShapeMtxImm(useMtxIndex), mUseMtxNum(useMtxNum), mUseMtxIndexTable(useMtxIndexTable) {}
 
@@ -88,13 +89,13 @@ public:
     virtual void load() const;
     virtual void loadNrmMtx(int, u16) const;
 
-private:
+  private:
     /* 0x8 */ u16 mUseMtxNum;
     /* 0xC */ u16* mUseMtxIndexTable;
 };
 
 class J3DShapeMtxConcatView : public J3DShapeMtxImm {
-public:
+  public:
     typedef void (J3DShapeMtxConcatView::*MtxLoadConcatView)(int mtxNo, u16 index) const;
 
     J3DShapeMtxConcatView(u16 useMtxIndex) : J3DShapeMtxImm(useMtxIndex) {}
@@ -112,11 +113,11 @@ public:
     void loadMtxConcatView_PNGP_LOD(int, u16) const;
 
     static MtxLoadConcatView sMtxLoadPipeline[4];
-    static Mtx * sMtxPtrTbl[2];
+    static Mtx* sMtxPtrTbl[2];
 };
 
 class J3DShapeMtxBBoardImm : public J3DShapeMtxImm {
-public:
+  public:
     J3DShapeMtxBBoardImm(u16 useMtxIndex) : J3DShapeMtxImm(useMtxIndex) {}
 
     virtual ~J3DShapeMtxBBoardImm() {}
@@ -125,7 +126,7 @@ public:
 };
 
 class J3DShapeMtxYBBoardImm : public J3DShapeMtxImm {
-public:
+  public:
     J3DShapeMtxYBBoardImm(u16 useMtxIndex) : J3DShapeMtxImm(useMtxIndex) {}
 
     virtual ~J3DShapeMtxYBBoardImm() {}
@@ -134,7 +135,7 @@ public:
 };
 
 class J3DShapeMtxYBBoardConcatView : public J3DShapeMtxYBBoardImm {
-public:
+  public:
     J3DShapeMtxYBBoardConcatView(u16 useMtxIndex) : J3DShapeMtxYBBoardImm(useMtxIndex) {}
 
     virtual ~J3DShapeMtxYBBoardConcatView() {}
@@ -142,7 +143,7 @@ public:
 };
 
 class J3DShapeMtxBBoardConcatView : public J3DShapeMtxBBoardImm {
-public:
+  public:
     J3DShapeMtxBBoardConcatView(u16 useMtxIndex) : J3DShapeMtxBBoardImm(useMtxIndex) {}
 
     virtual ~J3DShapeMtxBBoardConcatView() {}
@@ -150,7 +151,7 @@ public:
 };
 
 class J3DShapeMtxMulti : public J3DShapeMtx {
-public:
+  public:
     J3DShapeMtxMulti(u16 useMtxIndex, u16 useMtxNum, u16* useMtxIndexTable)
         : J3DShapeMtx(useMtxIndex), mUseMtxNum(useMtxNum), mUseMtxIndexTable(useMtxIndexTable) {}
 
@@ -161,16 +162,15 @@ public:
     virtual void load() const;
     virtual void calcNBTScale(Vec const&, Mtx33*, Mtx33*);
 
-private:
+  private:
     /* 0x8 */ u16 mUseMtxNum;
     /* 0xC */ u16* mUseMtxIndexTable;
 };
 
 class J3DShapeMtxMultiConcatView : public J3DShapeMtxConcatView {
-public:
+  public:
     J3DShapeMtxMultiConcatView(u16 useMtxIndex, u16 useMtxNum, u16* useMtxIndexTable)
-        : J3DShapeMtxConcatView(useMtxIndex), mUseMtxNum(useMtxNum),
-          mUseMtxIndexTable(useMtxIndexTable) {}
+        : J3DShapeMtxConcatView(useMtxIndex), mUseMtxNum(useMtxNum), mUseMtxIndexTable(useMtxIndexTable) {}
 
     virtual ~J3DShapeMtxMultiConcatView() {}
     virtual u32 getType() const { return 'SMMI'; }
@@ -180,7 +180,7 @@ public:
     virtual void loadNrmMtx(int, u16) const {}
     virtual void loadNrmMtx(int, u16, f32 (*)[4]) const;
 
-private:
+  private:
     /* 0x8 */ u16 mUseMtxNum;
     /* 0xC */ u16* mUseMtxIndexTable;
 };

@@ -1,19 +1,19 @@
-#include "macros.h"
 #include "dolphin/types.h"
+#include "macros.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* macros for GPR/FPR resting and saving */
-#define SAVE_FPR(reg)    _savefpr_##reg
+#define SAVE_FPR(reg) _savefpr_##reg
 #define RESTORE_FPR(reg) _restfpr_##reg
-#define SAVE_GPR(reg)    _savegpr_##reg
+#define SAVE_GPR(reg) _savegpr_##reg
 #define RESTORE_GPR(reg) _restgpr_##reg
 
-#define ENTRY_SAVE_FPR(reg)    entry SAVE_FPR(reg)
+#define ENTRY_SAVE_FPR(reg) entry SAVE_FPR(reg)
 #define ENTRY_RESTORE_FPR(reg) entry RESTORE_FPR(reg)
-#define ENTRY_SAVE_GPR(reg)    entry SAVE_GPR(reg)
+#define ENTRY_SAVE_GPR(reg) entry SAVE_GPR(reg)
 #define ENTRY_RESTORE_GPR(reg) entry RESTORE_GPR(reg)
 
 #define save_restore_reg r11
@@ -104,12 +104,10 @@ void RESTORE_GPR(30)(void);
 void RESTORE_GPR(31)(void);
 
 static const u32 __constants[] = {
-	0x00000000, 0x00000000, 0x41F00000, 0x00000000, 0x41E00000, 0x00000000,
+    0x00000000, 0x00000000, 0x41F00000, 0x00000000, 0x41E00000, 0x00000000,
 };
 
-
-ASM u32 __cvt_fp2unsigned(register f64 d)
-{
+ASM u32 __cvt_fp2unsigned(register f64 d) {
 #ifdef __MWERKS__ // clang-format off
 		nofralloc
 		stwu    r1,-16(r1)
@@ -139,8 +137,7 @@ ASM u32 __cvt_fp2unsigned(register f64 d)
 #endif // clang-format on
 }
 
-
-ASM static void __save_fpr(void) {
+ASM static void __save_fpr(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	ENTRY_SAVE_FPR(14)
@@ -183,8 +180,7 @@ ASM static void __save_fpr(void) {
 #endif // clang-format on
 }
 
-
-ASM static void __restore_fpr(void) {
+ASM static void __restore_fpr(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	ENTRY_RESTORE_FPR(14)
@@ -227,8 +223,7 @@ ASM static void __restore_fpr(void) {
 #endif // clang-format on
 }
 
-
-ASM static void __save_gpr(void) {
+ASM static void __save_gpr(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	ENTRY_SAVE_GPR(14)
@@ -271,8 +266,7 @@ ASM static void __save_gpr(void) {
 #endif // clang-format on
 }
 
-
-ASM static void __restore_gpr(void) {
+ASM static void __restore_gpr(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	ENTRY_RESTORE_GPR(14)
@@ -315,8 +309,7 @@ ASM static void __restore_gpr(void) {
 #endif // clang-format on
 }
 
-
-ASM void __div2u(void) {
+ASM void __div2u(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	cmpwi   cr0,r3,0
@@ -390,8 +383,7 @@ lab9:
 #endif // clang-format on
 }
 
-
-ASM void __div2i(void) {
+ASM void __div2i(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	stwu    r1,-16(r1)
@@ -490,8 +482,7 @@ func_end:
 #endif // clang-format on
 }
 
-
-ASM void __mod2u(void) {
+ASM void __mod2u(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	cmpwi   cr0,r3,0
@@ -563,8 +554,7 @@ lab9:
 #endif // clang-format on
 }
 
-
-ASM void __shl2i(void) {
+ASM void __shl2i(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	subfic  r8,r5,32
@@ -579,8 +569,7 @@ ASM void __shl2i(void) {
 #endif // clang-format on
 }
 
-
-ASM void __shr2u(void) {
+ASM void __shr2u(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	subfic  r8,r5,32
@@ -595,8 +584,7 @@ ASM void __shr2u(void) {
 #endif // clang-format on
 }
 
-
-ASM void __shr2i(void) {
+ASM void __shr2i(void){
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	subfic  r8, r5, 0x20
@@ -613,9 +601,7 @@ around:
 #endif // clang-format on
 }
 
-
-ASM void __cvt_dbl_usll(void)
-{
+ASM void __cvt_dbl_usll(void) {
 #ifdef __MWERKS__ // clang-format off
 	nofralloc
 	stwu    r1,-16(r1)

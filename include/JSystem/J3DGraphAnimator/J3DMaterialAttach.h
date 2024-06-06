@@ -17,7 +17,7 @@ class J3DTevKColorAnm;
 class JUTNameTab;
 
 class J3DMaterialTable {
-public:
+  public:
     void clear();
     J3DMaterialTable();
     s32 entryMatColorAnimator(J3DAnmColor*);
@@ -28,7 +28,7 @@ public:
     int removeTexNoAnimator(J3DAnmTexPattern*);
     int removeTexMtxAnimator(J3DAnmTextureSRTKey*);
     int removeTevRegAnimator(J3DAnmTevRegKey*);
-    s32 setMatColorAnimator(J3DAnmColor*, J3DMatColorAnm *);
+    s32 setMatColorAnimator(J3DAnmColor*, J3DMatColorAnm*);
     s32 setTexNoAnimator(J3DAnmTexPattern*, J3DTexNoAnm*);
     s32 setTexMtxAnimator(J3DAnmTextureSRTKey* pAnm, J3DTexMtxAnm* pTexAnm, J3DTexMtxAnm* pDualAnmR);
     s32 setTevRegAnimator(J3DAnmTevRegKey*, J3DTevColorAnm*, J3DTevKColorAnm*);
@@ -47,7 +47,7 @@ public:
     u16 getMaterialNum() const { return mMaterialNum; }
     bool isLocked() { return field_0x20 == 1; }
 
-private:
+  private:
     friend class J3DJointTree;
     friend class J3DModelLoader;
     friend class J3DModelLoader_v26;
@@ -61,6 +61,6 @@ private:
     /* 0x18 */ J3DTexture* mTexture;
     /* 0x1C */ JUTNameTab* mTextureName;
     /* 0x20 */ u16 field_0x20;
-};  // Size: 0x24
+}; // Size: 0x24
 
 #endif /* J3DMATERIALATTACH_H */

@@ -11,21 +11,21 @@ typedef void (*callbackFn)(int, void*);
 extern u32 channel_mask[4];
 
 namespace CButton {
-enum {
-    DPAD_LEFT = 0x0001,
-    DPAD_RIGHT = 0x0002,
-    DPAD_DOWN = 0x0004,
-    DPAD_UP = 0x0008,
-    Z = 0x0010,
-    R = 0x0020,
-    L = 0x0040,
-    A = 0x0100,
-    B = 0x0200,
-    X = 0x0400,
-    Y = 0x0800,
-    START = 0x1000,
-};
-}
+    enum {
+        DPAD_LEFT = 0x0001,
+        DPAD_RIGHT = 0x0002,
+        DPAD_DOWN = 0x0004,
+        DPAD_UP = 0x0008,
+        Z = 0x0010,
+        R = 0x0020,
+        L = 0x0040,
+        A = 0x0100,
+        B = 0x0200,
+        X = 0x0400,
+        Y = 0x0800,
+        START = 0x1000,
+    };
+} // namespace CButton
 
 struct JUTGamePadRecordBase {
     virtual void unk0() {}
@@ -36,7 +36,7 @@ struct JUTGamePadRecordBase {
 };
 
 struct JUTGamePad : public JKRDisposer {
-public:
+  public:
     enum EStickMode {
         STICK_MODE_1 = 1,
     };
@@ -126,7 +126,7 @@ public:
     void stopMotor() { mRumble.stopMotor(mPortNum); }
     void stopMotorHard() { mRumble.stopMotorHard(mPortNum); }
 
-    static PADStatus & getPortStatus(EPadPort port) { return mPadStatus[port]; }
+    static PADStatus& getPortStatus(EPadPort port) { return mPadStatus[port]; }
 
     struct CButton {
         CButton() { clear(); }
@@ -135,8 +135,8 @@ public:
         void setRepeat(u32 unk0, u32 unk1, u32 unk2);
 
         /* 0x00 */ u32 mButton;
-        /* 0x04 */ u32 mTrigger;  // Pressed Buttons
-        /* 0x08 */ u32 mRelease;  // Released Buttons
+        /* 0x04 */ u32 mTrigger; // Pressed Buttons
+        /* 0x08 */ u32 mRelease; // Released Buttons
         /* 0x0C */ u8 mAnalogA;
         /* 0x0D */ u8 mAnalogB;
         /* 0x0E */ u8 mAnalogL;
@@ -149,7 +149,7 @@ public:
         /* 0x24 */ u32 field_0x24;
         /* 0x28 */ u32 field_0x28;
         /* 0x2C */ u32 field_0x2c;
-    };  // Size: 0x30
+    }; // Size: 0x30
 
     struct C3ButtonReset {
         C3ButtonReset() { mReset = false; }
@@ -164,7 +164,7 @@ public:
         static bool sResetSwitchPushing;
 
         /* 0x0 */ bool mReset;
-    };  // Size: 0x4
+    }; // Size: 0x4
 
     struct CStick {
         static f32 sPressPoint;
@@ -182,7 +182,7 @@ public:
         /* 0xC */ s16 mAngle;
         /* 0xE */ s8 field_0xe;
         /* 0xF */ s8 field_0xf;
-    };  // Size: 0x10
+    }; // Size: 0x10
 
     void stopMotorWaveHard() { mRumble.stopPatternedRumble(mPortNum); }
 
@@ -217,7 +217,7 @@ public:
         /* 0x04 */ u32 mLength;
         /* 0x08 */ u8* mData;
         /* 0x0C */ u32 mFrameCount;
-    };  // Size: 0x10
+    }; // Size: 0x10
 
     void startMotorWave(u8* param_2, CRumble::ERumble rumble, u32 param_4) {
         mRumble.startPatternedRumble(param_2, rumble, param_4);

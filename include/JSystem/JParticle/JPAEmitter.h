@@ -1,12 +1,12 @@
 #ifndef JPAEMITTER_H
 #define JPAEMITTER_H
 
+#include "JSystem/JGeometry.h"
+#include "JSystem/JMath/random.h"
 #include "JSystem/JParticle/JPADraw.h"
 #include "JSystem/JParticle/JPAField.h"
 #include "JSystem/JParticle/JPAMath.h"
 #include "JSystem/JSupport/JSUList.h"
-#include "JSystem/JMath/random.h"
-#include "JSystem/JGeometry.h"
 #include "JSystem/TPosition3.hh"
 #include "dolphin/gx/GXStruct.h"
 #include "dolphin/mtx.h"
@@ -22,7 +22,7 @@ class JPABaseEmitter;
 class JPATextureResource;
 
 class JPADataBlockLinkInfo {
-public:
+  public:
     JPADataBlockLinkInfo() {
         dynBlock = NULL;
         bspBlock = NULL;
@@ -37,27 +37,27 @@ public:
         keyNum = 0;
     }
 
-    JPAFieldBlock ** getField() { return fldBlocks; }
+    JPAFieldBlock** getField() { return fldBlocks; }
     u8 getFieldNum() { return fldNum; }
-    JPADynamicsBlock * getDynamics() { return dynBlock; }
-    JPASweepShape * getSweepShape() { return sspBlock; }
+    JPADynamicsBlock* getDynamics() { return dynBlock; }
+    JPASweepShape* getSweepShape() { return sspBlock; }
     u8 getKeyNum() { return keyNum; }
-    JPAKeyBlock ** getKey() { return keyBlocks; }
-    JPAExtraShape * getExtraShape() { return espBlock; }
-    u16 * getTextureDataBase() { return texDataBase; }
-    JPAExTexShape * getExTexShape() { return etxBlock; }
-    JPABaseShape * getBaseShape() { return bspBlock; }
+    JPAKeyBlock** getKey() { return keyBlocks; }
+    JPAExtraShape* getExtraShape() { return espBlock; }
+    u16* getTextureDataBase() { return texDataBase; }
+    JPAExTexShape* getExTexShape() { return etxBlock; }
+    JPABaseShape* getBaseShape() { return bspBlock; }
     u8 getTextureNum() { return mTextureNum; }
 
-public:
-    /* 0x00 */ JPADynamicsBlock * dynBlock;
-    /* 0x04 */ JPABaseShape * bspBlock;
-    /* 0x08 */ JPAExtraShape * espBlock;
-    /* 0x0C */ JPASweepShape * sspBlock;
-    /* 0x10 */ JPAExTexShape * etxBlock;
-    /* 0x14 */ JPAKeyBlock ** keyBlocks;
-    /* 0x18 */ JPAFieldBlock ** fldBlocks;
-    /* 0x1C */ u16 * texDataBase;
+  public:
+    /* 0x00 */ JPADynamicsBlock* dynBlock;
+    /* 0x04 */ JPABaseShape* bspBlock;
+    /* 0x08 */ JPAExtraShape* espBlock;
+    /* 0x0C */ JPASweepShape* sspBlock;
+    /* 0x10 */ JPAExTexShape* etxBlock;
+    /* 0x14 */ JPAKeyBlock** keyBlocks;
+    /* 0x18 */ JPAFieldBlock** fldBlocks;
+    /* 0x1C */ u16* texDataBase;
     /* 0x20 */ u8 fldNum;
     /* 0x21 */ u8 mTextureNum;
     /* 0x22 */ u8 keyNum;
@@ -74,9 +74,8 @@ enum {
     JPAEmtrStts_Immortal = 0x40,
 };
 
-template<typename T>
-class JPACallBackBase {
-public:
+template <typename T> class JPACallBackBase {
+  public:
     JPACallBackBase() {}
     virtual ~JPACallBackBase() {}
 
@@ -84,11 +83,10 @@ public:
     inline virtual void execute(T);
     inline virtual void executeAfter(T);
     inline virtual void draw(T);
-};  // Size: 0x04
+}; // Size: 0x04
 
-template<typename T, typename U>
-class JPACallBackBase2 {
-public:
+template <typename T, typename U> class JPACallBackBase2 {
+  public:
     JPACallBackBase2() {}
     virtual ~JPACallBackBase2() {}
 
@@ -98,13 +96,13 @@ public:
 };
 
 struct JPAEmitterInfo {
-public:
+  public:
     JPAEmitterInfo() : mRandom(0) {}
     ~JPAEmitterInfo() {}
 
-public:
+  public:
     /* 0x000 */ JMath::TRandom_fast_ mRandom;
-    /* 0x004 */ JPABaseEmitter * mpCurEmitter;
+    /* 0x004 */ JPABaseEmitter* mpCurEmitter;
     /* 0x008 */ Mtx mEmitterGlobalSR;
     /* 0x038 */ Mtx mEmitterGlobalRot;
     /* 0x068 */ Mtx mGlobalRot;
@@ -129,23 +127,24 @@ public:
 };
 
 struct JPAFrameManager {
-public:
+  public:
     JPAFrameManager() : mFrame(0.0f) {}
 
     f32 getFrame() const { return mFrame; }
     void setFrame(f32 frame) { mFrame = frame; }
     void incFrame() {
         mFrame++;
-        if (mFrame < 0.0f)
+        if (mFrame < 0.0f) {
             mFrame = 0.0f;
+        }
     }
 
-private:
+  private:
     /* 0x00 */ f32 mFrame;
 };
 
 class JPABaseEmitter {
-public:
+  public:
     JPABaseEmitter() : mLink(this), mRandomSeed(0) {}
     ~JPABaseEmitter() {}
 
@@ -184,21 +183,17 @@ public:
 
     bool checkEmDataFlag(u32 mask) { return mDataFlag & mask; }
 
-    int getParticleNumber() {
-        return mActiveParticles.getNumLinks() + mChildParticles.getNumLinks();
-    }
+    int getParticleNumber() { return mActiveParticles.getNumLinks() + mChildParticles.getNumLinks(); }
 
     u8 getGroupID() { return mGroupID; }
     u8 getResourceManagerID() { return mResMgrID; }
 
-    JPADataBlockLinkInfo * getEmitterDataBlockInfoPtr() const { return mpDataLinkInfo; }
+    JPADataBlockLinkInfo* getEmitterDataBlockInfoPtr() const { return mpDataLinkInfo; }
     bool isEnableDeleteEmitter() { return checkStatus(JPAEmtrStts_EnableDeleteEmitter) && getParticleNumber() == 0; }
 
     u8 getGlobalAlpha() { return mGlobalPrmColor.a; }
     void setGlobalAlpha(u8 alpha) { mGlobalPrmColor.a = alpha; }
-    void setGlobalRTMatrix(Mtx44Ptr mtx) {
-        JPASetRMtxTVecfromMtx(mtx, mGlobalRotation, mGlobalTranslation);
-    }
+    void setGlobalRTMatrix(Mtx44Ptr mtx) { JPASetRMtxTVecfromMtx(mtx, mGlobalRotation, mGlobalTranslation); }
     void setGlobalSRTMatrix(Mtx44Ptr mtx) {
         JPASetRMtxSTVecfromMtx(mtx, mGlobalRotation, mGlobalDynamicsScale, mGlobalTranslation);
     }
@@ -212,21 +207,11 @@ public:
         mGlobalDynamicsScale.set(scale);
         mGlobalParticleScale.set(scale);
     }
-    void setGlobalParticleScale(const JGeometry::TVec3<f32>& scale) {
-        mGlobalParticleScale.set(scale);
-    }
-    void setGlobalDynamicsScale(const JGeometry::TVec3<f32>& scale) {
-        mGlobalDynamicsScale.set(scale);
-    }
-    void setEmitterTranslation(const JGeometry::TVec3<f32>& trans) {
-        mEmitterTranslation.set(trans);
-    }
-    void setEmitterScale(const JGeometry::TVec3<f32>& scale) {
-        mEmitterScale.set(scale);
-    }
-    void setDirection(const JGeometry::TVec3<f32>& dir) {
-        mEmitterDir.set(dir);
-    }
+    void setGlobalParticleScale(const JGeometry::TVec3<f32>& scale) { mGlobalParticleScale.set(scale); }
+    void setGlobalDynamicsScale(const JGeometry::TVec3<f32>& scale) { mGlobalDynamicsScale.set(scale); }
+    void setEmitterTranslation(const JGeometry::TVec3<f32>& trans) { mEmitterTranslation.set(trans); }
+    void setEmitterScale(const JGeometry::TVec3<f32>& scale) { mEmitterScale.set(scale); }
+    void setDirection(const JGeometry::TVec3<f32>& dir) { mEmitterDir.set(dir); }
     void setMaxFrame(s32 maxFrame) { mMaxFrame = maxFrame; }
     void setGlobalPrmColor(u8 r, u8 g, u8 b) {
         mGlobalPrmColor.r = r;
@@ -264,9 +249,7 @@ public:
         stopCreateParticle();
     }
 
-    void setEmitterCallBackPtr(JPACallBackBase<JPABaseEmitter*>* callback) {
-        mpEmitterCallBack = callback;
-    }
+    void setEmitterCallBackPtr(JPACallBackBase<JPABaseEmitter*>* callback) { mpEmitterCallBack = callback; }
     void setParticleCallBackPtr(JPACallBackBase2<JPABaseEmitter*, JPABaseParticle*>* callback) {
         mpParticleCallBack = callback;
     }
@@ -277,7 +260,10 @@ public:
     void draw(Mtx44Ptr cameraMtxP) { mDraw.draw(cameraMtxP); }
 
     f32 getRandomF() { return mRandomSeed.get_ufloat_1(); }
-    f32 getRandomRF() { f32 x = mRandomSeed.get_ufloat_1(); return x + x - 1.0f; }
+    f32 getRandomRF() {
+        f32 x = mRandomSeed.get_ufloat_1();
+        return x + x - 1.0f;
+    }
     f32 getRandomSF() { return mRandomSeed.get_ufloat_1() - 0.5f; }
     s16 getRandomSS() { return mRandomSeed.get_bit16(); }
 
@@ -321,17 +307,19 @@ public:
     static f32 getAspect() { return emtrInfo.mAspect; }
     static f32 getFovy() { return emtrInfo.mFovy; }
 
-private:
+  private:
     void calcAfterCB() {
-        if (mpEmitterCallBack != NULL)
+        if (mpEmitterCallBack != NULL) {
             mpEmitterCallBack->executeAfter(this);
+        }
     }
     void calcBeforeCB() {
-        if (mpEmitterCallBack != NULL)
+        if (mpEmitterCallBack != NULL) {
             mpEmitterCallBack->execute(this);
+        }
     }
 
-public:
+  public:
     /* 0x000 */ VolumeFunc mVolumeFunc;
     /* 0x00C */ JGeometry::TVec3<f32> mEmitterScale;
     /* 0x018 */ JGeometry::TVec3<f32> mEmitterTranslation;

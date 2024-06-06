@@ -9,9 +9,7 @@ void JMAEulerToQuat(s16 x, s16 y, s16 z, Quaternion* out);
 void JMAQuatLerp(Quaternion* a, Quaternion* b, f32 t, Quaternion* out);
 f32 JMAHermiteInterpolation(f32 frame, f32 time0, f32 value0, f32 tangent0, f32 time1, f32 value1, f32 tangent1);
 
-inline f32 JMAFastReciprocal(f32 value) {
-    return __fres(value);
-}
+inline f32 JMAFastReciprocal(f32 value) { return __fres(value); }
 
 inline float __frsqrtes(register double f) {
     register float out;
@@ -39,13 +37,11 @@ inline f32 JMAFastSqrt(register f32 input) {
 
 namespace JMath {
 
-inline f32 fastReciprocal(f32 value) {
-    return JMAFastReciprocal(value);
-}
+    inline f32 fastReciprocal(f32 value) { return JMAFastReciprocal(value); }
 
-inline void gekko_ps_copy3(register void* dst, register const void* src) {
-    register f32 src0;
-    register f32 src1;
+    inline void gekko_ps_copy3(register void* dst, register const void* src) {
+        register f32 src0;
+        register f32 src1;
 #ifdef __MWERKS__ // clang-format off
     asm {
         psq_l src0, 0(src), 0, 0
@@ -54,12 +50,12 @@ inline void gekko_ps_copy3(register void* dst, register const void* src) {
         stfs src1, 8(dst)
     };
 #endif // clang-format on
-}
+    }
 
-inline void gekko_ps_copy6(register void* dst, register const void* src) {
-    register f32 src0;
-    register f32 src1;
-    register f32 src2;
+    inline void gekko_ps_copy6(register void* dst, register const void* src) {
+        register f32 src0;
+        register f32 src1;
+        register f32 src2;
 #ifdef __MWERKS__ // clang-format off
     asm {
         psq_l src0, 0(src), 0, 0
@@ -70,15 +66,15 @@ inline void gekko_ps_copy6(register void* dst, register const void* src) {
         psq_st src2, 16(dst), 0, 0
     };
 #endif // clang-format on
-}
+    }
 
-inline void gekko_ps_copy12(register void* dst, register const void* src) {
-    register f32 src0;
-    register f32 src1;
-    register f32 src2;
-    register f32 src3;
-    register f32 src4;
-    register f32 src5;
+    inline void gekko_ps_copy12(register void* dst, register const void* src) {
+        register f32 src0;
+        register f32 src1;
+        register f32 src2;
+        register f32 src3;
+        register f32 src4;
+        register f32 src5;
 #ifdef __MWERKS__ // clang-format off
     asm {
         psq_l src0, 0(src), 0, 0
@@ -95,17 +91,17 @@ inline void gekko_ps_copy12(register void* dst, register const void* src) {
         psq_st src5, 40(dst), 0, 0
     };
 #endif // clang-format on
-}
+    }
 
-inline void gekko_ps_copy16(register void* dst, register const void* src) {
-    register f32 src0;
-    register f32 src1;
-    register f32 src2;
-    register f32 src3;
-    register f32 src4;
-    register f32 src5;
-    register f32 src6;
-    register f32 src7;
+    inline void gekko_ps_copy16(register void* dst, register const void* src) {
+        register f32 src0;
+        register f32 src1;
+        register f32 src2;
+        register f32 src3;
+        register f32 src4;
+        register f32 src5;
+        register f32 src6;
+        register f32 src7;
 #ifdef __MWERKS__ // clang-format off
     asm {
         psq_l src0, 0(src), 0, 0
@@ -126,8 +122,8 @@ inline void gekko_ps_copy16(register void* dst, register const void* src) {
         psq_st src7, 56(dst), 0, 0
     };
 #endif // clang-format on
-}
+    }
 
-};  // namespace JMath
+}; // namespace JMath
 
 #endif /* JMATH_H */

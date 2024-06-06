@@ -8,7 +8,7 @@ enum EIoState {
 };
 
 class JSUIosBase {
-public:
+  public:
     JSUIosBase() { mState = false; }
 
     virtual ~JSUIosBase() {}
@@ -17,8 +17,8 @@ public:
     void clrState(EIoState state) { mState &= ~state; }
     void setState(EIoState state) { mState |= state; }
 
-private:
+  private:
     u8 mState;
-};  // Size = 0x8
+}; // Size = 0x8
 
 #endif

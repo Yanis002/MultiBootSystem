@@ -12,7 +12,7 @@ struct JPAKeyBlockData {
 };
 
 class JPAKeyBlock {
-public:
+  public:
     virtual ~JPAKeyBlock() {}
     virtual u8 getID() = 0;
     virtual bool isLoopEnable() = 0;
@@ -21,7 +21,7 @@ public:
 };
 
 class JPAKeyBlockArc : public JPAKeyBlock {
-public:
+  public:
     JPAKeyBlockArc(const u8*);
     virtual ~JPAKeyBlockArc() {}
     virtual u8 getID() { return mpData->mID; }
@@ -29,7 +29,7 @@ public:
     virtual u8 getNumber() { return mpData->mNumber; }
     virtual const f32* getKeyDataPtr() { return mpKeyData; }
 
-public:
+  public:
     /* 0x04 */ const JPAKeyBlockData* mpData;
     /* 0x08 */ const f32* mpKeyData;
 };

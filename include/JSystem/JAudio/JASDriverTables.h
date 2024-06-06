@@ -3,7 +3,6 @@
 
 #include "dolphin/types.h"
 #include "macros.h"
-#include "dolphin/types.h"
 
 namespace JASystem {
     namespace Driver {
@@ -12,7 +11,7 @@ namespace JASystem {
     namespace DSPInterface {
         extern u16 DSPADPCM_FILTER[] ATTRIBUTE_ALIGN(32);
         extern u16 DSPRES_FILTER[] ATTRIBUTE_ALIGN(32);
-    }
-}
+    } // namespace DSPInterface
+} // namespace JASystem
 
 #endif /* JASDRIVERTABLES_H */

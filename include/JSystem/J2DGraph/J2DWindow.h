@@ -10,14 +10,14 @@ class JUTTexture;
 class JUTPalette;
 
 class J2DWindow : public J2DPane {
-public:
+  public:
     struct TContentsColor {
         TContentsColor() {}
         /* 0x0 */ JUtility::TColor mTL;
         /* 0x4 */ JUtility::TColor mTR;
         /* 0x8 */ JUtility::TColor mBL;
         /* 0xC */ JUtility::TColor mBR;
-    };  // Size: 0x10
+    }; // Size: 0x10
 
     J2DWindow(J2DPane*, JSURandomInputStream*);
 
@@ -44,7 +44,7 @@ public:
     void setContentsColor(JUtility::TColor) {}
     void setWhite(JUtility::TColor) {}
 
-public:
+  public:
     /* 0x0CC */ JUTTexture* mpFrameTexture1;
     /* 0x0D0 */ JUTTexture* mpFrameTexture2;
     /* 0x0D4 */ JUTTexture* mpFrameTexture3;

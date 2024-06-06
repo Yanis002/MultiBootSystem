@@ -20,7 +20,7 @@ namespace JASystem {
 
         extern int sTableSize;
         extern TWaveBank** sWaveBank;
-    }
-}
+    } // namespace WaveBankMgr
+} // namespace JASystem
 
 #endif /* JASWAVEBANKMGR_H */

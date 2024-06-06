@@ -46,7 +46,7 @@ struct J3DShapeBlock {
     /* 0x20 */ u8* mpDisplayListData;
     /* 0x24 */ J3DShapeMtxInitData* mpMtxInitData;
     /* 0x28 */ J3DShapeDrawInitData* mpDrawInitData;
-};  // Size: 0x2C
+}; // Size: 0x2C
 
 struct J3DShapeFactory {
     J3DShapeFactory(const J3DShapeBlock&);
@@ -68,7 +68,9 @@ struct J3DShapeFactory {
     /* 0x1C */ u8* mpVcdVatCmdBuffer;
 
     u32 getMtxGroupNum(int no) const { return mpShapeInitData[mpIndexTable[no]].mMtxGroupNum; }
-    GXVtxDescList* getVtxDescList(int no) const { return (GXVtxDescList*)((u8*)mpVtxDescList + mpShapeInitData[mpIndexTable[no]].mVtxDescListIndex); }
+    GXVtxDescList* getVtxDescList(int no) const {
+        return (GXVtxDescList*)((u8*)mpVtxDescList + mpShapeInitData[mpIndexTable[no]].mVtxDescListIndex);
+    }
     f32 getRadius(int no) const { return mpShapeInitData[mpIndexTable[no]].mRadius; }
     Vec& getMin(int no) const { return mpShapeInitData[mpIndexTable[no]].mMin; }
     Vec& getMax(int no) const { return mpShapeInitData[mpIndexTable[no]].mMax; }

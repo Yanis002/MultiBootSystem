@@ -8,10 +8,10 @@ namespace JAInter {
     class SeParameter;
     class SeqParameter;
     class StreamParameter;
-}
+} // namespace JAInter
 
 class JAISound {
-public:
+  public:
     JAISound();
     virtual f32 setPositionDopplarCommon(u32);
     virtual f32 setDistanceVolumeCommon(f32, u8);
@@ -145,8 +145,8 @@ public:
 
 namespace JAInter {
     class MoveParaSet {
-    public:
-        MoveParaSet(f32 param_1=1.0f) { init(param_1); }
+      public:
+        MoveParaSet(f32 param_1 = 1.0f) { init(param_1); }
         int set(f32 param_1, u32 param_2);
         bool move();
 
@@ -163,17 +163,17 @@ namespace JAInter {
     };
 
     class MoveParaSetInitHalf : public MoveParaSet {
-    public:
+      public:
         MoveParaSetInitHalf() : MoveParaSet(0.5f) {}
     };
 
     class MoveParaSetInitZero : public MoveParaSet {
-    public:
+      public:
         MoveParaSetInitZero() : MoveParaSet(0.0f) {}
     };
 
     class LinkSound {
-    public:
+      public:
         void init(JAISound* param_1, u32 param_2);
         JAISound* getSound();
         void releaseSound(JAISound* param_1);
@@ -182,6 +182,6 @@ namespace JAInter {
         /* 0x04 */ JAISound* field_0x4;
         /* 0x08 */ JAISound* Buffer;
     };
-}
+} // namespace JAInter
 
 #endif /* JAISOUND_H */

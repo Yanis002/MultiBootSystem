@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TInstSense : public TInstEffect {
-    public:
+      public:
         TInstSense() {
             field_0x8 = 0;
             field_0x9 = 60;
@@ -20,6 +20,6 @@ namespace JASystem {
         f32 field_0xc;
         f32 field_0x10;
     };
-}
+} // namespace JASystem
 
 #endif /* JASINSTSENSE_H */

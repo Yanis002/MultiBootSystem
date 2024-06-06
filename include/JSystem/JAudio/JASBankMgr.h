@@ -26,7 +26,7 @@ namespace JASystem {
         extern u16* sVir2PhyTable;
 
         extern TOscillator::Osc_ OSC_ENV;
-    }
-}
+    } // namespace BankMgr
+} // namespace JASystem
 
 #endif /* JASBANKMGR_H */

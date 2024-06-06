@@ -4,11 +4,11 @@
 #include "JSystem/JGadget/linklist.h"
 #include "JSystem/JKernel/JKRDisposer.h"
 #include "JSystem/JUtility/JUTFont.h"
-#include "stdarg.h"
 #include "dolphin/types.h"
+#include "stdarg.h"
 
 class JUTConsole : public JKRDisposer {
-public:
+  public:
     enum EConsoleType {
         ACTIVE = 0,
         INACTIVE = 1,
@@ -78,21 +78,17 @@ public:
         return diff += mMaxLines;
     }
 
-    int prevIndex(int index) const {
-        return --index < 0 ? index = mMaxLines - 1 : index;
-    }
+    int prevIndex(int index) const { return --index < 0 ? index = mMaxLines - 1 : index; }
 
-    int nextIndex(int index) const {
-        return ++index >= mMaxLines ? 0 : index;
-    }
+    int nextIndex(int index) const { return ++index >= mMaxLines ? 0 : index; }
 
     void scrollToLastLine() { scroll(mMaxLines); }
     void scrollToFirstLine() { scroll(-mMaxLines); }
 
-public:
+  public:
     /* 0x18 */ JGadget::TLinkListNode mLinkNode;
 
-private:
+  private:
     /* 0x20 */ u32 field_0x20;
     /* 0x24 */ s32 mMaxLines;
     /* 0x28 */ u8* mBuf;
@@ -114,10 +110,10 @@ private:
     /* 0x65 */ bool field_0x65;
     /* 0x66 */ bool field_0x66;
     /* 0x67 */ bool field_0x67;
-};  // Size: 0x68
+}; // Size: 0x68
 
 class JUTConsoleManager {
-public:
+  public:
     JUTConsoleManager();
     static JUTConsoleManager* createManager(JKRHeap*);
     void appendConsole(JUTConsole*);
@@ -134,11 +130,11 @@ public:
 
     typedef JGadget::TLinkList<JUTConsole, -OFFSETOF(JUTConsole, mLinkNode)> ConsoleList;
 
-private:
+  private:
     /* 0x00 */ ConsoleList soLink_;
     /* 0x0C */ JUTConsole* mActiveConsole;
     /* 0x10 */ JUTConsole* mDirectConsole;
-};  // Size: 0x14
+}; // Size: 0x14
 
 extern "C" void JUTConsole_print_f_va_(JUTConsole*, const char*, va_list);
 extern "C" void JUTSetReportConsole(JUTConsole*);

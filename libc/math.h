@@ -32,9 +32,7 @@ f64 floor(f64 x);
 f64 copysign(f64 x, f64 y);
 
 f64 fmod(double, double);
-inline f32 fmodf(float f1, float f2) {
-    return fmod(f1, f2);
-}
+inline f32 fmodf(float f1, float f2) { return fmod(f1, f2); }
 
 f32 sinf(f32 x);
 f32 cosf(f32 x);

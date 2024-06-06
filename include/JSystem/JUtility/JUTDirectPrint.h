@@ -9,13 +9,13 @@ typedef va_list __tag_va_List;
 namespace std {
     // no idea what this is or why it is used instead of va_list
     struct __tag_va_List {};
-}
+} // namespace std
 
 class JUTDirectPrint {
-private:
+  private:
     JUTDirectPrint();
 
-public:
+  public:
     void erase(int, int, int, int);
     void drawChar(int, int, int);
     void changeFrameBuffer(void*, u16, u16);
@@ -30,18 +30,18 @@ public:
 
     void* getFrameBuffer() { return field_0x00; }
     bool isActive() const { return field_0x00 != 0; }
-    void changeFrameBuffer(void *param_0) { changeFrameBuffer(param_0, mFrameBufferWidth, mFrameBufferHeight); }
+    void changeFrameBuffer(void* param_0) { changeFrameBuffer(param_0, mFrameBufferWidth, mFrameBufferHeight); }
 
     static JUTDirectPrint* getManager() { return sDirectPrint; }
 
-private:
+  private:
     static u8 sAsciiTable[128];
     static u32 sFontData[64];
     static u32 sFontData2[77];
     static JUTDirectPrint* sDirectPrint;
     static u8 sDirectPrint_padding[4 /* padding */];
 
-private:
+  private:
     /* 0x00 */ void* field_0x00;
     /* 0x04 */ u16 mFrameBufferWidth;
     /* 0x06 */ u16 mFrameBufferHeight;

@@ -4,7 +4,6 @@
 #include "JSystem/J3DGraphAnimator/J3DJoint.h"
 #include "dolphin/types.h"
 #include "macros.h"
-#include "dolphin/types.h"
 
 class JUTNameTab;
 
@@ -25,24 +24,24 @@ struct J3DDrawMtxData {
     /* 0x2 */ u16 mDrawFullWgtMtxNum;
     /* 0x4 */ u8* mDrawMtxFlag;
     /* 0x8 */ u16* mDrawMtxIndex;
-};  // Size: 0xC
+}; // Size: 0xC
 
 class J3DShapeTable;
 class J3DShape;
 
 class J3DJointTree {
-public:
+  public:
     J3DJointTree() { clear(); }
     void clear();
     void makeHierarchy(J3DNode*, const J3DModelHierarchy**, J3DMaterialTable*, J3DShape**);
 
     virtual ~J3DJointTree() {}
 
-    J3DDrawMtxData * getDrawMtxData() { return &mDrawMtxData; }
+    J3DDrawMtxData* getDrawMtxData() { return &mDrawMtxData; }
     u16 getWEvlpMtxNum() const { return mWEvlpMtxNum; }
     u8 getWEvlpMixMtxNum(u16 idx) const { return mWEvlpMixMtxNum[idx]; }
-    u16 * getWEvlpMixMtxIndex() { return mWEvlpMixMtxIndex; }
-    f32 * getWEvlpMixWeight() { return mWEvlpMixWeight; }
+    u16* getWEvlpMixMtxIndex() { return mWEvlpMixMtxIndex; }
+    f32* getWEvlpMixWeight() { return mWEvlpMixWeight; }
     u16 getDrawFullWgtMtxNum() const { return mDrawMtxData.mDrawFullWgtMtxNum; }
     u16 getJointNum() const { return mJointNum; }
     u16 getDrawMtxNum() const { return mDrawMtxData.mEntryNum; }
@@ -61,7 +60,7 @@ public:
     bool checkFlag(u32 flag) { return mFlags & flag; }
     void setFlag(u32 flag) { mFlags = flag; }
 
-private:
+  private:
     friend class J3DModelLoader;
 
     /* 0x04 */ J3DModelHierarchy* mHierarchy;
@@ -79,7 +78,7 @@ private:
     /* 0x34 */ J3DDrawMtxData mDrawMtxData;
     /* 0x40 */ u32 field_0x40;
     /* 0x44 */ JUTNameTab* mJointName;
-};  // Size: 0x48
+}; // Size: 0x48
 
 STATIC_ASSERT(sizeof(J3DJointTree) == 0x48);
 

@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TInstRand : public TInstEffect {
-    public:
+      public:
         TInstRand() {
             field_0x8 = 1.0f;
             field_0xc = 0.0f;
@@ -15,6 +15,6 @@ namespace JASystem {
         /* 0x08 */ f32 field_0x8;
         /* 0x0C */ f32 field_0xc;
     };
-}
+} // namespace JASystem
 
 #endif /* JASINSTRAND_H */

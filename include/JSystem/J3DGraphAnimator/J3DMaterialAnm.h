@@ -4,7 +4,7 @@
 #include "JSystem/J3DGraphAnimator/J3DAnimation.h"
 
 class J3DMatColorAnm {
-public:
+  public:
     ~J3DMatColorAnm() {}
     J3DMatColorAnm() {
         mAnmColor = NULL;
@@ -27,15 +27,15 @@ public:
     void setAnmColor(J3DAnmColor* anmColor) { mAnmColor = anmColor; }
     void calc(GXColor* pColor) const;
 
-private:
+  private:
     /* 0x0 */ u16 mAnmIndex;
     /* 0x2 */ u16 mAnmFlag;
     /* 0x4 */ J3DAnmColor* mAnmColor;
-};  // Size: 0x8
+}; // Size: 0x8
 
 class J3DTexNoAnm {
-public:
-    ~J3DTexNoAnm() {};
+  public:
+    ~J3DTexNoAnm(){};
     J3DTexNoAnm() {
         mAnmTexPattern = NULL;
         mAnmIndex = 0;
@@ -54,14 +54,14 @@ public:
     J3DAnmTexPattern* getAnmTexPattern() { return mAnmTexPattern; }
     void setAnmTexPattern(J3DAnmTexPattern* pattern) { mAnmTexPattern = pattern; }
 
-private:
+  private:
     /* 0x4 */ u16 mAnmIndex;
     /* 0x6 */ u16 mAnmFlag;
     /* 0x8 */ J3DAnmTexPattern* mAnmTexPattern;
-};  // Size: 0xC
+}; // Size: 0xC
 
 class J3DTexMtxAnm {
-public:
+  public:
     ~J3DTexMtxAnm() {}
     J3DTexMtxAnm() {
         mAnmIndex = 0;
@@ -84,14 +84,14 @@ public:
     void setAnmTransform(J3DAnmTextureSRTKey* transform) { mAnmTransform = transform; }
     void calc(J3DTextureSRTInfo* pSRTInfo) const;
 
-private:
+  private:
     /* 0x0 */ u16 mAnmIndex;
     /* 0x2 */ u16 mAnmFlag;
     /* 0x4 */ J3DAnmTextureSRTKey* mAnmTransform;
-};  // Size: 0x8
+}; // Size: 0x8
 
 class J3DTevKColorAnm {
-public:
+  public:
     ~J3DTevKColorAnm() {}
     J3DTevKColorAnm() {
         mAnmTevReg = NULL;
@@ -114,14 +114,14 @@ public:
     void setAnmTevReg(J3DAnmTevRegKey* tevReg) { mAnmTevReg = tevReg; }
     void calc(GXColor* pColor) const;
 
-private:
+  private:
     /* 0x0 */ u16 mAnmIndex;
     /* 0x2 */ u16 mAnmFlag;
     /* 0x4 */ J3DAnmTevRegKey* mAnmTevReg;
-};  // Size: 0x8
+}; // Size: 0x8
 
 class J3DTevColorAnm {
-public:
+  public:
     ~J3DTevColorAnm() {}
     J3DTevColorAnm() {
         mAnmTevReg = NULL;
@@ -144,14 +144,14 @@ public:
     void setAnmTevReg(J3DAnmTevRegKey* tevReg) { mAnmTevReg = tevReg; }
     void calc(GXColorS10* pColor) const;
 
-private:
+  private:
     /* 0x0 */ u16 mAnmIndex;
     /* 0x2 */ u16 mAnmFlag;
     /* 0x4 */ J3DAnmTevRegKey* mAnmTevReg;
-};  // Size: 0x8
+}; // Size: 0x8
 
 class J3DMaterialAnm {
-public:
+  public:
     J3DMaterialAnm() { initialize(); }
 
     void initialize();
@@ -166,12 +166,12 @@ public:
 
     const J3DTexMtxAnm* getTexMtxAnm(int i) const { return mTexMtxAnm[i]; }
 
-private:
+  private:
     /* 0x04 */ J3DMatColorAnm* mMatColorAnm[2];
     /* 0x0C */ J3DTexMtxAnm* mTexMtxAnm[8];
     /* 0x2C */ J3DTexNoAnm* mTexNoAnm[8];
     /* 0x4C */ J3DTevColorAnm* mTevColorAnm[4];
     /* 0x5C */ J3DTevKColorAnm* mTevKColorAnm[4];
-};  // Size: 0x6C
+}; // Size: 0x6C
 
 #endif /* J3DMATERIALANM_H */

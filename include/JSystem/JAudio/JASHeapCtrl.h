@@ -7,12 +7,12 @@
 namespace JASystem {
     namespace Kernel {
         class TDisposer {
-        public:
+          public:
             virtual void onDispose() {}
         };
 
         class THeap {
-        public:
+          public:
             enum Type {
                 Type0,
                 Type1,
@@ -40,7 +40,7 @@ namespace JASystem {
         };
 
         class TSolidHeap {
-        public:
+          public:
             TSolidHeap();
             ~TSolidHeap() {}
             void* alloc(s32 param_1);
@@ -54,7 +54,7 @@ namespace JASystem {
             /* 0x0C */ int field_0xc;
             /* 0x10 */ int field_0x10;
         };
-    }
-}
+    } // namespace Kernel
+} // namespace JASystem
 
 #endif /* JASHEAPCTRL_H */

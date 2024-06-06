@@ -1,8 +1,8 @@
 #ifndef JAIANIMATION_H
 #define JAIANIMATION_H
 
-#include "macros.h"
 #include "dolphin/types.h"
+#include "macros.h"
 
 class Vec;
 class JAISound;
@@ -19,7 +19,7 @@ struct JAIAnimeSound__Slot {
 };
 
 class JAIAnimeSound {
-public:
+  public:
     /* 0x00 */ JAIAnimeSound__Slot mSlots[8];
     /* 0x60 */ u32 field_0x60;
     /* 0x64 */ u32 field_0x64;
@@ -35,7 +35,7 @@ public:
     /* 0x90 */ u16* mpData;
     /* 0x94 */ /* vtable */
 
-public:
+  public:
     JAIAnimeSound();
     void initActorAnimSound(void*, u32, f32);
     void setAnimSoundVec(JAIBasic*, Vec*, f32, f32, u32, u8);
@@ -44,6 +44,6 @@ public:
     virtual void startAnimSound(void*, u32, JAISound**, JAInter::Actor*, u8);
     virtual void setSpeedModifySound(JAISound*, JAIAnimeFrameSoundData*, f32);
     void stop();
-};  // Size: 0x98
+}; // Size: 0x98
 
 #endif /* JAIANIMATION_H */

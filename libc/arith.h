@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 typedef struct {
-    int quot;  /* quotient */
-    int rem;   /* remainder */
+    int quot; /* quotient */
+    int rem; /* remainder */
 } div_t;
 
 div_t div(int numerator, int denominator);

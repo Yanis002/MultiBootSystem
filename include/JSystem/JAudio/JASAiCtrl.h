@@ -26,7 +26,7 @@ namespace JASystem {
         extern u8 extMixMode;
 
         inline void JASAiMixLimit16(s32) {} // TODO
-    }
-}
+    } // namespace Kernel
+} // namespace JASystem
 
 #endif /* JASAICTRL_H */

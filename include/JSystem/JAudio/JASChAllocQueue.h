@@ -11,9 +11,9 @@ namespace JASystem {
         int deleteQueue(JASystem::TChannel*);
         void checkQueue();
 
-    }
+    } // namespace TDSPQueue
 
     extern JSUList<TChannel> sDspQueueList;
-}
+} // namespace JASystem
 
 #endif /* JASCHALLOCQUEUE_H */

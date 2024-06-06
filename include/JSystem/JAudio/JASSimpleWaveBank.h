@@ -7,9 +7,9 @@
 
 namespace JASystem {
     class TSimpleWaveBank : public TWaveBank, public TWaveArc {
-    public:
+      public:
         class TWaveHandle : public JASystem::TWaveHandle {
-        public:
+          public:
             TWaveHandle() { mHeap = NULL; }
             ~TWaveHandle();
             const TWaveInfo* getWaveInfo() const { return &mWaveInfo; }
@@ -34,6 +34,6 @@ namespace JASystem {
         /* 0x7C */ TWaveHandle* mWaveTable;
         /* 0x80 */ u32 mWaveCount;
     };
-}
+} // namespace JASystem
 
 #endif /* JASSIMPLEWAVEBANK_H */

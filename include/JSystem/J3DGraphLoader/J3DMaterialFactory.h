@@ -1,9 +1,9 @@
 #ifndef J3DMATERIALFACTORY_H
 #define J3DMATERIALFACTORY_H
 
-#include "dolphin/types.h"
-#include "dolphin/gx.h"
 #include "JSystem/J3DGraphBase/J3DStruct.h"
+#include "dolphin/gx.h"
+#include "dolphin/types.h"
 
 class J3DMaterial;
 struct J3DMaterialBlock;
@@ -106,7 +106,7 @@ struct J3DDisplayListInit {
 };
 
 class J3DMaterialFactory {
-public:
+  public:
     enum MaterialType {
         MATERIAL_TYPE_NORMAL = 0,
         MATERIAL_TYPE_LOCKED = 1,
@@ -158,7 +158,7 @@ public:
     u16 getMaterialID(int idx) const { return mpMaterialID[idx]; }
     u8 getMaterialMode(int idx) const { return mpMaterialInitData[getMaterialID(idx)].mMaterialMode; }
 
-private:
+  private:
     /* 0x00 */ u16 mMaterialNum;
     /* 0x02 */
     /* 0x04 */ J3DMaterialInitData* mpMaterialInitData;

@@ -26,6 +26,6 @@ namespace JStage {
         virtual void JSGGetDirection(Vec*) const;
         virtual void JSGSetDirection(Vec const&);
     };
-};
+}; // namespace JStage
 
 #endif /* JSGLIGHT_H */

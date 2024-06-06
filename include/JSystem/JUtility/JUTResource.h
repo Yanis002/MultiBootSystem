@@ -7,12 +7,12 @@ class JKRArchive;
 class JSUInputStream;
 
 class JUTResReference {
-private:
+  private:
     /* 0x0 */ u8 mType;
     /* 0x1 */ u8 mNameLength;
     /* 0x2 */ char mName[0x100];
 
-public:
+  public:
     enum ResType {
         RESTYPE_Null = 0,
         RESTYPE_Unk1 = 1,

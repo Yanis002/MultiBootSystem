@@ -47,12 +47,12 @@ namespace JASystem {
         /* 0x40 */ int field_0x40;
     };
     class TInst {
-    public:
+      public:
         TInst() {}
         virtual ~TInst() {}
         virtual bool getParam(int, int, TInstParam*) const = 0;
         virtual u32 getType() const = 0;
     };
-}
+} // namespace JASystem
 
 #endif /* JASINST_H */

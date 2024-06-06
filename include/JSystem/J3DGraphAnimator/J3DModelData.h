@@ -4,9 +4,9 @@
 #include "JSystem/J3DGraphAnimator/J3DJointTree.h"
 #include "JSystem/J3DGraphAnimator/J3DMaterialAttach.h"
 #include "JSystem/J3DGraphAnimator/J3DShapeTable.h"
+#include "JSystem/J3DGraphBase/J3DMaterial.h"
 #include "JSystem/J3DGraphBase/J3DSys.h"
 #include "JSystem/J3DGraphBase/J3DVertex.h"
-#include "JSystem/J3DGraphBase/J3DMaterial.h"
 
 typedef struct _GXColor GXColor;
 class JUTNameTab;
@@ -24,7 +24,7 @@ enum {
 };
 
 class J3DModelData {
-public:
+  public:
     void clear();
     J3DModelData();
     s32 newSharedDisplayList(u32);
@@ -45,12 +45,10 @@ public:
     u16 getMaterialNum() const { return mMaterialTable.getMaterialNum(); }
     u16 getJointNum() const { return mJointTree.getJointNum(); }
     u16 getDrawMtxNum() const { return mJointTree.getDrawMtxNum(); }
-    J3DMaterial* getMaterialNodePointer(u16 idx) const {
-        return mMaterialTable.getMaterialNodePointer(idx);
-    }
+    J3DMaterial* getMaterialNodePointer(u16 idx) const { return mMaterialTable.getMaterialNodePointer(idx); }
     u32 getVtxNum() const { return mVertexData.getVtxNum(); }
     u32 getNrmNum() const { return mVertexData.getNrmNum(); }
-    J3DDrawMtxData * getDrawMtxData() { return mJointTree.getDrawMtxData(); }
+    J3DDrawMtxData* getDrawMtxData() { return mJointTree.getDrawMtxData(); }
     u8 getDrawMtxFlag(u16 idx) const { return mJointTree.getDrawMtxFlag(idx); }
     u16 getDrawMtxIndex(u16 idx) const { return mJointTree.getDrawMtxIndex(idx); }
     J3DShape* getShapeNodePointer(u16 idx) const { return mShapeTable.getShapeNodePointer(idx); }
@@ -85,18 +83,10 @@ public:
     void setTexMtxAnimator(J3DAnmTextureSRTKey* pAnm, J3DTexMtxAnm* pTexAnm, J3DTexMtxAnm* pDualAnmR) {
         mMaterialTable.setTexMtxAnimator(pAnm, pTexAnm, pDualAnmR);
     }
-    int removeTexNoAnimator(J3DAnmTexPattern* anm) {
-        return mMaterialTable.removeTexNoAnimator(anm);
-    }
-    int removeTexMtxAnimator(J3DAnmTextureSRTKey* anm) {
-        return mMaterialTable.removeTexMtxAnimator(anm);
-    }
-    int removeTevRegAnimator(J3DAnmTevRegKey* anm) {
-        return mMaterialTable.removeTevRegAnimator(anm);
-    }
-    int removeMatColorAnimator(J3DAnmColor* anm) {
-        return mMaterialTable.removeMatColorAnimator(anm);
-    }
+    int removeTexNoAnimator(J3DAnmTexPattern* anm) { return mMaterialTable.removeTexNoAnimator(anm); }
+    int removeTexMtxAnimator(J3DAnmTextureSRTKey* anm) { return mMaterialTable.removeTexMtxAnimator(anm); }
+    int removeTevRegAnimator(J3DAnmTevRegKey* anm) { return mMaterialTable.removeTevRegAnimator(anm); }
+    int removeMatColorAnimator(J3DAnmColor* anm) { return mMaterialTable.removeMatColorAnimator(anm); }
     void makeHierarchy(J3DNode* joint, const J3DModelHierarchy** hierarchy) {
         mJointTree.makeHierarchy(joint, hierarchy, &mMaterialTable, mShapeTable.mShapeNodePointer);
         initShapeNodes();
@@ -109,7 +99,7 @@ public:
     void setMatColorAnimator(J3DAnmColor*, J3DMatColorAnm*) {}
     void setTexNoAnimator(J3DAnmTexPattern*, J3DTexNoAnm*) {}
 
-private:
+  private:
     friend class J3DModelLoader;
 
     /* 0x04 */ const void* mpRawData;
@@ -120,8 +110,8 @@ private:
     /* 0x58 */ J3DMaterialTable mMaterialTable;
     /* 0x7C */ J3DShapeTable mShapeTable;
     /* 0x84 */ J3DVertexData mVertexData;
-    /* 0xE0 */ JUTNameTab * mName;
-};  // Size: 0xE4
+    /* 0xE0 */ JUTNameTab* mName;
+}; // Size: 0xE4
 
 STATIC_ASSERT(sizeof(J3DModelData) == 0xE4);
 

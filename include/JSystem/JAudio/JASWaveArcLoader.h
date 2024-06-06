@@ -13,10 +13,10 @@ namespace JASystem {
 
         extern Kernel::THeap sAramHeap;
         extern char sCurrentDir[];
-    };
+    }; // namespace WaveArcLoader
 
     class TWaveArc : public Kernel::TDisposer {
-    public:
+      public:
         TWaveArc();
         virtual void onLoadDone() {}
         virtual void onEraseDone() {}
@@ -38,6 +38,6 @@ namespace JASystem {
         /* 0x70 */ int mSize;
         /* 0x74 */ int field_0x74;
     };
-}
+} // namespace JASystem
 
 #endif /* JASWAVEARCLOADER_H */

@@ -28,7 +28,7 @@ struct J2DPaneHeader {
 };
 
 class J2DPane {
-public:
+  public:
     struct J2DScrnBlockHeader {
         /* 0x00 */ u32 mMagic;
         /* 0x04 */ u32 mSize;
@@ -93,7 +93,7 @@ public:
     void rotate(f32, f32, J2DRotateAxis, f32) {}
     void setInfluencedAlpha(bool) {}
 
-public:
+  public:
     /* 0x04 */ u32 mMagic;
     /* 0x08 */ int mTag;
     /* 0x0C */ JGeometry::TBox2<f32> mBounds;

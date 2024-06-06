@@ -6,13 +6,13 @@
 
 class JKRAMCommand;
 class JKRDecompCommand {
-public:
+  public:
     typedef void (*AsyncCallback)(u32);
 
     JKRDecompCommand();
     ~JKRDecompCommand();
 
-public:
+  public:
     /* 0x00 */ u32 field_0x0;
     /* 0x04 */ u8* mSrcBuffer;
     /* 0x08 */ u8* mDstBuffer;
@@ -31,13 +31,13 @@ public:
 #define JKRDECOMP_SYNC_NON_BLOCKING 1
 
 class JKRDecomp : public JKRThread {
-private:
+  private:
     JKRDecomp(s32);
     virtual ~JKRDecomp();
 
     /* vt[03] */ virtual void* run(); /* override */
 
-public:
+  public:
     static JKRDecomp* create(s32);
     static JKRDecompCommand* prepareCommand(u8*, u8*, u32, u32, JKRDecompCommand::AsyncCallback);
     static void sendCommand(JKRDecompCommand*);
@@ -58,16 +58,10 @@ inline void JKRDecompress(u8* srcBuffer, u8* dstBuffer, u32 srcLength, u32 dstLe
     JKRDecomp::orderSync(srcBuffer, dstBuffer, srcLength, dstLength);
 }
 
-inline JKRDecomp* JKRCreateDecompManager(s32 priority) {
-    return JKRDecomp::create(priority);
-}
+inline JKRDecomp* JKRCreateDecompManager(s32 priority) { return JKRDecomp::create(priority); }
 
-inline JKRCompression JKRCheckCompressed(u8 *pBuf) {
-    return JKRDecomp::checkCompressed(pBuf);
-}
+inline JKRCompression JKRCheckCompressed(u8* pBuf) { return JKRDecomp::checkCompressed(pBuf); }
 
-inline u32 JKRDecompExpandSize(u8* pBuf) {
-    return (pBuf[4] << 24) | (pBuf[5] << 16) | (pBuf[6] << 8) | pBuf[7];
-}
+inline u32 JKRDecompExpandSize(u8* pBuf) { return (pBuf[4] << 24) | (pBuf[5] << 16) | (pBuf[6] << 8) | pBuf[7]; }
 
 #endif /* JKRDECOMP_H */

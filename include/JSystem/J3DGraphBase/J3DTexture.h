@@ -29,11 +29,11 @@ inline void J3DGDLoadTexMtxImm(Mtx pMtx, u32 i, GXTexMtxType mType) {
 }
 
 class J3DTexture {
-private:
+  private:
     /* 0x0 */ u16 mNum;
     /* 0x4 */ ResTIMG* mpRes;
 
-public:
+  public:
     J3DTexture(u16 num, ResTIMG* res) : mNum(num), mpRes(res) {}
     virtual ~J3DTexture() {}
 
@@ -51,11 +51,9 @@ public:
 };
 
 class J3DTexMtx {
-public:
+  public:
     J3DTexMtx() { mTexMtxInfo = j3dDefaultTexMtxInfo; }
-    J3DTexMtx(const J3DTexMtxInfo& info) {
-        mTexMtxInfo = info;
-    }
+    J3DTexMtx(const J3DTexMtxInfo& info) { mTexMtxInfo = info; }
     ~J3DTexMtx() {}
     void load(u32 texMtxID) const {
         GDOverflowCheck(53);
@@ -75,11 +73,11 @@ public:
 
     void getTextureSRT() {}
 
-private:
+  private:
     /* 0x00 */ J3DTexMtxInfo mTexMtxInfo;
     /* 0x64 */ Mtx mMtx;
     /* 0x94 */ Mtx mViewMtx;
-};  // Size: 0xC4
+}; // Size: 0xC4
 
 struct J3DTexCoord : public J3DTexCoordInfo {
     J3DTexCoord() { *(J3DTexCoordInfo*)this = j3dDefaultTexCoordInfo[0]; }
@@ -89,6 +87,6 @@ struct J3DTexCoord : public J3DTexCoordInfo {
     u8 getTexGenSrc() { return mTexGenSrc; }
     u32 getTexGenMtx() { return mTexGenMtx & 0xFF; }
     void setTexGenMtx(u8 v) { mTexGenMtx = v; }
-};  // Size: 0x4
+}; // Size: 0x4
 
 #endif /* J3DTEXTURE_H */

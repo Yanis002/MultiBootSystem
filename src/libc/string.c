@@ -99,13 +99,11 @@ char* strcat(char* dst, const char* src) {
     const unsigned char* p = (unsigned char*)src - 1;
     unsigned char* q = (unsigned char*)dst - 1;
 
-    while (*++q) {
-    }
+    while (*++q) {}
 
     q--;
 
-    while (*++q = *++p) {
-    }
+    while (*++q = *++p) {}
 
     return dst;
 }

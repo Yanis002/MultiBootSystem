@@ -28,6 +28,6 @@ namespace JStage {
         virtual void JSGSetTextureAnimationFrame(f32);
         virtual f32 JSGGetTextureAnimationFrameMax() const;
     };
-};
+}; // namespace JStage
 
 #endif /* JSGACTOR_H */

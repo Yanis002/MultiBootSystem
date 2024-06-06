@@ -18,7 +18,7 @@ namespace JASystem {
         extern u8 dspStatus;
         extern int dacSyncCounter;
         extern void (*callback)(s16*, u32);
-    }
-}
+    } // namespace TDSP_DACBuffer
+} // namespace JASystem
 
 #endif /* JASDSPBUF_H */

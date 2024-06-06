@@ -11,7 +11,7 @@ class J3DMaterial;
 class J3DMtxBuffer;
 
 class J3DMtxCalc {
-public:
+  public:
     virtual void init(const Vec&, const Mtx&) {}
     virtual void recursiveCalc(J3DNode*) {}
     virtual void calcTransform(u16, const J3DTransformInfo&) {}
@@ -25,13 +25,13 @@ public:
     }
     void setAnmTransform(J3DAnmTransform* mAnmTransform) { mOne[0] = mAnmTransform; }
 
-public:
+  public:
     J3DAnmTransform* mOne[4];
     f32 mTwo[4];
 };
 
 class J3DMtxCalcAnm : public virtual J3DMtxCalc {
-public:
+  public:
     J3DMtxCalcAnm(J3DAnmTransform* mAnmTransform) : J3DMtxCalc() {
         initAnm();
         setAnmTransform(mAnmTransform);
@@ -41,12 +41,12 @@ public:
 };
 
 class J3DMtxCalcBasic : public virtual J3DMtxCalc {
-private:
+  private:
     Mtx mBackupMtx;
     Vec mBackupS;
     Vec mBackupParentS;
 
-public:
+  public:
     J3DMtxCalcBasic();
     // TODO: vtable is in wrong order, but fixing it breaks J3DUMotion
     virtual void recursiveCalc(J3DNode*);
@@ -64,7 +64,7 @@ public:
 };
 
 class J3DMtxCalcSoftimage : public J3DMtxCalcBasic {
-public:
+  public:
     J3DMtxCalcSoftimage() : J3DMtxCalc() {}
     virtual void calcTransform(u16, const J3DTransformInfo&);
     virtual ~J3DMtxCalcSoftimage();
@@ -72,7 +72,7 @@ public:
 };
 
 class J3DMtxCalcMaya : public J3DMtxCalcBasic {
-public:
+  public:
     J3DMtxCalcMaya() : J3DMtxCalcBasic() {}
     virtual ~J3DMtxCalcMaya() {}
     virtual void init(const Vec& vec, const Mtx& mtx) {
@@ -96,9 +96,8 @@ public:
 };
 
 class J3DMtxCalcMayaAnm : public J3DMtxCalcMaya, public J3DMtxCalcAnm {
-public:
-    J3DMtxCalcMayaAnm(J3DAnmTransform* pAnmTransform)
-        : J3DMtxCalcMaya(), J3DMtxCalcAnm(pAnmTransform) {}
+  public:
+    J3DMtxCalcMayaAnm(J3DAnmTransform* pAnmTransform) : J3DMtxCalcMaya(), J3DMtxCalcAnm(pAnmTransform) {}
     virtual ~J3DMtxCalcMayaAnm() {}
     virtual void calc(u16 v) { J3DMtxCalcAnm::calc(v); }
 };
@@ -111,7 +110,7 @@ enum J3DJointMtxType {
 };
 
 class J3DJoint : public J3DNode {
-public:
+  public:
     void initialize();
     void addMesh(J3DMaterial*);
     void calcIn();
@@ -141,7 +140,7 @@ public:
 
     static J3DMtxCalc* mCurrentMtxCalc;
 
-private:
+  private:
     friend struct J3DJointFactory;
     friend class J3DJointTree;
 
@@ -155,6 +154,6 @@ private:
     /* 0x58 */ J3DMtxCalc* mMtxCalc;
     /* 0x5C */ J3DMtxCalc* mOldMtxCalc;
     /* 0x60 */ J3DMaterial* mMesh;
-};  // Size: 0x64
+}; // Size: 0x64
 
 #endif /* J3DJOINT_H */

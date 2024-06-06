@@ -1,8 +1,8 @@
 #ifndef JPAFIELD_H
 #define JPAFIELD_H
 
-#include "JSystem/JSupport/JSUList.h"
 #include "JSystem/JGeometry.h"
+#include "JSystem/JSupport/JSUList.h"
 
 class JPADataBlockLinkInfo;
 class JPAEmitterInfo;
@@ -12,29 +12,29 @@ class JPABaseField;
 class JPAFieldBlock;
 
 class JPAFieldManager {
-public:
+  public:
     void initField(JPADataBlockLinkInfo*, JPAEmitterInfo*);
     void init(JPABaseParticle*);
     void preCalc();
     void calc(JPABaseParticle*);
     void deleteField(JPAFieldData*);
     void deleteAllField();
-    
-public:
+
+  public:
     /* 0x00 */ JSUList<JPAFieldData> mList;
     /* 0x0C */ JSUList<JPAFieldData>* mVacList;
 };
 
 class JPAFieldData {
-public:
+  public:
     JPAFieldData() : mLink(this) {}
     virtual ~JPAFieldData() {}
     JSULink<JPAFieldData>* getLinkBufferPtr() { return &mLink; }
 
-    static JPAEmitterInfo * pEmtrInfo;
+    static JPAEmitterInfo* pEmtrInfo;
 
-public:
-    /* 0x04 */ JPABaseField * mpBaseField;
+  public:
+    /* 0x04 */ JPABaseField* mpBaseField;
     /* 0x08 */ JSULink<JPAFieldData> mLink;
     /* 0x18 */ JGeometry::TVec3<f32> mVel;
     /* 0x24 */ JGeometry::TVec3<f32> mWork0;
@@ -63,7 +63,7 @@ public:
 };
 
 class JPABaseField {
-public:
+  public:
     virtual ~JPABaseField() {}
     virtual void init(JPAFieldData*, JPABaseParticle*) {}
     virtual void preCalc(JPAFieldData*);
@@ -76,35 +76,35 @@ public:
 };
 
 class JPAGravityField : public JPABaseField {
-public:
+  public:
     virtual ~JPAGravityField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
 };
 
 class JPAAirField : public JPABaseField {
-public:
+  public:
     virtual ~JPAAirField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
 };
 
 class JPAMagnetField : public JPABaseField {
-public:
+  public:
     virtual ~JPAMagnetField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
 };
 
 class JPANewtonField : public JPABaseField {
-public:
+  public:
     virtual ~JPANewtonField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
 };
 
 class JPAVortexField : public JPABaseField {
-public:
+  public:
     virtual ~JPAVortexField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
@@ -112,7 +112,7 @@ public:
 };
 
 class JPAConvectionField : public JPABaseField {
-public:
+  public:
     virtual ~JPAConvectionField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
@@ -120,20 +120,20 @@ public:
 };
 
 class JPARandomField : public JPABaseField {
-public:
+  public:
     virtual ~JPARandomField() {}
     virtual void calc(JPAFieldData*, JPABaseParticle*);
 };
 
 class JPADragField : public JPABaseField {
-public:
+  public:
     virtual ~JPADragField() {}
     virtual void init(JPAFieldData*, JPABaseParticle*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
 };
 
 class JPASpinField : public JPABaseField {
-public:
+  public:
     virtual ~JPASpinField() {}
     virtual void preCalc(JPAFieldData*);
     virtual void calc(JPAFieldData*, JPABaseParticle*);
@@ -141,10 +141,10 @@ public:
 };
 
 class JPAFieldContainer {
-public:
+  public:
     ~JPAFieldContainer() {}
 
-public:
+  public:
     /* 0x00 */ JPAGravityField mGravity;
     /* 0x04 */ JPAAirField mAir;
     /* 0x08 */ JPAMagnetField mMagnet;

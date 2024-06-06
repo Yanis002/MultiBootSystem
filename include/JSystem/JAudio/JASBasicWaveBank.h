@@ -8,13 +8,11 @@
 
 namespace JASystem {
     class TBasicWaveBank : public TWaveBank {
-    public:
+      public:
         class TWaveHandle : public JASystem::TWaveHandle {
-        public:
+          public:
             ~TWaveHandle() {}
-            const JASystem::TWaveInfo* getWaveInfo() const {
-                return &mWaveInfo;
-            }
+            const JASystem::TWaveInfo* getWaveInfo() const { return &mWaveInfo; }
             const void* getWavePtr() const {
                 JUT_ASSERT(77, mHeap);
                 if (!mHeap->mBase) {
@@ -28,7 +26,7 @@ namespace JASystem {
         };
 
         class TWaveInfo {
-        public:
+          public:
             TWaveInfo() {
                 mWaveHandle.mHeap = NULL;
                 mWaveID = 0;
@@ -44,7 +42,7 @@ namespace JASystem {
         };
 
         class TWaveGroup : public TWaveArc {
-        public:
+          public:
             TWaveGroup(TBasicWaveBank*);
             ~TWaveGroup();
             void setWaveCount(u32);
@@ -74,6 +72,6 @@ namespace JASystem {
         /* 0x24 */ TWaveGroup** mWaveGroupArray;
         /* 0x28 */ u32 mWaveGroupCount;
     };
-}
+} // namespace JASystem
 
 #endif /* JASBASICWAVEBANK_H */

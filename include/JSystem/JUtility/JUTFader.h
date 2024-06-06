@@ -5,7 +5,7 @@
 #include "JSystem/JUtility/TColor.h"
 
 class JUTFader {
-public:
+  public:
     enum EStatus {
         UNKSTATUS_M1 = -1,
         UNKSTATUS_0 = 0,
@@ -15,7 +15,7 @@ public:
     void control();
     void setStatus(JUTFader::EStatus, int);
 
-    virtual ~JUTFader() {};
+    virtual ~JUTFader(){};
     virtual bool startFadeIn(int);
     virtual bool startFadeOut(int);
     virtual void draw();

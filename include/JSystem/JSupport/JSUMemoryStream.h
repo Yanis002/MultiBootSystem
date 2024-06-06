@@ -4,7 +4,7 @@
 #include "JSystem/JSupport/JSURandomInputStream.h"
 
 class JSUMemoryInputStream : public JSURandomInputStream {
-public:
+  public:
     JSUMemoryInputStream(const void* res, u32 size) { setBuffer(res, size); }
 
     virtual ~JSUMemoryInputStream() {}
@@ -14,10 +14,10 @@ public:
     s32 getLength() const;
     s32 getPosition() const;
 
-private:
+  private:
     /* 0x08 */ const void* mBuffer;
     /* 0x0C */ s32 mLength;
     /* 0x10 */ s32 mPosition;
-};  // Size = 0x14
+}; // Size = 0x14
 
 #endif /* JSUMEMORYSTREAM_H */

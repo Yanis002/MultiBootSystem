@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-#include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXData.h"
+#include "dolphin/gx/GXEnum.h"
 #include "dolphin/os/OSContext.h"
 
 #define GX_WRITE_U8(val) (GXWGFifo.u8 = val)

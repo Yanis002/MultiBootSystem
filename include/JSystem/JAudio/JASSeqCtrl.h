@@ -7,7 +7,7 @@ namespace JASystem {
     class TTrack;
 
     class TSeqCtrl {
-    public:
+      public:
         void init();
         void start(void*, u32);
         int loopEnd();
@@ -29,6 +29,6 @@ namespace JASystem {
         /* 0x40 */ int field_0x40;
         /* 0x44 */ u8* field_0x44;
     };
-}
+} // namespace JASystem
 
 #endif /* JASSEQCTRL_H */

@@ -17,7 +17,7 @@ namespace JStage {
     struct TObject {
         void JSGFDisableFlag(u32 flag) { JSGSetFlag(JSGGetFlag() & ~flag); }
         void JSGFEnableFlag(u32 flag) { JSGSetFlag(JSGGetFlag() | flag); }
-        
+
         virtual ~TObject() = 0;
         virtual s32 JSGFGetType() const = 0;
         virtual bool JSGGetName() const;
@@ -31,6 +31,6 @@ namespace JStage {
         virtual s32 JSGFindNodeID(char const*) const;
         virtual int JSGGetNodeTransformation(u32, Mtx44Ptr) const;
     };
-};
+}; // namespace JStage
 
 #endif /* JSGOBJECT_H */

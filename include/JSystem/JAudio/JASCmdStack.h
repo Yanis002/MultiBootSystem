@@ -8,13 +8,13 @@ namespace JASystem {
         class TPortArgs;
         class TPortCmd;
         class TPortHead {
-        public:
+          public:
             /* 0x00 */ TPortCmd* field_0x0;
             /* 0x04 */ TPortCmd* field_0x4;
         };
 
         class TPortCmd {
-        public:
+          public:
             TPortCmd();
             ~TPortCmd() {}
             bool addPortCmdOnce();
@@ -33,7 +33,7 @@ namespace JASystem {
         void portCmdInit();
         TPortCmd* getPortCmd(TPortHead*);
         s32 portCmdMain(void*);
-    }
-}
+    } // namespace Kernel
+} // namespace JASystem
 
 #endif /* JASCMDSTACK_H */

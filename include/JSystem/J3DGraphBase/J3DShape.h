@@ -7,7 +7,7 @@
 #include "dolphin/types.h"
 
 class J3DCurrentMtxInfo {
-public:
+  public:
     /* 0x00 */ u32 mMtxIdxRegA;
     /* 0x04 */ u32 mMtxIdxRegB;
 };
@@ -25,7 +25,7 @@ inline void JRNLoadXFCmdHdr(u16 cmd, u8 len) {
 }
 
 class J3DCurrentMtx : public J3DCurrentMtxInfo {
-public:
+  public:
     J3DCurrentMtx() {
         mMtxIdxRegA = 0x3cf3cf00;
         mMtxIdxRegB = 0x00f3cf3c;
@@ -40,8 +40,8 @@ public:
     u32 getMtxIdxRegB() const { return mMtxIdxRegB; }
 
     inline void load() const {
-        JRNLoadCPCmd(0x30, getMtxIdxRegA());  // CP_MATINDEX_A
-        JRNLoadCPCmd(0x40, getMtxIdxRegB());  // CP_MATINDEX_B
+        JRNLoadCPCmd(0x30, getMtxIdxRegA()); // CP_MATINDEX_A
+        JRNLoadCPCmd(0x40, getMtxIdxRegB()); // CP_MATINDEX_B
         JRNLoadXFCmdHdr(0x1018, 2);
         GXWGFifo.u32 = getMtxIdxRegA();
         GXWGFifo.u32 = getMtxIdxRegB();
@@ -67,10 +67,8 @@ enum J3DShpFlag {
 };
 
 class J3DShape {
-public:
-    J3DShape() {
-        initialize();
-    }
+  public:
+    J3DShape() { initialize(); }
 
     enum {
         kVcdVatDLSize = 0xC0,
@@ -128,7 +126,7 @@ public:
     static void* sOldVcdVatCmd;
     static u8 sEnvelopeFlag;
 
-private:
+  private:
     friend struct J3DShapeFactory;
     friend class J3DJointTree;
 

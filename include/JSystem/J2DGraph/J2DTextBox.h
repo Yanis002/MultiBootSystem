@@ -23,7 +23,7 @@ struct J2DTbxBlockHeader {
 };
 
 class J2DTextBox : public J2DPane {
-public:
+  public:
     struct TFontSize {
         /* 0x0 */ f32 mSizeX;
         /* 0x4 */ f32 mSizeY;
@@ -31,8 +31,7 @@ public:
 
     J2DTextBox(const char*, const char*);
     J2DTextBox(J2DPane*, JSURandomInputStream*);
-    J2DTextBox(u32, const JGeometry::TBox2<f32>&, const ResFONT*, const char*, J2DTextBoxHBinding,
-               J2DTextBoxVBinding);
+    J2DTextBox(u32, const JGeometry::TBox2<f32>&, const ResFONT*, const char*, J2DTextBoxHBinding, J2DTextBoxVBinding);
 
     void initiate(const ResFONT*, const char*, J2DTextBoxHBinding, J2DTextBoxVBinding);
     void setFont(JUTFont*);
@@ -40,9 +39,7 @@ public:
         mFontSizeX = sizeX > 0.0f ? sizeX : 0.0f;
         mFontSizeY = sizeY > 0.0f ? sizeY : 0.0f;
     }
-    void setFontSize(TFontSize size) {
-        setFontSize(size.mSizeX, size.mSizeY);
-    }
+    void setFontSize(TFontSize size) { setFontSize(size.mSizeX, size.mSizeY); }
     void getFontSize(TFontSize& size) const {
         size.mSizeX = mFontSizeX;
         size.mSizeY = mFontSizeY;
@@ -64,7 +61,7 @@ public:
     virtual void resize(f32, f32);
     virtual u16 getTypeID() { return 19; };
 
-private:
+  private:
     /* 0xCC */ JUTFont* mpFont;
     /* 0xD0 */ JUtility::TColor mCharColor;
     /* 0xD4 */ JUtility::TColor mGradColor;
@@ -80,6 +77,6 @@ private:
     /* 0xFC */ u8 mBindingH;
     /* 0xFD */ u8 mBindingV;
     /* 0xFE */ bool mTextFontOwned;
-};     // Size: 0x100
+}; // Size: 0x100
 
 #endif /* J2DTEXTBOX_H */

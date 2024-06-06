@@ -14,18 +14,18 @@ struct ResTLUT;
 
 enum J2DBinding {
     J2DBind_Bottom = (1 << 0),
-    J2DBind_Top    = (1 << 1),
-    J2DBind_Right  = (1 << 2),
-    J2DBind_Left   = (1 << 3),
+    J2DBind_Top = (1 << 1),
+    J2DBind_Right = (1 << 2),
+    J2DBind_Left = (1 << 3),
 };
 
 enum J2DMirror {
-    J2DMirror_Y    = (1 << 0),
-    J2DMirror_X    = (1 << 1),
+    J2DMirror_Y = (1 << 0),
+    J2DMirror_X = (1 << 1),
 };
 
 class J2DPicture : public J2DPane {
-public:
+  public:
     J2DPicture();
     J2DPicture(J2DPane*, JSURandomInputStream*);
     J2DPicture(const ResTIMG*);
@@ -37,28 +37,28 @@ public:
     virtual void drawSelf(f32 x, f32 y, Mtx* mtx);
     virtual void drawOut(f32 p1, f32 p2, f32 p3, f32 p4, f32 p5, f32 p6) {
         if (mpTexture[0]) {
-            drawOut(JGeometry::TBox2<f32>(p1, p2, p1 + p3, p2 + p4), JGeometry::TBox2<f32>(p5, p6, p5 + mpTexture[0]->getWidth(), p6 + mpTexture[0]->getHeight()));
+            drawOut(JGeometry::TBox2<f32>(p1, p2, p1 + p3, p2 + p4),
+                    JGeometry::TBox2<f32>(p5, p6, p5 + mpTexture[0]->getWidth(), p6 + mpTexture[0]->getHeight()));
         }
     }
     virtual void drawOut(f32 p1, f32 p2, f32 p3, f32 p4, f32 p5, f32 p6, f32 p7, f32 p8) {
         drawOut(JGeometry::TBox2<f32>(p1, p2, p1 + p3, p2 + p4), JGeometry::TBox2<f32>(p5, p6, p5 + p7, p6 + p8));
     }
-    JUTTexture * getTexture(u8 idx) const {
-        return idx < mNumTexture ? mpTexture[idx] : NULL;
-    }
+    JUTTexture* getTexture(u8 idx) const { return idx < mNumTexture ? mpTexture[idx] : NULL; }
     void initiate(const ResTIMG*, const ResTLUT*);
     void private_initiate(const ResTIMG*, const ResTLUT*);
     void initinfo();
     bool insert(const ResTIMG*, u8, f32);
     bool insert(const char*, u8, f32);
     bool remove(u8);
-    const ResTIMG * changeTexture(const ResTIMG*, u8);
-    const ResTIMG * changeTexture(const char*, u8);
+    const ResTIMG* changeTexture(const ResTIMG*, u8);
+    const ResTIMG* changeTexture(const char*, u8);
     void drawFullSet(f32, f32, f32, f32, J2DBinding, J2DMirror, bool, Mtx*);
     void draw(f32, f32, f32, f32, bool, bool, bool);
     void draw(f32 x, f32 y, bool mirrorX, bool mirrorY, bool tumble) {
-        if (mNumTexture > 0)
+        if (mNumTexture > 0) {
             draw(x, y, mpTexture[0]->getWidth(), mpTexture[0]->getHeight(), mirrorX, mirrorY, tumble);
+        }
     }
     void drawOut(const JGeometry::TBox2<f32>&, const JGeometry::TBox2<f32>&);
     void drawTexCoord(f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, Mtx*);
@@ -86,8 +86,14 @@ public:
         setBlendColorRatio(f1, f2, f3, f4);
         setBlendAlphaRatio(f1, f2, f3, f4);
     }
-    bool setWhite(JUtility::TColor white) { mColorWhite = white; return true; }
-    bool setBlack(JUtility::TColor black) { mColorBlack = black; return true; }
+    bool setWhite(JUtility::TColor white) {
+        mColorWhite = white;
+        return true;
+    }
+    bool setBlack(JUtility::TColor black) {
+        mColorBlack = black;
+        return true;
+    }
     bool setBlackWhite(JUtility::TColor black, JUtility::TColor white) {
         mColorBlack = black;
         mColorWhite = white;
@@ -110,7 +116,7 @@ public:
     void setTumble(bool v) {} // untested { mFlag = (mFlag & ~0x04) | (v << 2); }
     bool isTumble() const { return mFlag >> 2 & 1; }
 
-private:
+  private:
     /* 0x0CC */ JUTTexture* mpTexture[4];
     /* 0x0DC */ u8 mNumTexture;
     /* 0x0DD */ u8 mValidTexture;

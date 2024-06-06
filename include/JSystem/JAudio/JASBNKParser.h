@@ -73,7 +73,7 @@ namespace JASystem {
         s16* getOscTableEndPtr(s16*);
 
         extern u32 sUsedHeapSize;
-    };
-}
+    }; // namespace BNKParser
+} // namespace JASystem
 
 #endif /* JASBNKPARSER_H */

@@ -62,7 +62,7 @@ namespace JASystem {
         TSimpleWaveBank* createSimpleWaveBank(void*);
 
         extern u32 sUsedHeapSize;
-    }
-}
+    } // namespace WSParser
+} // namespace JASystem
 
 #endif /* JASWSPARSER_H */

@@ -1,8 +1,8 @@
 #ifndef JUTFONT_H
 #define JUTFONT_H
 
-#include "JSystem/JUtility/TColor.h"
 #include "JSystem/JUtility/JUTDataHeader.h"
+#include "JSystem/JUtility/TColor.h"
 #include "string.h"
 
 struct ResFONT {
@@ -52,7 +52,7 @@ struct ResFONT {
 };
 
 class JUTFont {
-public:
+  public:
     JUTFont();
     virtual ~JUTFont() {}
 
@@ -78,13 +78,12 @@ public:
 
     static bool isLeadByte_1Byte(int b) { return false; }
     static bool isLeadByte_2Byte(int b) { return true; }
-    static bool isLeadByte_ShiftJIS(int b) { return (b >= 0x81 && b <= 0x9f) || (b >= 0xe0 && b <= 0xfc);}
+    static bool isLeadByte_ShiftJIS(int b) { return (b >= 0x81 && b <= 0x9f) || (b >= 0xe0 && b <= 0xfc); }
 
     void initialize_state();
     void setCharColor(JUtility::TColor col1);
     void setGradColor(JUtility::TColor col1, JUtility::TColor col2);
-    f32 drawString_size_scale(f32 posX, f32 posY, f32 width, f32 height, const char* str, u32 usz,
-                              bool visible);
+    f32 drawString_size_scale(f32 posX, f32 posY, f32 width, f32 height, const char* str, u32 usz, bool visible);
 
     void drawString(int posX, int posY, const char* str, bool visible) {
         drawString_size(posX, posY, str, strlen(str), visible);
@@ -94,8 +93,7 @@ public:
         drawString_size_scale(posX, posY, getWidth(), getHeight(), str, len, visible);
     }
 
-    void drawString_scale(f32 posX, f32 posY, f32 width, f32 height, const char* str,
-                          bool visible) {
+    void drawString_scale(f32 posX, f32 posY, f32 width, f32 height, const char* str, bool visible) {
         drawString_size_scale(posX, posY, width, height, str, strlen(str), visible);
     }
 

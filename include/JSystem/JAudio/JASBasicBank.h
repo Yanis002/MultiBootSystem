@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TBasicBank : public TBank {
-    public:
+      public:
         TBasicBank();
         ~TBasicBank();
         void setInstCount(u32);
@@ -16,6 +16,6 @@ namespace JASystem {
         /* 0x08 */ TInst** mInstTable;
         /* 0x0C */ u32 mInstCount;
     };
-}
+} // namespace JASystem
 
 #endif /* JASBASICBANK_H */

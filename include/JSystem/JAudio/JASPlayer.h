@@ -20,7 +20,7 @@ namespace JASystem {
         extern s16 sRelTable[];
         extern s16 sVibTable[];
         extern s16 sTreTable[];
-    }
-}
+    } // namespace Player
+} // namespace JASystem
 
 #endif /* JASPLAYER_H */

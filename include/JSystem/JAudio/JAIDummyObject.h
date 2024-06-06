@@ -26,7 +26,7 @@ namespace JAInter {
         extern DummyVec* deadObjectFreePointer;
         extern DummyVec* deadObjectUsedPointer;
         extern DummyVec* deadObjectObject;
-    }
-}
+    } // namespace DummyObjectMgr
+} // namespace JAInter
 
 #endif /* JAIDUMMYOBJECT_H */

@@ -5,7 +5,7 @@
 
 namespace JAInter {
     class HeapBlock {
-    public:
+      public:
         HeapBlock();
 
         u8 getStatus() { return mStatus; }
@@ -41,7 +41,7 @@ namespace JAInter {
         extern HeapBlock* sStayHeap;
         extern u32 sAutoHeapCount;
         extern u32 sStayHeapCount;
-    }
-}
+    } // namespace HeapMgr
+} // namespace JAInter
 
 #endif /* JAISEQUENCEHEAP_H */

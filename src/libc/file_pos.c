@@ -1,7 +1,7 @@
-#include "stdio.h"
 #include "buffer_io.h"
 #include "critical_regions.h"
 #include "errno.h"
+#include "stdio.h"
 
 inline size_t _ftell(FILE* file) {
     int charsInUndoBuffer = 0;
@@ -13,8 +13,9 @@ inline size_t _ftell(FILE* file) {
         return -1;
     }
 
-    if (file->file_state.io_state == __neutral)
+    if (file->file_state.io_state == __neutral) {
         return (file->position);
+    }
 
     position = file->buffer_position + (file->buffer_ptr - file->buffer);
 
@@ -61,8 +62,7 @@ size_t _fseek(FILE* file, fpos_t offset, int mode) {
     }
 
     if ((mode != SEEK_END) && (file->file_mode.io_mode != 3) &&
-        (file->file_state.io_state == 2 || file->file_state.io_state == 3))
-    {
+        (file->file_state.io_state == 2 || file->file_state.io_state == 3)) {
         if ((offset >= file->position) || !(offset >= file->buffer_position)) {
             file->file_state.io_state = 0;
         } else {
@@ -75,9 +75,7 @@ size_t _fseek(FILE* file, fpos_t offset, int mode) {
     }
 
     if (file->file_state.io_state == 0) {
-        if (file->position_fn != NULL &&
-            (int)file->position_fn(file->handle, &offset, mode, file->idle_fn))
-        {
+        if (file->position_fn != NULL && (int)file->position_fn(file->handle, &offset, mode, file->idle_fn)) {
             file->file_state.error = 1;
             file->buffer_length = 0;
             errno = 0x28;

@@ -18,7 +18,7 @@ namespace JASystem {
         inline u32 getDacSize() { return gDacSize; }
         inline int getOutputRate() { return gOutputRate; }
         inline int getAiSetting() { return gAiSetting; }
-    }
-}
+    } // namespace Kernel
+} // namespace JASystem
 
 #endif /* JASRATE_H */

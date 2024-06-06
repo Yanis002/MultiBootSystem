@@ -8,7 +8,7 @@ class JKRAramBlock;
 class JKRAramStreamCommand;
 
 class JKRADCommand {
-public:
+  public:
     JKRADCommand();
     ~JKRADCommand();
 
@@ -33,11 +33,10 @@ public:
 
 class JKRDvdFile;
 class JKRDvdAramRipper {
-public:
+  public:
     static JKRAramBlock* loadToAram(s32, u32, JKRExpandSwitch, u32, u32);
     static JKRAramBlock* loadToAram(JKRDvdFile*, u32, JKRExpandSwitch, u32, u32);
-    static JKRADCommand* loadToAram_Async(JKRDvdFile*, u32, JKRExpandSwitch, void (*)(u32), u32,
-                                          u32);
+    static JKRADCommand* loadToAram_Async(JKRDvdFile*, u32, JKRExpandSwitch, void (*)(u32), u32, u32);
     static JKRADCommand* callCommand_Async(JKRADCommand*);
     static bool syncAram(JKRADCommand*, int);
 
@@ -49,7 +48,7 @@ public:
     static bool errorRetry;
 };
 
-inline JKRAramBlock *JKRDvdToAram(s32 entrynum, u32 p2, JKRExpandSwitch expSwitch, u32 p4, u32 p5) {
+inline JKRAramBlock* JKRDvdToAram(s32 entrynum, u32 p2, JKRExpandSwitch expSwitch, u32 p4, u32 p5) {
     return JKRDvdAramRipper::loadToAram(entrynum, p2, expSwitch, p4, p5);
 }
 

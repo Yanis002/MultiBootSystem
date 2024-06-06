@@ -7,7 +7,7 @@ namespace JASystem {
     class TChannel;
 
     class TChannelMgr {
-    public:
+      public:
         void init();
         void stopAll();
         void stopAllRelease();
@@ -48,6 +48,6 @@ namespace JASystem {
         /* 0x6C */ u16 field_0x6c;
         /* 0x70 */ int field_0x70;
     };
-}
+} // namespace JASystem
 
 #endif /* JASCHANNELMGR_H */

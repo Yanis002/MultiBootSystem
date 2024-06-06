@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TRegisterParam {
-    public:
+      public:
         TRegisterParam();
         void init();
         void inherit(const TRegisterParam&);
@@ -28,6 +28,6 @@ namespace JASystem {
         /* 0x28 */ int field_0x28;
         /* 0x2C */ int field_0x2c;
     };
-}
+} // namespace JASystem
 
 #endif /* JASREGISTERPARAM_H */

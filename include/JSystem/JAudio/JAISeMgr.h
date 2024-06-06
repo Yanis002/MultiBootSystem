@@ -7,7 +7,7 @@ namespace JAInter {
     class SeqUpdateData;
 
     class SeParameter {
-    public:
+      public:
         SeParameter();
 
         u16 field_0x0[18];
@@ -35,8 +35,10 @@ namespace JAInter {
         void clearSeqMuteFromSeStop(JAISound* param_1);
         void checkSeMovePara();
         void sendSeAllParameter(JAISound* param_1);
-        void checkPlayingSeUpdateMultiplication(JAISound* param_1, SeqUpdateData* param_2, f32* param_3, MoveParaSet* param_4, f32 param_5, u8 param_6, f32* param_7);
-        void checkPlayingSeUpdateAddition(JAISound* param_1, SeqUpdateData* param_2, f32* param_3, MoveParaSet* param_4, u8 param_5, f32* param_6, f32 param_7);
+        void checkPlayingSeUpdateMultiplication(JAISound* param_1, SeqUpdateData* param_2, f32* param_3,
+                                                MoveParaSet* param_4, f32 param_5, u8 param_6, f32* param_7);
+        void checkPlayingSeUpdateAddition(JAISound* param_1, SeqUpdateData* param_2, f32* param_3, MoveParaSet* param_4,
+                                          u8 param_5, f32* param_6, f32 param_7);
         u8 changeIDToCategory(u32 param_1);
         void releaseSeRegist(JAISound* param_1);
         SeParameter* getSeParametermeterPointer();
@@ -65,8 +67,7 @@ namespace JAInter {
         extern int seqMuteFlagFromSe;
         extern f32* seCategoryVolume;
         extern u8* seEntryCancel;
-    }
-}
-
+    } // namespace SeMgr
+} // namespace JAInter
 
 #endif /* JAISEMGR_H */

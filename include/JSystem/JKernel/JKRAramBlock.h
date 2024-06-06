@@ -5,7 +5,7 @@
 
 class JKRAramHeap;
 class JKRAramBlock {
-public:
+  public:
     JKRAramBlock(u32, u32, u32, u8, bool);
     virtual ~JKRAramBlock();
 
@@ -22,8 +22,8 @@ public:
 
     void newGroupID(u8 groupId) { mGroupId = groupId; }
 
-public:
-    /* 0x00 */  // vtable
+  public:
+    /* 0x00 */ // vtable
     /* 0x04 */ JSULink<JKRAramBlock> mBlockLink;
     /* 0x14 */ u32 mAddress;
     /* 0x18 */ u32 mSize;

@@ -36,8 +36,8 @@ struct JPADynamicsBlockData {
 };
 
 class JPADynamicsBlock {
-public:
-    virtual ~JPADynamicsBlock() {};
+  public:
+    virtual ~JPADynamicsBlock(){};
     virtual u32 getDataFlag() = 0;
     virtual u32 getUseKeyFlag() = 0;
     virtual void getEmitterScl(JGeometry::TVec3<f32>&) = 0;
@@ -71,7 +71,7 @@ public:
 };
 
 class JPADynamicsBlockArc : public JPADynamicsBlock {
-public:
+  public:
     JPADynamicsBlockArc(const u8*);
     virtual ~JPADynamicsBlockArc() {}
     virtual u32 getDataFlag() { return mpData->mFlag; }
@@ -105,7 +105,7 @@ public:
     virtual f32 getMoment() { return mpData->mMoment; }
     virtual f32 getMomentRndm() { return mpData->mMomentRndm; }
 
-public:
+  public:
     /* 0x04 */ const JPADynamicsBlockData* mpData;
 };
 

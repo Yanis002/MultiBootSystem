@@ -1,7 +1,7 @@
 #include "abort_exit.h"
 #include "critical_regions.h"
-#include "stddef.h"
 #include "dolphin/types.h"
+#include "stddef.h"
 
 extern void (*_dtors[])(void);
 
@@ -34,8 +34,9 @@ void exit(int status) {
         }
     }
 
-    while (__atexit_curr_func > 0)
+    while (__atexit_curr_func > 0) {
         __atexit_funcs[--__atexit_curr_func]();
+    }
 
     if (__console_exit != NULL) {
         __console_exit();

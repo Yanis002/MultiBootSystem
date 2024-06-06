@@ -8,7 +8,7 @@ class J3DModelData;
 typedef int (*J3DNodeCallBack)(J3DNode*, int);
 
 class J3DNode {
-public:
+  public:
     virtual void init(J3DModelData*) {}
     virtual void entryIn() {}
     virtual void calcIn() {}
@@ -30,6 +30,6 @@ public:
     /* 0x0C */ void* field_0x8;
     /* 0x10 */ J3DNode* mChild;
     /* 0x14 */ J3DNode* mYounger;
-};  // Size: 0x18
+}; // Size: 0x18
 
 #endif /* J3DNODE_H */

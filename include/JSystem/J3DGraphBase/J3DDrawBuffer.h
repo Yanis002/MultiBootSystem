@@ -12,7 +12,7 @@ class J3DShapePacket;
 class J3DCallBackPacket;
 
 class J3DDrawBuffer {
-public:
+  public:
     typedef int (J3DDrawBuffer::*sortFunc)(J3DMatPacket*);
     typedef void (J3DDrawBuffer::*drawFunc)() const;
 
@@ -31,7 +31,10 @@ public:
     };
 
     J3DDrawBuffer() { initialize(); }
-    J3DDrawBuffer(u32 size) { initialize(); allocBuffer(size); }
+    J3DDrawBuffer(u32 size) {
+        initialize();
+        allocBuffer(size);
+    }
     ~J3DDrawBuffer();
     void initialize();
     J3DError allocBuffer(u32);
@@ -54,13 +57,11 @@ public:
     void setZSort() { mSortType = (u32)SORT_Z; }
     void setInvalidSort() { mSortType = (u32)SORT_INVALID; }
     void setZMtx(Mtx44Ptr mtx) { mpZMtx = mtx; }
-    void calcZRatio() {
-        mZRatio = (mZFar - mZNear) / (f32)mBufSize;
-    }
+    void calcZRatio() { mZRatio = (mZFar - mZNear) / (f32)mBufSize; }
 
     void getSortMode() {}
 
-public:
+  public:
     /* 0x00 */ J3DPacket** mpBuf;
     /* 0x04 */ u32 mBufSize;
     /* 0x08 */ u32 mDrawType;

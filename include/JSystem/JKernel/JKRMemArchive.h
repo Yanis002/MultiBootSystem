@@ -9,7 +9,7 @@ enum JKRMemBreakFlag {
 };
 
 class JKRMemArchive : public JKRArchive {
-public:
+  public:
     JKRMemArchive();
     JKRMemArchive(s32, JKRArchive::EMountDirection);
     virtual ~JKRMemArchive();
@@ -21,19 +21,19 @@ public:
     bool open(void*, u32, JKRMemBreakFlag);
 
     /* vt[09] */ void removeResourceAll(void); /* override */
-    /* vt[10] */ bool removeResource(void*);   /* override */
+    /* vt[10] */ bool removeResource(void*); /* override */
 
-    /* vt[15] */ u32 getExpandedResSize(const void*) const;            /* override */
-    /* vt[16] */ void* fetchResource(SDIFileEntry*, u32*);             /* override */
+    /* vt[15] */ u32 getExpandedResSize(const void*) const; /* override */
+    /* vt[16] */ void* fetchResource(SDIFileEntry*, u32*); /* override */
     /* vt[17] */ void* fetchResource(void*, u32, SDIFileEntry*, u32*); /* override */
 
-public:
+  public:
     static u32 fetchResource_subroutine(u8*, u32, u8*, u32, JKRCompression);
     SArcHeader* getArcHeader() { return mArcHeader; }
 
-private:
-    /* 0x00 */  // vtable
-    /* 0x04 */  // JKRArchive
+  private:
+    /* 0x00 */ // vtable
+    /* 0x04 */ // JKRArchive
     /* 0x64 */ SArcHeader* mArcHeader;
     /* 0x68 */ u8* mArchiveData;
     /* 0x6C */ bool mIsOpen;

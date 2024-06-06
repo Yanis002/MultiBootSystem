@@ -1,9 +1,9 @@
 #ifndef J3DMATERIALFACTORY_V21_H
 #define J3DMATERIALFACTORY_V21_H
 
+#include "JSystem/J3DGraphBase/J3DMatBlock.h"
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/gx/GXStruct.h"
-#include "JSystem/J3DGraphBase/J3DMatBlock.h"
 
 class J3DMaterial;
 struct J3DMaterialBlock_v21;
@@ -59,7 +59,7 @@ struct J3DMaterialInitData_v21 {
 };
 
 class J3DMaterialFactory_v21 {
-public:
+  public:
     J3DMaterialFactory_v21(const J3DMaterialBlock_v21&);
     u16 countUniqueMaterials();
     u32 countTexGens(int) const;

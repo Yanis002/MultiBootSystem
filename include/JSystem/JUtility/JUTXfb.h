@@ -7,8 +7,8 @@ typedef struct GXRenderModeObj GXRenderModeObj;
 class JKRHeap;
 
 class JUTXfb {
-public:
-    enum EXfbNumber {  // TODO: placeholder
+  public:
+    enum EXfbNumber { // TODO: placeholder
         UNK_0 = 0,
         UNK_1 = 1,
         UNK_2 = 2,
@@ -31,20 +31,23 @@ public:
     s32 getSDrawingFlag() const { return mSDrawingFlag; }
 
     void* getDrawnXfb() const {
-        if (mDrawnXfbIndex >= 0)
+        if (mDrawnXfbIndex >= 0) {
             return mBuffer[mDrawnXfbIndex];
+        }
         return NULL;
     }
 
     void* getDrawingXfb() const {
-        if (mDrawingXfbIndex >= 0)
+        if (mDrawingXfbIndex >= 0) {
             return mBuffer[mDrawingXfbIndex];
+        }
         return NULL;
     }
 
     void* getDisplayingXfb() const {
-        if (mDisplayingXfbIndex >= 0)
+        if (mDisplayingXfbIndex >= 0) {
             return mBuffer[mDisplayingXfbIndex];
+        }
         return NULL;
     }
 
@@ -55,10 +58,10 @@ public:
 
     static JUTXfb* getManager() { return sManager; }
 
-private:
+  private:
     static JUTXfb* sManager;
 
-private:
+  private:
     /* 0x00 */ void* mBuffer[3];
     /* 0x0C */ bool mXfbAllocated[3];
     /* 0x10 */ s32 mBufferNum;

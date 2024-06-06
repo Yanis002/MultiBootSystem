@@ -10,7 +10,7 @@ namespace JASystem {
     namespace Kernel {
         class TPortArgs;
     }
-}
+} // namespace JASystem
 
 namespace JAInter {
     class SeqUpdateData;
@@ -27,7 +27,7 @@ namespace JAInter {
         void setSePortParameter(JASystem::Kernel::TPortArgs*);
 
         extern JASystem::Kernel::TPortCmd systemPortCmd;
-    }
-}
+    } // namespace SystemInterface
+} // namespace JAInter
 
 #endif /* JAISYSTEMINTERFACE_H */

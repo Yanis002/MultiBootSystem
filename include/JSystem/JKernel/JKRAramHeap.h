@@ -6,13 +6,13 @@
 #include "dolphin/os/OSMutex.h"
 
 class JKRAramHeap : public JKRDisposer {
-public:
+  public:
     enum EAllocMode {
         HEAD = 0,
         TAIL = 1,
     };
 
-public:
+  public:
     // TODO: fix type
     static JSUList<JKRAramBlock> sAramList;
 
@@ -26,22 +26,20 @@ public:
     u32 getTotalFreeSize(void);
     // u32 getUsedSize(void);
     void dump(void);
-    void free(JKRAramBlock *block) {
-        delete block;
-    }
+    void free(JKRAramBlock* block) { delete block; }
 
     u8 getCurrentGroupID() const { return mGroupId; }
 
     JKRHeap* getMgrHeap() const { return mHeap; }
 
-private:
+  private:
     void lock() { OSLockMutex(&mMutex); }
 
     void unlock() { OSUnlockMutex(&mMutex); }
 
-public:
-    /* 0x00 */  // vtable
-    /* 0x04 */  // JKRDisposer
+  public:
+    /* 0x00 */ // vtable
+    /* 0x04 */ // JKRDisposer
     /* 0x18 */ OSMutex mMutex;
     /* 0x30 */ JKRHeap* mHeap;
     /* 0x34 */ u32 mHeadAddress;

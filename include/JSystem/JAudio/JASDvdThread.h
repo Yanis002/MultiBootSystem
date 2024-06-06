@@ -4,9 +4,9 @@
 #include "JSystem/JKernel/JKRThread.h"
 
 class JASTaskThread : public JKRThread {
-public:
+  public:
     class TCallStack {
-    public:
+      public:
         TCallStack(u32);
         ~TCallStack();
 
@@ -38,7 +38,7 @@ namespace JASystem {
         s32 dvdThreadCheckBack(void*);
 
         extern JASTaskThread* sThread;
-    }
-}
+    } // namespace Dvd
+} // namespace JASystem
 
 #endif /* JASDVDTHREAD_H */

@@ -3,20 +3,20 @@
 
 #include "JSystem/JKernel/JKRThread.h"
 #include "JSystem/JUtility/JUTGamePad.h"
-#include "stdarg.h"
 #include "dolphin/gx/GXEnum.h"
 #include "dolphin/os/OSError.h"
 #include "macros.h"
+#include "stdarg.h"
 
 typedef struct GXRenderModeObj GXRenderModeObj;
 typedef struct OSContext OSContext;
 class JUTDirectPrint;
 
 class JUTExternalFB {
-public:
+  public:
     JUTExternalFB(GXRenderModeObj*, GXGamma, void*, u32);
 
-private:
+  private:
     /* 0x00 */ GXRenderModeObj* mRenderMode;
     /* 0x04 */ u32 mSize;
     /* 0x08 */ u32 field_0x08;
@@ -35,7 +35,7 @@ STATIC_ASSERT(sizeof(JUTExternalFB) == 0x14);
 #define JUT_PRINT_STACK 16
 
 class JUTException : public JKRThread {
-public:
+  public:
     enum EInfoPage {
         EINFO_PAGE_GPR = 1,
         EINFO_PAGE_FLOAT = 2,
@@ -45,17 +45,17 @@ public:
     };
 
     class JUTExMapFile {
-    public:
+      public:
         JUTExMapFile(char* path) : mLink(this) { mPath = path; }
 
-    public:
+      public:
         /* 0x00 */ char* mPath;
         /* 0x04 */ JSULink<JUTExMapFile> mLink;
         /* 0x14 */
     };
 
     JUTException(JUTDirectPrint*);
-    virtual ~JUTException() {};
+    virtual ~JUTException(){};
 
     void showFloatSub(int, f32);
     void showFloat(OSContext*);
@@ -83,8 +83,7 @@ public:
     static OSErrorHandler setPostUserCallback(OSErrorHandler);
     static void appendMapFile(char const*);
     static bool queryMapAddress(char*, u32, s32, u32*, u32*, char*, u32, bool, bool);
-    static bool queryMapAddress_single(char*, u32, s32, u32*, u32*, char*, u32, bool,
-                                                      bool);
+    static bool queryMapAddress_single(char*, u32, s32, u32*, u32*, char*, u32, bool, bool);
     static void createConsole(void*, u32);
     static void waitTime(s32);
 
@@ -99,11 +98,9 @@ public:
         mGamePadPort = JUTGamePad::Port_Unknown;
     }
 
-    static void setMapFile(const char* map) {
-        appendMapFile(map);
-    }
+    static void setMapFile(const char* map) { appendMapFile(map); }
 
-private:
+  private:
     static OSMessageQueue sMessageQueue;
     static const char* sCpuExpName[17];
     static JSUList<JUTException::JUTExMapFile> sMapFileList;
@@ -117,7 +114,7 @@ private:
     static u32 msr;
     static u32 fpscr;
 
-private:
+  private:
     /* 0x68 */ JUTExternalFB* mFrameMemory;
     /* 0x6C */ JUTDirectPrint* mDirectPrint;
     /* 0x70 */ JUTGamePad* mGamePad;

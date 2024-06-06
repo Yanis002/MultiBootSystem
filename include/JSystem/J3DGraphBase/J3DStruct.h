@@ -3,11 +3,11 @@
 
 #include "dolphin/gx/GXStruct.h"
 #include "dolphin/mtx.h"
-#include "macros.h"
 #include "dolphin/types.h"
+#include "macros.h"
 
 class J3DLightInfo {
-public:
+  public:
     void operator=(J3DLightInfo const& other) {
         mLightPosition = other.mLightPosition;
         mLightDirection = other.mLightDirection;
@@ -21,7 +21,7 @@ public:
     /* 0x18 */ GXColor mColor;
     /* 0x1C */ Vec mCosAtten;
     /* 0x28 */ Vec mDistAtten;
-};  // Size = 0x34
+}; // Size = 0x34
 
 struct J3DTextureSRTInfo {
     /* 0x00 */ f32 mScaleX;
@@ -29,7 +29,7 @@ struct J3DTextureSRTInfo {
     /* 0x08 */ s16 mRotation;
     /* 0x0C */ f32 mTranslationX;
     /* 0x10 */ f32 mTranslationY;
-};  // Size: 0x14
+}; // Size: 0x14
 
 enum J3DTexMtxMode {
     J3DTexMtxMode_None,
@@ -83,7 +83,7 @@ struct J3DTexMtxInfo {
     /* 0x04 */ Vec mCenter;
     /* 0x10 */ J3DTextureSRTInfo mSRT;
     /* 0x24 */ Mtx44 mEffectMtx;
-};  // Size: 0x64
+}; // Size: 0x64
 
 struct J3DIndTexMtxInfo {
     void operator=(const J3DIndTexMtxInfo& other) {
@@ -96,7 +96,7 @@ struct J3DIndTexMtxInfo {
     }
     /* 0x00 */ Mtx23 mOffsetMtx;
     /* 0x18 */ s8 mScaleExp;
-};  // Size: 0x1C
+}; // Size: 0x1C
 
 struct J3DFogInfo {
     void operator=(const J3DFogInfo& other) {
@@ -122,14 +122,17 @@ struct J3DFogInfo {
     /* 0x10 */ f32 mFarZ;
     /* 0x14 */ GXColor mColor;
     /* 0x18 */ u16 mFogAdjTable[10];
-};  // Size: 0x2C
+}; // Size: 0x2C
 
 struct J3DNBTScaleInfo {
     /* 0x0 */ u8 mbHasScale;
     /* 0x4 */ Vec mScale;
 
-    inline void operator=(const J3DNBTScaleInfo & other) { mbHasScale = other.mbHasScale; mScale = other.mScale; }
-};  // Size: 0x10
+    inline void operator=(const J3DNBTScaleInfo& other) {
+        mbHasScale = other.mbHasScale;
+        mScale = other.mScale;
+    }
+}; // Size: 0x10
 
 struct J3DIndTexOrderInfo {
     void operator=(const J3DIndTexOrderInfo& other) {

@@ -1,9 +1,9 @@
 #ifndef JAISTREAMMGR_H
 #define JAISTREAMMGR_H
 
-#include "dolphin/dvd.h"
 #include "JSystem/JAudio/JAISound.h"
 #include "JSystem/JAudio/JASHeapCtrl.h"
+#include "dolphin/dvd.h"
 
 class JAISound;
 
@@ -12,13 +12,13 @@ namespace JASystem {
     namespace DSPInterface {
         class DSPBuffer;
     }
-}
+} // namespace JASystem
 
 namespace JAInter {
     class Actor;
     struct streamUpdate_t {
         streamUpdate_t() { field_0x14 = 0; }
-        
+
         /* 0x00 */ u8 field_0x0;
         /* 0x01 */ u8 field_0x1;
         /* 0x02 */ u8 field_0x2;
@@ -30,7 +30,7 @@ namespace JAInter {
     };
 
     class StreamParameter {
-    public:
+      public:
         /* 0x000 */ u8 field_0x0;
         /* 0x004 */ int field_0x4;
         /* 0x008 */ int field_0x8;
@@ -70,7 +70,7 @@ namespace JAInter {
         extern u8* initOnCodeStrm;
 
         inline streamUpdate_t* getUpdateInfo() { return streamUpdate; }
-    }
+    } // namespace StreamMgr
 
     namespace StreamLib {
         void Play_DirectPCM(JASystem::TDSPChannel*, s16*, u16, u32, s16, u16);
@@ -168,7 +168,7 @@ namespace JAInter {
         extern u8 dspFinishFlag;
         extern void (*allocCallback)();
         extern void (*deallocCallback)();
-    }
-}
+    } // namespace StreamLib
+} // namespace JAInter
 
 #endif /* JAISTREAMMGR_H */

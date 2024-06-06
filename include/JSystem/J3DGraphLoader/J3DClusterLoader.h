@@ -6,7 +6,7 @@
 class J3DDeformData;
 
 class J3DClusterBlock : public JUTDataBlockHeader {
-private:
+  private:
     friend class J3DClusterLoader;
     friend class J3DClusterLoader_v15;
 
@@ -29,19 +29,19 @@ struct J3DClusterLoaderDataBase {
 };
 
 class J3DClusterLoader {
-public:
+  public:
     virtual void* load(const void*) = 0;
     virtual ~J3DClusterLoader() {}
 };
 
 class J3DClusterLoader_v15 : public J3DClusterLoader {
-public:
+  public:
     J3DClusterLoader_v15();
     ~J3DClusterLoader_v15();
     void* load(const void*);
     void readCluster(const J3DClusterBlock*);
 
-private:
+  private:
     /* 0x04 */ J3DDeformData* mpDeformData;
 };
 

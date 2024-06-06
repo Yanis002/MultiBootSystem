@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TTrackPort {
-    public:
+      public:
         void init();
         u16 readImport(int);
         u16 readExport(int);
@@ -16,6 +16,6 @@ namespace JASystem {
         /* 0x10 */ u8 field_0x10[16];
         /* 0x20 */ u16 field_0x20[16];
     };
-}
+} // namespace JASystem
 
 #endif /* JASTRACKPORT_H */

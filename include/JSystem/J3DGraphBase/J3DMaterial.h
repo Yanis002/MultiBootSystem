@@ -11,7 +11,7 @@ class J3DJoint;
 class J3DMaterialAnm;
 
 class J3DMaterial {
-public:
+  public:
     static J3DColorBlock* createColorBlock(u32);
     static J3DTexGenBlock* createTexGenBlock(u32);
     static J3DTevBlock* createTevBlock(int);
@@ -45,7 +45,7 @@ public:
     ~J3DMaterial() {}
 
     J3DMaterial* getNext() { return mNext; }
-    void setNext(J3DMaterial* material) {mNext = material; }
+    void setNext(J3DMaterial* material) { mNext = material; }
     J3DShape* getShape() { return mShape; }
     J3DJoint* getJoint() { return mJoint; }
     u32 getMaterialMode() { return mMaterialMode; }
@@ -110,7 +110,7 @@ public:
     void setLight(u32, J3DLightObj*) {}
     void setTevStageNum(u8) {}
 
-public:
+  public:
     /* 0x04 */ J3DMaterial* mNext;
     /* 0x08 */ J3DShape* mShape;
     /* 0x0C */ J3DJoint* mJoint;
@@ -131,7 +131,7 @@ public:
 };
 
 class J3DPatchedMaterial : public J3DMaterial {
-public:
+  public:
     J3DPatchedMaterial() { initialize(); }
     void initialize();
 
@@ -145,7 +145,7 @@ public:
 };
 
 class J3DLockedMaterial : public J3DMaterial {
-public:
+  public:
     J3DLockedMaterial() { initialize(); }
     void initialize();
 

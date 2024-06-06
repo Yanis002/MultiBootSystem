@@ -1,10 +1,10 @@
 #ifndef JASAUDIOTHREAD_H
 #define JASAUDIOTHREAD_H
 
+#include "dolphin/types.h"
+#include "macros.h"
 #include <dolphin/os/OSMessage.h>
 #include <dolphin/os/OSThread.h>
-#include "macros.h"
-#include "dolphin/types.h"
 
 class JKRSolidHeap;
 
@@ -26,7 +26,7 @@ namespace JASystem {
         extern s32 sDVDPrio;
         extern vs32 snIntCount;
         extern int sbIsDSPBoot;
-    };
-}
+    }; // namespace TAudioThread
+} // namespace JASystem
 
 #endif /* JASAUDIOTHREAD_H */

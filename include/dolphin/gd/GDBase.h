@@ -12,7 +12,7 @@ typedef struct _GDLObj {
     /* 0x4 */ u32 length;
     /* 0x8 */ u8* ptr;
     /* 0xC */ u8* end;
-} GDLObj;  // Size: 0x10
+} GDLObj; // Size: 0x10
 
 extern GDLObj* __GDCurrentDL;
 
@@ -24,33 +24,19 @@ void GDPadCurr32(void);
 void GDOverflowed(void);
 void GDSetVtxDescv(GXVtxDescList*);
 
-inline void __GDWrite(u8 data) {
-    *__GDCurrentDL->ptr++ = data;
-}
+inline void __GDWrite(u8 data) { *__GDCurrentDL->ptr++ = data; }
 
-inline void GDSetCurrent(GDLObj* obj) {
-    __GDCurrentDL = obj;
-}
+inline void GDSetCurrent(GDLObj* obj) { __GDCurrentDL = obj; }
 
-inline u32 GDGetGDLObjOffset(GDLObj* obj) {
-    return (u32)(obj->ptr - obj->start);
-}
+inline u32 GDGetGDLObjOffset(GDLObj* obj) { return (u32)(obj->ptr - obj->start); }
 
-inline u8* GDGetCurrPointer() {
-    return __GDCurrentDL->ptr;
-}
+inline u8* GDGetCurrPointer() { return __GDCurrentDL->ptr; }
 
-inline s32 GDGetCurrOffset() {
-    return __GDCurrentDL->ptr - __GDCurrentDL->start;
-}
+inline s32 GDGetCurrOffset() { return __GDCurrentDL->ptr - __GDCurrentDL->start; }
 
-inline void GDSetCurrOffset(s32 offs) {
-    __GDCurrentDL->ptr = __GDCurrentDL->start + offs;
-}
+inline void GDSetCurrOffset(s32 offs) { __GDCurrentDL->ptr = __GDCurrentDL->start + offs; }
 
-inline void GDAdvCurrOffset(s32 offs) {
-    __GDCurrentDL->ptr += offs;
-}
+inline void GDAdvCurrOffset(s32 offs) { __GDCurrentDL->ptr += offs; }
 
 /* Unused
 inline GDLObj* GDGetCurrent() {

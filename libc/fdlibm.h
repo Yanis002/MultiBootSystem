@@ -19,8 +19,8 @@ extern "C" {
 /* Sometimes it's necessary to define __LITTLE_ENDIAN explicitly
    but these catch some common cases. */
 
-#if defined(i386) || defined(i486) || defined(intel) || defined(x86) || defined(i86pc) ||          \
-    defined(__alpha) || defined(__osf__)
+#if defined(i386) || defined(i486) || defined(intel) || defined(x86) || defined(i86pc) || defined(__alpha) || \
+    defined(__osf__)
 #define __LITTLE_ENDIAN
 #endif
 
@@ -37,11 +37,11 @@ extern "C" {
 #endif
 
 // TODO: should __STDC__ actually be defined?
-//#ifdef __STDC__
+// #ifdef __STDC__
 #define __P(p) p
-//#else
-//#define __P(p) ()
-//#endif
+// #else
+// #define __P(p) ()
+// #endif
 
 /*
  * ANSI/POSIX
@@ -51,7 +51,12 @@ extern int signgam;
 
 #define MAXFLOAT ((float)3.40282346638528860e+38)
 
-enum fdversion { fdlibm_ieee = -1, fdlibm_svid, fdlibm_xopen, fdlibm_posix };
+enum fdversion {
+    fdlibm_ieee = -1,
+    fdlibm_svid,
+    fdlibm_xopen,
+    fdlibm_posix
+};
 
 #define _LIB_VERSION_TYPE enum fdversion
 #define _LIB_VERSION _fdlib_version

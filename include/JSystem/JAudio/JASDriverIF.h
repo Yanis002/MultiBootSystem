@@ -23,7 +23,7 @@ namespace JASystem {
         extern u16 MAX_AUTOMIXERLEVEL;
         extern u32 JAS_SYSTEM_OUTPUT_MODE;
         extern u8 JAS_UPDATE_INTERVAL;
-    };
-}
+    }; // namespace Driver
+} // namespace JASystem
 
 #endif /* JASDSPDRIVERIF_H */

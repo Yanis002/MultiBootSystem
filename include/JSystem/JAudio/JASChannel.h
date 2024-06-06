@@ -13,7 +13,7 @@ namespace JASystem {
     }
 
     class TChannel {
-    public:
+      public:
         TChannel() : field_0x4(NULL), field_0x8(NULL), field_0x20(NULL), field_0x24(NULL), field_0xd8(this) {
             for (int i = 0; i < 4; i++) {
                 osc[i] = NULL;
@@ -107,6 +107,6 @@ namespace JASystem {
         /* 0xD8 */ JSULink<TChannel> field_0xd8;
         /* 0xE8 */ int field_0xe8;
     };
-}
+} // namespace JASystem
 
 #endif /* JASCHANNEL_H */

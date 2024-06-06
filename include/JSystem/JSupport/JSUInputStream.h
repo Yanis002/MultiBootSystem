@@ -4,13 +4,13 @@
 #include "JSystem/JSupport/JSUIosBase.h"
 
 enum JSUStreamSeekFrom {
-    JSUStreamSeekFrom_SET = 0,  // absolute
-    JSUStreamSeekFrom_CUR = 1,  // relative
-    JSUStreamSeekFrom_END = 2,  // relative to end
+    JSUStreamSeekFrom_SET = 0, // absolute
+    JSUStreamSeekFrom_CUR = 1, // relative
+    JSUStreamSeekFrom_END = 2, // relative to end
 };
 
 class JSUInputStream : public JSUIosBase {
-public:
+  public:
     JSUInputStream() {}
     virtual ~JSUInputStream();
 
@@ -68,10 +68,9 @@ public:
 
     // TODO: return value probably wrong
     s32 read(void*, s32);
-};  // Size = 0x8
+}; // Size = 0x8
 
 // move?
-template <typename T>
-T* JSUConvertOffsetToPtr(const void*, const void*);
+template <typename T> T* JSUConvertOffsetToPtr(const void*, const void*);
 
 #endif /* JSUINPUTSTREAM_H */

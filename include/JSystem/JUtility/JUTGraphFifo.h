@@ -5,13 +5,13 @@
 #include "dolphin/types.h"
 
 class JUTGraphFifo {
-public:
+  public:
     JUTGraphFifo(u32);
     virtual ~JUTGraphFifo();
 
     void getGpStatus() {
-        GXGetGPStatus((GXBool*)&mGpStatus[0], (GXBool*)&mGpStatus[1], (GXBool*)&mGpStatus[2],
-                      (GXBool*)&mGpStatus[3], (GXBool*)&mGpStatus[4]);
+        GXGetGPStatus((GXBool*)&mGpStatus[0], (GXBool*)&mGpStatus[1], (GXBool*)&mGpStatus[2], (GXBool*)&mGpStatus[3],
+                      (GXBool*)&mGpStatus[4]);
     }
 
     bool isGPActive() {
@@ -25,15 +25,13 @@ public:
     static JUTGraphFifo* sCurrentFifo;
     static bool mGpStatus[5];
 
-private:
+  private:
     /* 0x04 */ GXFifoObj* mFifo;
     /* 0x08 */ void* mBase;
     /* 0x0C */ u32 mSize;
     /* 0x10 */ u8 field_0x10[0xC];
 };
 
-inline void JUTCreateFifo(u32 bufSize) {
-    new JUTGraphFifo(bufSize);
-}
+inline void JUTCreateFifo(u32 bufSize) { new JUTGraphFifo(bufSize); }
 
 #endif /* JUTGRAPHFIFO_H */

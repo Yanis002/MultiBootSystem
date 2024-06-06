@@ -9,7 +9,7 @@ class JKRHeap;
 typedef bool (*IsLeadByte_func)(int);
 
 class JUTResFont : public JUTFont {
-public:
+  public:
     virtual ~JUTResFont();
     virtual void setGX();
     virtual void setGX(JUtility::TColor, JUtility::TColor);

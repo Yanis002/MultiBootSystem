@@ -8,7 +8,7 @@ class J3DClusterKey;
 class J3DClusterVertex;
 
 class J3DCluster {
-public:
+  public:
     void operator=(const J3DCluster& other) {
         mMaxAngle = other.mMaxAngle;
         mMinAngle = other.mMinAngle;
@@ -26,7 +26,7 @@ public:
     J3DDeformer* getDeformer() { return mDeformer; }
     void setDeformer(J3DDeformer* deformer) { mDeformer = deformer; }
 
-public:
+  public:
     /* 0x00 */ f32 mMaxAngle;
     /* 0x04 */ f32 mMinAngle;
     /* 0x08 */ J3DClusterKey* mClusterKey;
@@ -39,10 +39,10 @@ public:
     /* 0x18 */ u16* mPosDstIdx;
     /* 0x1C */ J3DClusterVertex* mClusterVertex;
     /* 0x20 */ J3DDeformer* mDeformer;
-};  // Size: 0x24
+}; // Size: 0x24
 
 class J3DClusterKey {
-public:
+  public:
     void operator=(const J3DClusterKey& other) {
         mPosNum = other.mPosNum;
         mNrmNum = other.mNrmNum;
@@ -50,25 +50,25 @@ public:
         mNrmFlag = other.mNrmFlag;
     }
 
-public:
+  public:
     /* 0x00 */ u16 mPosNum;
     /* 0x02 */ u16 mNrmNum;
     /* 0x04 */ u16* mPosFlag;
     /* 0x08 */ u16* mNrmFlag;
-};  // Size: 0x0C
+}; // Size: 0x0C
 
 class J3DClusterVertex {
-public:
+  public:
     void operator=(const J3DClusterVertex& other) {
         mNum = other.mNum;
         mSrcIdx = other.mSrcIdx;
         mDstIdx = other.mDstIdx;
     }
 
-public:
+  public:
     /* 0x00 */ u16 mNum;
     /* 0x04 */ u16* mSrcIdx;
     /* 0x08 */ u16* mDstIdx;
-};  // Size: 0x0C
+}; // Size: 0x0C
 
 #endif /* J3DCLUSTER_H */

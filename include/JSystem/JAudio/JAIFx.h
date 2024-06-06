@@ -7,7 +7,7 @@ namespace JASystem {
     namespace DSPInterface {
         struct FxlineConfig_;
     }
-}
+} // namespace JASystem
 
 namespace JAInter {
     namespace Fx {
@@ -36,7 +36,7 @@ namespace JAInter {
         extern u32* mBufferSizeMax;
         extern s16** mBufferPointer;
         extern void** mFxconfigTable;
-    }
-}
+    } // namespace Fx
+} // namespace JAInter
 
 #endif /* JAIFX_H */

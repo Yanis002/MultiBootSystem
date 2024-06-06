@@ -21,7 +21,7 @@ struct JPAFieldBlockData {
 };
 
 class JPAFieldBlock {
-public:
+  public:
     virtual ~JPAFieldBlock() {}
     virtual u8 getType() = 0;
     virtual u32 getID() = 0;
@@ -43,7 +43,7 @@ public:
 };
 
 class JPAFieldBlockArc : public JPAFieldBlock {
-public:
+  public:
     JPAFieldBlockArc(const u8*);
     virtual ~JPAFieldBlockArc() {}
 
@@ -65,7 +65,7 @@ public:
     virtual f32 getEnTime() { return mpData->mEnTime; }
     virtual f32 getDisTime() { return mpData->mDisTime; }
 
-public:
+  public:
     /* 0x04 */ const JPAFieldBlockData* mpData;
 };
 

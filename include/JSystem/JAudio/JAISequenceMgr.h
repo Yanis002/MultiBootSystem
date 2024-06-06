@@ -13,7 +13,7 @@ namespace JAInter {
     class MoveParaSet;
 
     class PlayerParameter {
-    public:
+      public:
         PlayerParameter();
         ~PlayerParameter();
 
@@ -32,7 +32,7 @@ namespace JAInter {
     };
 
     class SeqUpdateData {
-    public:
+      public:
         SeqUpdateData();
 
         /* 0x00 */ u8 field_0x0;
@@ -61,7 +61,7 @@ namespace JAInter {
     };
 
     class MuteBit {
-    public:
+      public:
         MuteBit();
 
         u8 flag1 : 1;
@@ -75,7 +75,7 @@ namespace JAInter {
     };
 
     class SeqParameter {
-    public:
+      public:
         SeqParameter() {}
         int init();
 
@@ -138,7 +138,7 @@ namespace JAInter {
         extern SeqUpdateData* seqTrackInfo;
         extern int* FixSeqBufPointer;
         extern JKRArchive* arcPointer;
-    }
-}
+    } // namespace SequenceMgr
+} // namespace JAInter
 
 #endif /* JAISEQUENCEMGR_H */

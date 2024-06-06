@@ -1,8 +1,8 @@
 #ifndef OSDSP_TASK_H
 #define OSDSP_TASK_H
 
-#include "dolphin/types.h"
 #include "dolphin/dsp.h"
+#include "dolphin/types.h"
 
 typedef struct OSContext OSContext;
 

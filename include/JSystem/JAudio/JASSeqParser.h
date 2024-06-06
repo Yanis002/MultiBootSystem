@@ -6,7 +6,7 @@
 namespace JASystem {
     class TTrack;
     class TSeqParser {
-    public:
+      public:
         int cmdOpenTrack(TTrack*, u32*);
         int cmdOpenTrackBros(TTrack*, u32*);
         int cmdCall(TTrack*, u32*);
@@ -70,6 +70,6 @@ namespace JASystem {
 
         static int (TSeqParser::*sCmdPList[])(TTrack*, u32*);
     };
-}
+} // namespace JASystem
 
 #endif /* JASSEQPARSER_H */

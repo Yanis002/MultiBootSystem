@@ -9,7 +9,7 @@ namespace JStage {
     struct TFog : public TObject {
         void JSGFDisableFlag(u32 flag) { JSGSetFlag(JSGGetFlag() & ~flag); }
         void JSGFEnableFlag(u32 flag) { JSGSetFlag(JSGGetFlag() | flag); }
-        
+
         virtual ~TFog() = 0;
         virtual s32 JSGFGetType() const;
         virtual bool JSGGetFogFunction() const;
@@ -21,6 +21,6 @@ namespace JStage {
         virtual GXColor JSGGetColor() const;
         virtual void JSGSetColor(GXColor);
     };
-};
+}; // namespace JStage
 
 #endif /* JSGFOG_H */

@@ -166,6 +166,4 @@ u8 __upper_map[256] = {
     0xF7, 0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF,
 };
 
-int tolower(int c) {
-    return _tolower(c);
-}
+int tolower(int c) { return _tolower(c); }

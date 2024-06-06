@@ -5,13 +5,13 @@
 
 namespace JASystem {
     class TInstEffect {
-    public:
+      public:
         TInstEffect() { mTarget = 0; }
         virtual f32 getY(int, int) const = 0;
         void setTarget(int);
 
         /* 0x04 */ u8 mTarget;
     };
-}
+} // namespace JASystem
 
 #endif /* JASINSTEFFECT_H */

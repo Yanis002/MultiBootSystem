@@ -1,9 +1,9 @@
 #ifndef JAIBASIC_H
 #define JAIBASIC_H
 
-#include "JSystem/JUtility/JUTAssert.h"
 #include "JSystem/JAudio/JAIBankWave.h"
 #include "JSystem/JAudio/JAISound.h"
+#include "JSystem/JUtility/JUTAssert.h"
 #include "dolphin/mtx.h"
 
 class JKRSolidHeap;
@@ -11,14 +11,14 @@ class JKRSolidHeap;
 namespace JAInter {
     class Actor;
     class Camera;
-}
+} // namespace JAInter
 
 namespace JASystem {
     class TTrack;
 }
 
 class JAIBasic {
-public:
+  public:
     JAIBasic();
     virtual JAISound* makeSound(u32);
     virtual BOOL getMapInfoFxline(u32);
@@ -33,7 +33,7 @@ public:
     void initHeap();
     void initArchive();
     void initResourcePath();
-    void setCameraInfo(Vec*, Vec*, f32(*)[4], u32);
+    void setCameraInfo(Vec*, Vec*, f32 (*)[4], u32);
     void initAudioThread(JKRSolidHeap*, u32, u8);
     void initCamera();
     BOOL initReadFile();
@@ -83,9 +83,7 @@ public:
         return msCurrentHeap;
     }
 
-    bool checkAllWaveLoadStatus() {
-        return JAInter::BankWave::checkAllWaveLoadStatus();
-    }
+    bool checkAllWaveLoadStatus() { return JAInter::BankWave::checkAllWaveLoadStatus(); }
 
     // this might be wrong, it matches but the size doesn't seem to match the debug map
     bool checkEnablePrepare(u32 flags) { return !(flags & 0xc0000000) && !(flags & 0x00000c00); }

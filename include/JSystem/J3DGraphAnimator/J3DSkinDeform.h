@@ -5,7 +5,6 @@
 #include "JSystem/J3DGraphBase/J3DTransform.h"
 #include "dolphin/types.h"
 #include "macros.h"
-#include "dolphin/types.h"
 
 class J3DModelData;
 class J3DModel;
@@ -14,7 +13,7 @@ class J3DAnmCluster;
 class JUTNameTab;
 
 class J3DDeformData {
-public:
+  public:
     J3DDeformData();
     void clear();
     void deform(J3DVertexBuffer*);
@@ -27,7 +26,7 @@ public:
     f32* getVtxPos() { return mVtxPos; }
     f32* getVtxNrm() { return mVtxNrm; }
 
-private:
+  private:
     friend class J3DClusterLoader;
     friend class J3DClusterLoader_v15;
 
@@ -43,10 +42,10 @@ private:
     /* 0x1C */ f32* mVtxNrm;
     /* 0x20 */ JUTNameTab* mClusterName;
     /* 0x24 */ JUTNameTab* mClusterKeyName;
-};  // Size: 0x28
+}; // Size: 0x28
 
 class J3DSkinDeform {
-public:
+  public:
     J3DSkinDeform();
     int initMtxIndexArray(J3DModelData*);
     void changeFastSkinDL(J3DModelData*);
@@ -55,9 +54,7 @@ public:
     void deformVtxPos_S16(J3DModel*) const;
     void deformVtxNrm_F32(J3DModel*) const;
     void deformVtxNrm_S16(J3DModel*) const;
-    void setNrmMtx(int i, Mtx44Ptr mtx) {
-        J3DPSMtx33CopyFrom34(mtx, (Mtx33Ptr)mNrmMtx[i]);
-    }
+    void setNrmMtx(int i, Mtx44Ptr mtx) { J3DPSMtx33CopyFrom34(mtx, (Mtx33Ptr)mNrmMtx[i]); }
     Mtx33Ptr getNrmMtx(int i) { return mNrmMtx[i]; }
     void onFlag(u32 flag) { mFlags |= flag; }
     void offFlag(u32 flag) { mFlags &= ~flag; }
@@ -70,18 +67,18 @@ public:
     static f32* sWorkArea_WEvlpMixWeight[1024];
     static u16 sWorkArea_MtxReg[1024 + 4 /* padding */];
 
-private:
+  private:
     /* 0x04 */ u16* mPosUseMtx;
     /* 0x08 */ u16* mNrmUseMtx;
     /* 0x0C */ Mtx33* mNrmMtx;
     /* 0x10 */ u32 mFlags;
     /* 0x14 */ u8 field_0x14;
-};  // Size: 0x18
+}; // Size: 0x18
 
 STATIC_ASSERT(sizeof(J3DSkinDeform) == 0x18);
 
 class J3DDeformer {
-public:
+  public:
     J3DDeformer(J3DDeformData* data) {
         clear();
         mDeformData = data;
@@ -96,7 +93,7 @@ public:
 
     void checkFlag(u32) {}
 
-private:
+  private:
     friend class J3DClusterLoader;
     friend class J3DClusterLoader_v15;
 
@@ -105,6 +102,6 @@ private:
     /* 0x08 */ f32* mWeightList;
     /* 0x0C */ f32* field_0x0c;
     /* 0x10 */ u32 mFlags;
-};  // Size: 0x14
+}; // Size: 0x14
 
 #endif /* J3DSKINDEFORM_H */

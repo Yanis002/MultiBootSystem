@@ -11,7 +11,7 @@ namespace JASystem {
         s32 loadResourceCallback(void*);
         u32 loadResource(JKRArchive*, u16, u8*, u32);
         void loadResourceAsync(JKRArchive*, u16, u8*, u32, void (*)(u32, u32), u32);
-    }
-}
+    } // namespace ResArcLoader
+} // namespace JASystem
 
 #endif /* JASRESARCLOADER_H */

@@ -21,7 +21,7 @@ namespace JASystem {
         extern u32 maxCallbacksUser;
         extern unk_callList* callList;
         extern bool callbackInit;
-    }
-}
+    } // namespace Kernel
+} // namespace JASystem
 
 #endif /* JASCALLBACK_H */

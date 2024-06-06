@@ -32,7 +32,7 @@ struct JPAExtraShapeData {
 };
 
 class JPAExtraShape {
-public:
+  public:
     virtual ~JPAExtraShape() {}
     virtual BOOL isEnableScale() = 0;
     virtual BOOL isDiffXY() = 0;
@@ -77,7 +77,7 @@ public:
 };
 
 class JPAExtraShapeArc : public JPAExtraShape {
-public:
+  public:
     JPAExtraShapeArc(const u8*);
     virtual ~JPAExtraShapeArc() {}
     virtual BOOL isEnableScale() { return (mpData->mFlag & 0x100); }
@@ -121,8 +121,8 @@ public:
     virtual f32 getRotateRandomSpeed() { return mpData->mRotateRandomSpeed; }
     virtual f32 getRotateDirection() { return mpData->mRotateDirection; }
 
-public:
-    /* 0x04 */ const JPAExtraShapeData * mpData;
+  public:
+    /* 0x04 */ const JPAExtraShapeData* mpData;
     /* 0x08 */ f32 mAlphaIncreaseRate;
     /* 0x0C */ f32 mAlphaDecreaseRate;
     /* 0x10 */ f32 mIncreaseRateX;

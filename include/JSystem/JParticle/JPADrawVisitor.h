@@ -1,8 +1,8 @@
 #ifndef JPADRAWVISITOR_H
 #define JPADRAWVISITOR_H
 
-#include "JSystem/JSupport/JSUList.h"
 #include "JSystem/JGeometry.h"
+#include "JSystem/JSupport/JSUList.h"
 #include "dolphin/mtx.h"
 #include "dolphin/types.h"
 
@@ -17,7 +17,7 @@ class JPADrawClipBoard;
 class JPATextureResource;
 
 class JPADrawContext {
-public:
+  public:
     /* 0x00 */ JPABaseEmitter* pbe;
     /* 0x04 */ JPABaseShape* pbsp;
     /* 0x08 */ JPAExtraShape* pesp;
@@ -32,430 +32,430 @@ public:
 };
 
 class JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecEmitterVisitor() {}
     virtual void exec(const JPADrawContext* pDC) = 0;
 };
 
 class JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecParticleVisitor() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2) = 0;
 };
 
 class JPADrawExecGenPrjMtx : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecGenPrjMtx() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecGenPrjTexMtx : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecGenPrjTexMtx() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecGenTexMtx0 : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecGenTexMtx0() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecGenIdtMtx : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecGenIdtMtx() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecSetTexMtx : public JPADrawExecEmitterVisitor, public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecSetTexMtx() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecSetPointSize : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecSetPointSize() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecSetLineWidth : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecSetLineWidth() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRegisterColorEmitterPE : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterColorEmitterPE() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecRegisterColorEmitterP : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterColorEmitterP() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecRegisterColorEmitterE : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterColorEmitterE() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecRegisterColorChildPE : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterColorChildPE() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecRegisterPrmColorAnm : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterPrmColorAnm() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRegisterPrmAlphaAnm : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterPrmAlphaAnm() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRegisterEnvColorAnm : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterEnvColorAnm() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRegisterPrmCEnv : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterPrmCEnv() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRegisterPrmAEnv : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRegisterPrmAEnv() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecLoadDefaultTexture : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecLoadDefaultTexture() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecLoadTexture : public JPADrawExecEmitterVisitor, public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecLoadTexture() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecLoadExTex : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecLoadExTex() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecBillBoard : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecBillBoard() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRotBillBoard : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRotBillBoard() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecYBillBoard : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecYBillBoard() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRotYBillBoard : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRotYBillBoard() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecDirectional : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecDirectional() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRotDirectional : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRotDirectional() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecDirectionalCross : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecDirectionalCross() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRotDirectionalCross : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRotDirectionalCross() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecDirBillBoard : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecDirBillBoard() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRotation : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRotation() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecRotationCross : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecRotationCross() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecPoint : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecPoint() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecLine : public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecLine() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawExecStripe : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecStripe() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecStripeCross : public JPADrawExecEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawExecStripeCross() {}
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawExecCallBack : public JPADrawExecEmitterVisitor, public JPADrawExecParticleVisitor {
-public:
+  public:
     virtual ~JPADrawExecCallBack() {}
     virtual void exec(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void exec(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcEmitterVisitor {
-public:
+  public:
     virtual ~JPADrawCalcEmitterVisitor() {}
     virtual void calc(const JPADrawContext* pDC) = 0;
 };
 
 class JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcParticleVisitor() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2) = 0;
 };
 
 class JPADrawCalcScaleX : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleX() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleXBySpeed : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleXBySpeed() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleY : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleY() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleYBySpeed : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleYBySpeed() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleCopyX2Y : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleCopyX2Y() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleAnmTimingNormal : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleAnmTimingNormal() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleAnmTimingRepeatX : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleAnmTimingRepeatX() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleAnmTimingRepeatY : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleAnmTimingRepeatY() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleAnmTimingReverseX : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleAnmTimingReverseX() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcScaleAnmTimingReverseY : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcScaleAnmTimingReverseY() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcColorPrm : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorPrm() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcColorEnv : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorEnv() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcColorCopyFromEmitter : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorCopyFromEmitter() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcColorAnmFrameNormal : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorAnmFrameNormal() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcColorAnmFrameRepeat : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorAnmFrameRepeat() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcColorAnmFrameReverse : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorAnmFrameReverse() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcColorAnmFrameMerge : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorAnmFrameMerge() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcColorAnmFrameRandom : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcColorAnmFrameRandom() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcAlpha : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcAlpha() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcAlphaFlickNrmSin : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcAlphaFlickNrmSin() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcAlphaFlickAddSin : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcAlphaFlickAddSin() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcAlphaFlickMultSin : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcAlphaFlickMultSin() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcTextureAnmIndexNormal : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcTextureAnmIndexNormal() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcTextureAnmIndexRepeat : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcTextureAnmIndexRepeat() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcTextureAnmIndexReverse : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcTextureAnmIndexReverse() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcTextureAnmIndexMerge : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcTextureAnmIndexMerge() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcTextureAnmIndexRandom : public JPADrawCalcEmitterVisitor, public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcTextureAnmIndexRandom() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
     virtual void calc(const JPADrawContext* pDC);
 };
 
 class JPADrawCalcChildAlphaOut : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcChildAlphaOut() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawCalcChildScaleOut : public JPADrawCalcParticleVisitor {
-public:
+  public:
     virtual ~JPADrawCalcChildScaleOut() {}
     virtual void calc(const JPADrawContext* pDC, JPABaseParticle* param_2);
 };
 
 class JPADrawVisitorContainer {
-public:
+  public:
     /* 0x000 */ JPADrawExecGenPrjMtx mGenPrjMtx;
     /* 0x004 */ JPADrawExecGenPrjTexMtx mGenPrjTexMtx;
     /* 0x008 */ JPADrawExecGenTexMtx0 mGenTexMtx0;

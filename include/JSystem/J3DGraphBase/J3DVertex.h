@@ -14,13 +14,13 @@ struct J3DVtxColorCalc {
     void calc(J3DModel*);
     virtual void calc(J3DVertexBuffer*);
 
-    /* 0x0 */ void* vtable;  // inlined vtable?
+    /* 0x0 */ void* vtable; // inlined vtable?
     /* 0x4 */ u32 mFlags;
     /* 0x8 */ J3DAnmVtxColor* mpVtxColor;
 };
 
 class J3DVertexData {
-public:
+  public:
     J3DVertexData();
     ~J3DVertexData();
 
@@ -44,7 +44,7 @@ public:
     u8 getVtxNrmFrac() const { return mVtxNrmFrac; }
     void setVtxNrmFrac(u8 frac) { mVtxNrmFrac = frac; }
 
-private:
+  private:
     friend class J3DModelLoader;
 
     /* 0x00 */ u32 mVtxNum;
@@ -65,7 +65,7 @@ private:
 };
 
 class J3DVertexBuffer {
-public:
+  public:
     J3DVertexBuffer() { init(); }
 
     void setVertexData(J3DVertexData*);
@@ -123,7 +123,7 @@ public:
         mTransformedVtxNrmArray[1] = tmp;
     }
 
-private:
+  private:
     /* 0x00 */ J3DVertexData* mVtxData;
     /* 0x04 */ void* mVtxPosArray[2];
     /* 0x0C */ void* mVtxNrmArray[2];
@@ -133,7 +133,7 @@ private:
     /* 0x2C */ void* mCurrentVtxPos;
     /* 0x30 */ void* mCurrentVtxNrm;
     /* 0x34 */ GXColor* mCurrentVtxCol;
-};  // Size: 0x38
+}; // Size: 0x38
 
 struct VertexNormal {
     Vec data;

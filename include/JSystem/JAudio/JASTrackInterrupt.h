@@ -5,7 +5,7 @@
 
 namespace JASystem {
     class TIntrMgr {
-    public:
+      public:
         void init();
         void request(u32);
         void setIntr(u32, void*);
@@ -21,6 +21,6 @@ namespace JASystem {
         /* 0x08 */ u32 field_0x8;
         /* 0x0C */ void* field_0xc[8];
     };
-}
+} // namespace JASystem
 
 #endif /* JASTRACKINTERRUPT_H */

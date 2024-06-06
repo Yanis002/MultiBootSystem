@@ -3,8 +3,8 @@
 
 #include "JSystem/JKernel/JKRCompression.h"
 #include "JSystem/JKernel/JKRFileLoader.h"
-#include "macros.h"
 #include "dolphin/types.h"
+#include "macros.h"
 
 class JKRArcFinder;
 class JKRHeap;
@@ -43,7 +43,7 @@ inline u16 read_big_endian_u16(void* ptr) {
 }
 
 class JKRArchive : public JKRFileLoader {
-public:
+  public:
     struct SDirEntry {
         u8 flags;
         u8 padding;
@@ -96,7 +96,7 @@ public:
     };
 
     class CArcName {
-    public:
+      public:
         CArcName() {}
         CArcName(char const* data) { this->store(data); }
         CArcName(char const** data, char endChar) { *data = this->store(*data, endChar); }
@@ -108,17 +108,17 @@ public:
 
         const char* getString() const { return mData; }
 
-    private:
+      private:
         u16 mHash;
         u16 mLength;
         char mData[256];
     };
 
-protected:
+  protected:
     JKRArchive();
     JKRArchive(s32, EMountMode);
 
-public:
+  public:
     bool getDirEntry(SDirEntry*, u32) const;
     void* getIdxResource(u32);
     void* getResource(u16);
@@ -138,21 +138,19 @@ public:
     SDIFileEntry* findPtrResource(const void*) const;
     SDIFileEntry* findIdResource(u16) const;
 
-public:
-    /* vt[04] */ virtual bool becomeCurrent(const char*);                /* override */
-    /* vt[05] */ virtual void* getResource(const char*);                 /* override */
-    /* vt[06] */ virtual void* getResource(u32, const char*);            /* override */
-    /* vt[07] */ virtual u32 readResource(void*, u32, const char*);      /* override */
+  public:
+    /* vt[04] */ virtual bool becomeCurrent(const char*); /* override */
+    /* vt[05] */ virtual void* getResource(const char*); /* override */
+    /* vt[06] */ virtual void* getResource(u32, const char*); /* override */
+    /* vt[07] */ virtual u32 readResource(void*, u32, const char*); /* override */
     /* vt[08] */ virtual u32 readResource(void*, u32, u32, const char*); /* override */
-    /* vt[09] */ virtual void removeResourceAll(void);                   /* override */
-    /* vt[10] */ virtual bool removeResource(void*);                     /* override */
-    /* vt[11] */ virtual bool detachResource(void*);                     /* override */
-    /* vt[12] */ virtual u32 getResSize(const void* resource) const;     /* override */
-    /* vt[13] */ virtual u32 countFile(const char*) const;               /* override */
+    /* vt[09] */ virtual void removeResourceAll(void); /* override */
+    /* vt[10] */ virtual bool removeResource(void*); /* override */
+    /* vt[11] */ virtual bool detachResource(void*); /* override */
+    /* vt[12] */ virtual u32 getResSize(const void* resource) const; /* override */
+    /* vt[13] */ virtual u32 countFile(const char*) const; /* override */
     /* vt[14] */ virtual JKRFileFinder* getFirstFile(const char*) const; /* override */
-    /* vt[15] */ virtual u32 getExpandedResSize(const void* resource) const {
-        return getResSize(resource);
-    }
+    /* vt[15] */ virtual u32 getExpandedResSize(const void* resource) const { return getResSize(resource); }
     /* vt[16] */ virtual void* fetchResource(SDIFileEntry*, u32*) = 0;
     /* vt[17] */ virtual void* fetchResource(void*, u32, SDIFileEntry*, u32*) = 0;
     /* vt[18] */ virtual void setExpandSize(SDIFileEntry*, u32);
@@ -163,12 +161,12 @@ public:
     u8 getMountMode() const { return mMountMode; }
     bool isFileEntry(u32 param_0) { return getFileAttribute(param_0) & 1; }
 
-protected:
+  protected:
     virtual ~JKRArchive();
 
-public:
-    /* 0x00 */  // vtable
-    /* 0x04 */  // JKRFileLoader
+  public:
+    /* 0x00 */ // vtable
+    /* 0x04 */ // JKRFileLoader
     /* 0x38 */ JKRHeap* mHeap;
     /* 0x3C */ u8 mMountMode;
     /* 0x3D */ u8 field_0x3d[3];
@@ -179,12 +177,12 @@ public:
     /* 0x50 */ s32* mExpandedSize;
     /* 0x54 */ char* mStringTable;
 
-protected:
+  protected:
     /* 0x58 */ u32 field_0x58;
     /* 0x5C */ JKRCompression mCompression;
     /* 0x60 */ EMountDirection mMountDirection;
 
-public:
+  public:
     static JKRArchive* check_mount_already(s32);
     static JKRArchive* mount(const char*, EMountMode, JKRHeap*, EMountDirection);
     static JKRArchive* mount(void*, JKRHeap*, EMountDirection);
@@ -210,7 +208,7 @@ public:
     static u32 getCurrentDirID() { return sCurrentDirID; }
     static void setCurrentDirID(u32 dirID) { sCurrentDirID = dirID; }
 
-private:
+  private:
     static u32 sCurrentDirID;
 };
 

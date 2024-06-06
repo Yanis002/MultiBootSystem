@@ -7,7 +7,7 @@
 class JKRAramBlock;
 
 class JUTCacheFont : public JUTResFont {
-public:
+  public:
     struct TGlyphCacheInfo {
         /* 0x0 */ TGlyphCacheInfo* mPrev;
         /* 0x4 */ TGlyphCacheInfo* mNext;
@@ -26,7 +26,7 @@ public:
 
     struct TCachePage : TGlyphCacheInfo {
         /* 0x20 */ GXTexObj mTexObj;
-    };  // Size: 0x40
+    }; // Size: 0x40
 
     enum EPagingType {
         PAGE_TYPE_0,
@@ -57,7 +57,7 @@ public:
 
     static u32 calcCacheSize(u32 param_0, int param_1) { return (ALIGN_NEXT(param_0, 0x20) + 0x40) * param_1; }
 
-private:
+  private:
     /* 0x70 */ u32 mTotalWidSize;
     /* 0x74 */ u32 mTotalGlySize;
     /* 0x78 */ u32 mTotalMapSize;
@@ -76,6 +76,6 @@ private:
     /* 0xAC */ JKRAramBlock* field_0xac;
     /* 0xB0 */ u8 field_0xb0;
     /* 0xB4 */ int field_0xb4;
-};  // Size: 0xB8
+}; // Size: 0xB8
 
 #endif /* JUTCACHEFONT_H */

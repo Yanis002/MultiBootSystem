@@ -11,16 +11,14 @@ struct ResNTAB {
         u16 mOffs;
     } mEntries[1];
 
-    inline const char* getName(u32 index) const {
-        return ((const char*)mEntries) + mEntries[index].mOffs - 4;
-    }
+    inline const char* getName(u32 index) const { return ((const char*)mEntries) + mEntries[index].mOffs - 4; }
 };
 
 class JUTNameTab {
-public:
+  public:
     JUTNameTab();
     JUTNameTab(const ResNTAB* pNameTable);
-    virtual ~JUTNameTab() {};
+    virtual ~JUTNameTab(){};
 
     void setResource(const ResNTAB* pNameTable);
     s32 getIndex(char const*) const;
@@ -28,7 +26,7 @@ public:
     u16 calcKeyCode(char const* pName) const;
     const ResNTAB* getResNameTable() const { return mNameTable; }
 
-private:
+  private:
     /* 0x4 */ const ResNTAB* mNameTable;
     /* 0x8 */ const char* mpStrData;
     /* 0xC */ u16 mNameNum;

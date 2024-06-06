@@ -152,9 +152,7 @@ struct J3DIndTevStage {
         setAlphaSel(info.mAlphaSel);
     }
 
-    void load(u32 param_1) {
-        J3DGDWriteBPCmd(mInfo | (param_1 + 16) << 24);
-    }
+    void load(u32 param_1) { J3DGDWriteBPCmd(mInfo | (param_1 + 16) << 24); }
 
     /* 0x0 */ u32 mInfo;
 };
@@ -167,13 +165,13 @@ struct J3DTevOrder : public J3DTevOrderInfo {
     u8 getTexMap() { return mTexMap; }
 };
 
-static inline u8 calcTevSwapTableID(u8 r, u8 g, u8 b, u8 a) {
-    return r * 64 + g * 16 + b * 4 + a;
-}
+static inline u8 calcTevSwapTableID(u8 r, u8 g, u8 b, u8 a) { return r * 64 + g * 16 + b * 4 + a; }
 
 struct J3DTevSwapModeTable {
     J3DTevSwapModeTable() { mIdx = j3dDefaultTevSwapTableID; }
-    explicit J3DTevSwapModeTable(const J3DTevSwapModeTableInfo& info) { mIdx = calcTevSwapTableID(info.field_0x0, info.field_0x1, info.field_0x2, info.field_0x3); }
+    explicit J3DTevSwapModeTable(const J3DTevSwapModeTableInfo& info) {
+        mIdx = calcTevSwapTableID(info.field_0x0, info.field_0x1, info.field_0x2, info.field_0x3);
+    }
 
     u8 getR() { return j3dTevSwapTableTable[mIdx * 4]; }
     u8 getG() { return j3dTevSwapTableTable[mIdx * 4 + 1]; }
@@ -181,10 +179,10 @@ struct J3DTevSwapModeTable {
     u8 getA() { return j3dTevSwapTableTable[mIdx * 4 + 3]; }
 
     /* 0x0 */ u8 mIdx;
-};  // Size: 0x1
+}; // Size: 0x1
 
 class J3DLightObj {
-public:
+  public:
     J3DLightObj() { mInfo = j3dDefaultLightInfo; }
     void load(u32) const;
 
@@ -196,7 +194,7 @@ public:
 
     /* 0x00 */ J3DLightInfo mInfo;
     /* 0x34 */ u8 field_0x34[64];
-};  // Size = 0x74
+}; // Size = 0x74
 
 struct J3DNBTScale : public J3DNBTScaleInfo {
     J3DNBTScale() { *(J3DNBTScaleInfo*)this = j3dDefaultNBTScaleInfo; }

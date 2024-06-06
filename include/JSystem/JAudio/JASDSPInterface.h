@@ -16,7 +16,7 @@ namespace JASystem {
             /* 0x20 */ short field_0x20;
             /* 0x22 */ short field_0x22;
         };
-    }
+    } // namespace Driver
     namespace DSPInterface {
         struct FxlineConfig_ {
             /* 0x00 */ u8 field_0x0;
@@ -29,7 +29,7 @@ namespace JASystem {
         };
 
         class FXBuffer {
-        public:
+          public:
             bool setFXLine(s16* param_1, FxlineConfig_* param_2);
 
             /* 0x00 */ short field_0x0;
@@ -43,7 +43,7 @@ namespace JASystem {
         };
 
         class DSPBuffer {
-        public:
+          public:
             void allocInit();
             void playStart();
             void setWaveInfo(Driver::Wave_* param_1, u32 param_2, u32 param_3);
@@ -111,7 +111,6 @@ namespace JASystem {
             /* 0x152 */ u8 field_0x152[0x180 - 0x152];
         };
 
-
         void setDSPMixerLevel(float param_1);
         DSPBuffer* getDSPHandle(u8 param_1);
         void setFilterTable(short* param_1, short* param_2, u32 param_3);
@@ -128,8 +127,8 @@ namespace JASystem {
         extern DSPBuffer* CH_BUF;
         extern FXBuffer* FX_BUF;
         extern f32 sDSPVolume;
-    };
-}
+    }; // namespace DSPInterface
+} // namespace JASystem
 
 u16 DSP_CreateMap2(u32 param_1);
 

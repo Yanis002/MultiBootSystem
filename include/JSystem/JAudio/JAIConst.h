@@ -11,7 +11,7 @@ namespace JAInter {
     u32 routeToTrack(u32);
 
     class Actor {
-    public:
+      public:
         Actor(Vec* p1, Vec* p2, u32 p3, void* p4) {
             field_0x0 = p1;
             field_0x4 = p2;
@@ -27,7 +27,7 @@ namespace JAInter {
     };
 
     class Camera {
-    public:
+      public:
         Camera(Vec* p1 = NULL, Vec* p2 = NULL, Mtx44Ptr p3 = NULL) {
             field_0x0 = p1;
             field_0x4 = p2;
@@ -47,7 +47,7 @@ namespace JAInter {
         extern Vec dummyZeroVec;
         extern u8 sCInfos_0[];
         extern JMath::TRandom_fast_ random;
-    }
-}
+    } // namespace Const
+} // namespace JAInter
 
 #endif /* JAICONST_H */

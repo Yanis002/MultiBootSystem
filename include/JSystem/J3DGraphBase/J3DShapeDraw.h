@@ -4,7 +4,7 @@
 #include "dolphin/types.h"
 
 class J3DShapeDraw {
-public:
+  public:
     J3DShapeDraw(u8 const*, u32);
     void draw() const;
 
@@ -14,7 +14,7 @@ public:
     u32 getDisplayListSize() const { return mDisplayListSize; }
     void setDisplayListSize(u32 size) { mDisplayListSize = size; }
 
-private:
+  private:
     /* 0x04 */ u32 mDisplayListSize;
     /* 0x08 */ void* mDisplayList;
 };

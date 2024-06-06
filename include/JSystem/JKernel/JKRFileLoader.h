@@ -6,14 +6,14 @@
 
 class JKRFileFinder;
 class JKRFileLoader : public JKRDisposer {
-public:
+  public:
     JKRFileLoader(void);
     virtual ~JKRFileLoader();
 
     bool isMounted() const { return this->mIsMounted; }
     u32 getVolumeType() const { return this->mVolumeType; }
 
-public:
+  public:
     /* vt[03] */ virtual void unmount(void);
     /* vt[04] */ virtual bool becomeCurrent(const char*) = 0;
     /* vt[05] */ virtual void* getResource(const char*) = 0;
@@ -27,9 +27,9 @@ public:
     /* vt[13] */ virtual u32 countFile(const char*) const = 0;
     /* vt[14] */ virtual JKRFileFinder* getFirstFile(const char*) const = 0;
 
-protected:
-    /* 0x00 */  // vtable
-    /* 0x04 */  // JKRDisposer
+  protected:
+    /* 0x00 */ // vtable
+    /* 0x04 */ // JKRDisposer
     /* 0x18 */ JSULink<JKRFileLoader> mFileLoaderLink;
     /* 0x28 */ const char* mVolumeName;
     /* 0x2C */ u32 mVolumeType;
@@ -37,7 +37,7 @@ protected:
     /* 0x31 */ u8 field_0x31[3];
     /* 0x34 */ u32 mMountCount;
 
-public:
+  public:
     static void* getGlbResource(const char*);
     static void* getGlbResource(const char*, JKRFileLoader*);
     static bool removeResource(void*, JKRFileLoader*);
@@ -61,8 +61,6 @@ inline void* JKRGetNameResource(const char* name, JKRFileLoader* loader) {
     return JKRFileLoader::getGlbResource(name, loader);
 }
 
-inline void* JKRGetResource(const char* name) {
-    return JKRFileLoader::getGlbResource(name);
-}
+inline void* JKRGetResource(const char* name) { return JKRFileLoader::getGlbResource(name); }
 
 #endif /* JKRFILELOADER_H */

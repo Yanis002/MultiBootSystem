@@ -6,10 +6,12 @@
 int fclose(FILE* file) {
     int flush_result, close_result;
 
-    if (file == NULL)
+    if (file == NULL) {
         return (-1);
-    if (file->file_mode.file_kind == __closed_file)
+    }
+    if (file->file_mode.file_kind == __closed_file) {
         return (0);
+    }
 
     flush_result = fflush(file);
 
@@ -18,8 +20,9 @@ int fclose(FILE* file) {
     file->file_mode.file_kind = __closed_file;
     file->handle = NULL;
 
-    if (file->file_state.free_buffer)
+    if (file->file_state.free_buffer) {
         free((FILE*)file->buffer);
+    }
     return ((flush_result || close_result) ? -1 : 0);
 }
 

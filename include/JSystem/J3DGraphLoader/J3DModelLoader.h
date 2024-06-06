@@ -4,16 +4,14 @@
 #include "JSystem/J3DGraphAnimator/J3DModelData.h"
 #include "JSystem/JUtility/JUTDataHeader.h"
 
-inline u32 getBdlFlag_MaterialType(u32 i_flags) {
-    return i_flags & 0x3000;
-}
+inline u32 getBdlFlag_MaterialType(u32 i_flags) { return i_flags & 0x3000; }
 
 struct J3DModelInfoBlock : public JUTDataBlockHeader {
     /* 0x08 */ u16 mFlags;
     /* 0x0C */ u32 mPacketNum;
     /* 0x10 */ u32 mVtxNum;
     /* 0x14 */ void* mpHierarchy;
-};  // Size: 0x18
+}; // Size: 0x18
 
 struct J3DVertexBlock : public JUTDataBlockHeader {
     /* 0x08 */ void* mpVtxAttrFmtList;
@@ -22,7 +20,7 @@ struct J3DVertexBlock : public JUTDataBlockHeader {
     /* 0x14 */ void* mpVtxNBTArray;
     /* 0x18 */ void* mpVtxColorArray[2];
     /* 0x20 */ void* mpVtxTexCoordArray[8];
-};  // Size: 0x40
+}; // Size: 0x40
 
 struct J3DEnvelopBlock : public JUTDataBlockHeader {
     /* 0x08 */ u16 mWEvlpMtxNum;
@@ -30,13 +28,13 @@ struct J3DEnvelopBlock : public JUTDataBlockHeader {
     /* 0x10 */ void* mpWEvlpMixMtxIndex;
     /* 0x14 */ void* mpWEvlpMixWeight;
     /* 0x18 */ void* mpInvJointMtx;
-};  // Size: 0x1C
+}; // Size: 0x1C
 
 struct J3DDrawBlock : public JUTDataBlockHeader {
     /* 0x08 */ u16 mMtxNum;
     /* 0x0C */ void* mpDrawMtxFlag;
     /* 0x10 */ void* mpDrawMtxIndex;
-};  // Size: 0x14
+}; // Size: 0x14
 
 struct J3DJointBlock;
 
@@ -125,21 +123,17 @@ struct J3DTextureBlock : public JUTDataBlockHeader {
 };
 
 class J3DModelLoaderDataBase {
-public:
+  public:
     static J3DModelData* load(void const*, u32);
     static J3DModelData* loadBinaryDisplayList(void const*, u32);
     static J3DMaterialTable* loadMaterialTable(void const*);
 };
 
 class J3DModelLoader {
-public:
-    J3DModelLoader() :
-        mpModelData(NULL),
-        mpMaterialTable(NULL),
-        mpShapeBlock(NULL),
-        mpMaterialBlock(NULL),
-        mpModelHierarchy(NULL),
-        field_0x18(0) {}
+  public:
+    J3DModelLoader()
+        : mpModelData(NULL), mpMaterialTable(NULL), mpShapeBlock(NULL), mpMaterialBlock(NULL), mpModelHierarchy(NULL),
+          field_0x18(0) {}
 
     virtual J3DModelData* load(const void*, u32);
     virtual J3DMaterialTable* loadMaterialTable(const void*);
@@ -156,7 +150,7 @@ public:
     virtual void readMaterialTable_v21(const J3DMaterialBlock_v21*, u32) {}
     virtual u32 calcSizeMaterial(const J3DMaterialBlock*, u32) { return 0; }
     virtual u32 calcSizeMaterialTable(const J3DMaterialBlock*, u32) { return 0; }
-    
+
     void readInformation(const J3DModelInfoBlock*, u32);
     void readVertex(const J3DVertexBlock*);
     void readEnvelop(const J3DEnvelopBlock*);
@@ -176,7 +170,7 @@ public:
     u32 calcSizePatchedMaterial(const J3DMaterialBlock*, u32);
     u32 calcSizeMaterialDL(const J3DMaterialDLBlock*, u32);
 
-protected:
+  protected:
     /* 0x04 */ J3DModelData* mpModelData;
     /* 0x08 */ J3DMaterialTable* mpMaterialTable;
     /* 0x0C */ const J3DShapeBlock* mpShapeBlock;
@@ -187,14 +181,14 @@ protected:
 };
 
 class J3DModelLoader_v21 : public J3DModelLoader {
-public:
+  public:
     ~J3DModelLoader_v21() {}
     void readMaterial_v21(const J3DMaterialBlock_v21*, u32);
     void readMaterialTable_v21(const J3DMaterialBlock_v21*, u32);
 };
 
 class J3DModelLoader_v26 : public J3DModelLoader {
-public:
+  public:
     ~J3DModelLoader_v26() {}
     void readMaterial(const J3DMaterialBlock*, u32);
     void readMaterialTable(const J3DMaterialBlock*, u32);

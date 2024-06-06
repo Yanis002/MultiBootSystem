@@ -13,6 +13,6 @@ namespace JStage {
         virtual bool JSGGetSystemData(u32);
         virtual void JSGSetSystemData(u32, u32);
     };
-};
+}; // namespace JStage
 
 #endif /* JSGSYSTEM_H */

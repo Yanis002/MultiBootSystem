@@ -7,15 +7,16 @@
 class JUTFont;
 
 class J2DPrint {
-public:
+  public:
     struct TSize {
         /* 0x0 */ f32 field_0x0;
         /* 0x4 */ f32 field_0x4;
     };
 
     J2DPrint(JUTFont*, f32, f32, JUtility::TColor, JUtility::TColor, JUtility::TColor, JUtility::TColor);
-    virtual ~J2DPrint() {};
-    void private_initiate(JUTFont*, f32, f32, JUtility::TColor, JUtility::TColor, JUtility::TColor, JUtility::TColor, bool);
+    virtual ~J2DPrint(){};
+    void private_initiate(JUTFont*, f32, f32, JUtility::TColor, JUtility::TColor, JUtility::TColor, JUtility::TColor,
+                          bool);
     static char* setBuffer(u32);
     void setFontSize();
     void locate(f32, f32);

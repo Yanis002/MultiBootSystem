@@ -41,7 +41,7 @@ namespace JAInter {
         extern s32 wsMax;
         extern flags_t flags;
         extern s32 SceneSetFlag;
-    };
-}
+    }; // namespace BankWave
+} // namespace JAInter
 
 #endif /* JAIBANKWAVE_H */

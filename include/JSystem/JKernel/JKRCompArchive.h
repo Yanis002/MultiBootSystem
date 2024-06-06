@@ -7,23 +7,23 @@ class JKRAramBlock;
 class JKRDvdFile;
 
 class JKRCompArchive : public JKRArchive {
-public:
+  public:
     JKRCompArchive(s32, JKRArchive::EMountDirection);
     virtual ~JKRCompArchive();
 
     bool open(s32);
 
     /* vt[09] */ void removeResourceAll(void); /* override */
-    /* vt[10] */ bool removeResource(void*);   /* override */
+    /* vt[10] */ bool removeResource(void*); /* override */
 
-    /* vt[15] */ u32 getExpandedResSize(const void*) const;            /* override */
-    /* vt[16] */ void* fetchResource(SDIFileEntry*, u32*);             /* override */
+    /* vt[15] */ u32 getExpandedResSize(const void*) const; /* override */
+    /* vt[16] */ void* fetchResource(SDIFileEntry*, u32*); /* override */
     /* vt[17] */ void* fetchResource(void*, u32, SDIFileEntry*, u32*); /* override */
 
-public:
-private:
-    /* 0x00 */  // vtable
-    /* 0x04 */  // JKRArchive
+  public:
+  private:
+    /* 0x00 */ // vtable
+    /* 0x04 */ // JKRArchive
     /* 0x64 */ int field_0x64;
     /* 0x68 */ JKRAramBlock* mAramPart;
     /* 0x6C */ int field_0x6c;

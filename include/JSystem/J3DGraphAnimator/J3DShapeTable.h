@@ -7,7 +7,7 @@
 class JUTNameTab;
 
 class J3DShapeTable {
-public:
+  public:
     inline void clear() {
         mShapeNum = 0;
         mShapeNodePointer = NULL;
@@ -16,12 +16,12 @@ public:
     u16 getShapeNum() const { return mShapeNum; }
     J3DShape* getShapeNodePointer(u16 idx) const { return mShapeNodePointer[idx]; }
 
-private:
+  private:
     friend class J3DModelLoader;
     friend class J3DModelData;
 
     /* 0x0 */ u16 mShapeNum;
     /* 0x4 */ J3DShape** mShapeNodePointer;
-};  // Size: 0x08
+}; // Size: 0x08
 
 #endif /* J3DSHAPETABLE_H */

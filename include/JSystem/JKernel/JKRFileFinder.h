@@ -8,10 +8,10 @@ struct JKRFileFinder_UnknownBase {
     /* 0x04 */ s32 mEntryFileIndex;
     /* 0x08 */ u16 mEntryId;
     /* 0x0A */ u16 mEntryTypeFlags;
-};  // Size: 0x0C
+}; // Size: 0x0C
 
 class JKRFileFinder : public JKRFileFinder_UnknownBase {
-public:
+  public:
     JKRFileFinder() {
         mIsAvailable = false;
         mIsFileOrDirectory = false;
@@ -22,12 +22,12 @@ public:
     bool isFile() const { return mIsFileOrDirectory; }
     bool isDirectory() const { return mIsFileOrDirectory; }
 
-public:
+  public:
     /* vt[3] */ virtual bool findNextFile() = 0;
 
-protected:
-    /* 0x00 */  // JKRFileFinder_UnknownBase
-    /* 0x0C */  // vtable
+  protected:
+    /* 0x00 */ // JKRFileFinder_UnknownBase
+    /* 0x0C */ // vtable
     /* 0x10 */ bool mIsAvailable;
     /* 0x11 */ bool mIsFileOrDirectory;
     /* 0x12 */ u8 field_0x12[2];
@@ -35,17 +35,17 @@ protected:
 
 class JKRArchive;
 class JKRArcFinder : public JKRFileFinder {
-public:
+  public:
     JKRArcFinder(JKRArchive*, s32, s32);
     virtual ~JKRArcFinder() {}
 
-public:
+  public:
     /* vt[3] */ virtual bool findNextFile(void); /* override */
 
-private:
-    /* 0x00 */  // JKRFileFinder_UnknownBase
-    /* 0x0C */  // vtable
-    /* 0x10 */  // JKRFileFinder
+  private:
+    /* 0x00 */ // JKRFileFinder_UnknownBase
+    /* 0x0C */ // vtable
+    /* 0x10 */ // JKRFileFinder
     /* 0x14 */ JKRArchive* mArchive;
     /* 0x18 */ s32 mStartIndex;
     /* 0x1C */ s32 mEndIndex;
@@ -53,17 +53,17 @@ private:
 };
 
 class JKRDvdFinder : public JKRFileFinder {
-public:
+  public:
     JKRDvdFinder(const char*);
     virtual ~JKRDvdFinder();
 
-public:
+  public:
     /* vt[3] */ virtual bool findNextFile(void); /* override */
 
-private:
-    /* 0x00 */  // JKRFileFinder_UnknownBase
-    /* 0x0C */  // vtable
-    /* 0x10 */  // JKRFileFinder
+  private:
+    /* 0x00 */ // JKRFileFinder_UnknownBase
+    /* 0x0C */ // vtable
+    /* 0x10 */ // JKRFileFinder
     /* 0x14 */ DVDDir mDvdDirectory;
     /* 0x20 */ bool mDvdIsOpen;
     /* 0x21 */ u8 field_0x21[3];

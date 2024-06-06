@@ -8,9 +8,9 @@ namespace JASystem {
     class TInstParam;
 
     class TDrumSet : public TInst {
-    public:
+      public:
         class TPerc {
-        public:
+          public:
             TPerc();
             ~TPerc();
             void setEffectCount(u32);
@@ -39,6 +39,6 @@ namespace JASystem {
 
         /* 0x04 */ TPerc field_0x4[sPercCount];
     };
-}
+} // namespace JASystem
 
 #endif /* JASDRUMSET_H */

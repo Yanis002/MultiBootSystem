@@ -13,7 +13,7 @@ namespace JASystem {
     extern OSTick old_time;
 
     class TDSPChannel {
-    public:
+      public:
         TDSPChannel() {
             field_0xc = NULL;
             mCallback = NULL;
@@ -67,6 +67,6 @@ namespace JASystem {
         static TDSPChannel* DSPCH;
         static int smnUse;
     };
-}
+} // namespace JASystem
 
 #endif /* JASDSPCHANNEL_H */
