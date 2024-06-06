@@ -3,7 +3,7 @@
 ###
 # Generates build files for the project.
 # This file also includes the project configuration,
-# such as compiler flags and the object matching status.
+# such as compiler flags and the object NonMatching status.
 #
 # Usage:
 #   python3 configure.py
@@ -25,11 +25,7 @@ from tools.project import (
     is_windows,
 )
 
-# Game versions
-DEFAULT_VERSION = 0
-VERSIONS = [
-    "mq-j",  # 0
-]
+### Script's arguments
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -40,11 +36,9 @@ parser.add_argument(
     nargs="?",
 )
 parser.add_argument(
-    "--version",
-    choices=VERSIONS,
-    type=str.lower,
-    default=VERSIONS[DEFAULT_VERSION],
-    help="version to build",
+    "--non-matching",
+    action="store_true",
+    help="create non-matching build for modding",
 )
 parser.add_argument(
     "--build-dir",
@@ -76,11 +70,6 @@ parser.add_argument(
     action="store_true",
     help="don't incorporate .s files from asm directory",
 )
-parser.add_argument(
-    "--debug",
-    action="store_true",
-    help="build with debug info (non-matching)",
-)
 if not is_windows():
     parser.add_argument(
         "--wrapper",
@@ -101,109 +90,95 @@ parser.add_argument(
     help="path to sjiswrap.exe (optional)",
 )
 parser.add_argument(
-    "--verbose",
-    action="store_true",
-    help="print verbose output",
+    "--progress-version",
+    metavar="VERSION",
+    help="version to print progress for",
 )
+
 args = parser.parse_args()
 
-config = ProjectConfig()
-config.version = args.version
-version_num = VERSIONS.index(config.version)
+### Project configuration
 
-# Apply arguments
+config = ProjectConfig()
+config.versions = [
+    "mq-j",
+]
+config.default_version = "mq-j"
+config.warn_missing_config = True
+config.warn_missing_source = False
+config.progress_all = False
+
 config.build_dir = args.build_dir
 config.dtk_path = args.dtk
 config.binutils_path = args.binutils
 config.compilers_path = args.compilers
-config.debug = args.debug
 config.generate_map = args.map
 config.sjiswrap_path = args.sjiswrap
+config.non_matching = args.non_matching
+
 if not is_windows():
     config.wrapper = args.wrapper
+
 if args.no_asm:
     config.asm_dir = None
 
-# Tool versions
+### Tool versions
+
 config.binutils_tag = "2.42-1"
 config.compilers_tag = "20231018"
-config.dtk_tag = "v0.7.5"
+config.dtk_tag = "v0.8.3"
 config.sjiswrap_tag = "v1.1.1"
 config.wibo_tag = "0.6.11"
+config.linker_version = "GC/1.1"
 
-# Project
-config.config_path = Path("config") / config.version / "config.yml"
-config.check_sha_path = Path("config") / config.version / "build.sha1"
+### Flags
+
 config.asflags = [
     "-mgekko",
-    "--strip-local-absolute",
     "-I include",
-    f"-I build/{config.version}/include",
-    f"--defsym version={version_num}",
+    "-I libc",
 ]
+
 config.ldflags = [
     "-fp hardware",
     "-nodefaults",
     "-warn off",
-    # "-listclosure", # Uncomment for Wii linkers
 ]
 
-# Base flags, common to most GC/Wii games.
-# Generally leave untouched, with overrides added below.
 cflags_base = [
-    "-nodefaults",
-    "-proc gekko",
-    "-align powerpc",
-    "-enum int",
-    "-fp hardware",
     "-Cpp_exceptions off",
-    # "-W all",
-    "-O4,p",
-    "-inline auto",
-    '-pragma "cats off"',
-    '-pragma "warn_notinlined off"',
-    "-maxerrors 1",
+    "-proc gekko",
+    "-fp hardware",
+    "-fp_contract on",
+    "-enum int",
+    "-align powerpc",
     "-nosyspath",
     "-RTTI off",
-    "-fp_contract on",
     "-str reuse",
-    "-multibyte",  # For Wii compilers, replace with `-enc SJIS`
-    "-i include",
-    f"-i build/{config.version}/include",
-    f"-DVERSION={version_num}",
-]
-
-# Debug flags
-if config.debug:
-    cflags_base.extend(["-sym on", "-DDEBUG=1"])
-else:
-    cflags_base.append("-DNDEBUG=1")
-
-# Metrowerks library flags
-cflags_runtime = [
-    *cflags_base,
-    "-use_lmw_stmw on",
-    "-str reuse,pool,readonly",
-    # "-gccinc",
-    "-common off",
+    "-multibyte",
+    "-O4,p",
     "-inline auto",
+    "-nodefaults",
+    "-msgstyle gcc",
+    "-sym on",
+    "-i include",
+    "-i libc",
 ]
 
-config.linker_version = "GC/1.1"
+if config.non_matching:
+    cflags_base.append("-DNON_MATCHING")
 
+### Helper functions
 
-# Helper function for libraries sharing the same informations
-def GenericLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+def MultiBootLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.2.5",
-        "cflags": cflags_runtime,
+        "mw_version": "GC/1.1",
+        "cflags": [*cflags_base, "-inline deferred"],
         "host": False,
         "objects": objects,
     }
 
-
-# Helper function for Dolphin libraries
 def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
@@ -213,18 +188,31 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "objects": objects,
     }
 
-Matching = True
-NonMatching = False
-
-config.warn_missing_config = True
-config.warn_missing_source = False
-config.libs = [
-    {
-        "lib": "MultiBootSystem",
-        "mw_version": "GC/1.1",
-        "cflags": cflags_runtime,
+def GenericLib(lib_name: str, cflags: List[str], objects: List[Object]) -> Dict[str, Any]:
+    return {
+        "lib": lib_name,
+        "mw_version": "GC/1.2.5",
+        "cflags": cflags,
         "host": False,
-        "objects": [
+        "objects": objects,
+    }
+
+### Link order
+
+# Not matching for any version
+NonMatching = {}
+
+# Matching for all versions
+Matching = config.versions
+
+# Matching for specific versions
+def MatchingFor(*versions):
+    return versions
+
+config.libs = [
+    MultiBootLib(
+        "MultiBootSystem",
+        [
             Object(NonMatching, "main.c"),
             Object(NonMatching, "dtk_stuff.c"),
             Object(NonMatching, "graphics.c"),
@@ -233,7 +221,7 @@ config.libs = [
             Object(Matching, "discerror.c"),
             Object(NonMatching, "soundeffect.c"),
         ]
-    },
+    ),
     DolphinLib(
         "exec.a",
         [
@@ -424,6 +412,7 @@ config.libs = [
     ),
     GenericLib(
         "JKernel.a",
+        cflags_base,
         [
             Object(NonMatching, "JKernel.a/JKRHeap.cpp"),
             Object(NonMatching, "JKernel.a/JKRStdHeap.cpp"),
@@ -452,6 +441,7 @@ config.libs = [
     ),
     GenericLib(
         "JSupport.a",
+        cflags_base,
         [
             Object(NonMatching, "JSupport.a/JSUList.cpp"),
             Object(NonMatching, "JSupport.a/JSUInputStream.cpp"),
@@ -461,12 +451,14 @@ config.libs = [
     ),
     GenericLib(
         "JGadget.a",
+        cflags_base,
         [
             Object(NonMatching, "JGadget.a/linklist.cpp"),
         ]
     ),
     GenericLib(
         "JUtility.a",
+        cflags_base,
         [
             Object(NonMatching, "JUtility.a/JUTCacheFont.cpp"),
             Object(NonMatching, "JUtility.a/JUTResource.cpp"),
@@ -493,6 +485,7 @@ config.libs = [
     ),
     GenericLib(
         "J2DGraph.a",
+        cflags_base,
         [
             Object(NonMatching, "J2DGraph.a/J2DGrafContext.cpp"),
             Object(NonMatching, "J2DGraph.a/J2DOrthoGraph.cpp"),
@@ -506,12 +499,14 @@ config.libs = [
     ),
     GenericLib(
         "JRenderer.a",
+        cflags_base,
         [
             Object(NonMatching, "JRenderer.a/JRenderer.cpp"),
         ]
     ),
     GenericLib(
         "J3DGraphBase.a",
+        cflags_base,
         [
             Object(NonMatching, "J3DGraphBase.a/J3DGD.cpp"),
             Object(NonMatching, "J3DGraphBase.a/J3DSys.cpp"),
@@ -528,6 +523,7 @@ config.libs = [
     ),
     GenericLib(
         "J3DGraphAnimator.a",
+        cflags_base,
         [
             Object(NonMatching, "J3DGraphAnimator.a/J3DModelData.cpp"),
             Object(NonMatching, "J3DGraphAnimator.a/J3DModel.cpp"),
@@ -541,6 +537,7 @@ config.libs = [
     ),
     GenericLib(
         "J3DGraphLoader.a",
+        cflags_base,
         [
             Object(NonMatching, "J3DGraphLoader.a/J3DMaterialFactory.cpp"),
             Object(NonMatching, "J3DGraphLoader.a/J3DMaterialFactory_v21.cpp"),
@@ -554,6 +551,7 @@ config.libs = [
     ),
     GenericLib(
         "JMath.a",
+        cflags_base,
         [
             Object(NonMatching, "JMath.a/JMath.cpp"),
             Object(NonMatching, "JMath.a/random.cpp"),
@@ -561,6 +559,7 @@ config.libs = [
     ),
     GenericLib(
         "JFramework.a",
+        cflags_base,
         [
             Object(NonMatching, "JFramework.a/JFWSystem.cpp"),
             Object(NonMatching, "JFramework.a/JFWDisplay.cpp"),
@@ -568,6 +567,7 @@ config.libs = [
     ),
     GenericLib(
         "JPALoader.a",
+        cflags_base,
         [
             Object(NonMatching, "JPALoader.a/JPABaseShape.cpp"),
             Object(NonMatching, "JPALoader.a/JPAExtraShape.cpp"),
@@ -583,6 +583,7 @@ config.libs = [
     ),
     GenericLib(
         "JPABase.a",
+        cflags_base,
         [
             Object(NonMatching, "JPABase.a/JPAMath.cpp"),
             Object(NonMatching, "JPABase.a/JPAField.cpp"),
@@ -593,6 +594,7 @@ config.libs = [
     ),
     GenericLib(
         "JPADraw.a",
+        cflags_base,
         [
             Object(NonMatching, "JPADraw.a/JPADrawVisitor.cpp"),
             Object(NonMatching, "JPADraw.a/JPADraw.cpp"),
@@ -601,6 +603,7 @@ config.libs = [
     ),
     GenericLib(
         "Runtime.PPCEABI.H.a",
+        cflags_base,
         [
             Object(NonMatching, "Runtime.PPCEABI.H.a/__va_arg.c"),
             Object(NonMatching, "Runtime.PPCEABI.H.a/global_destructor_chain.c"),
@@ -614,6 +617,7 @@ config.libs = [
     ),
     GenericLib(
         "MSL_C.PPCEABI.bare.H.a",
+        cflags_base,
         [
             Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/abort_exit.c"),
             Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/alloc.c"),
@@ -660,6 +664,7 @@ config.libs = [
     ),
     GenericLib(
         "TRK_MINNOW_DOLPHIN.a",
+        cflags_base,
         [
             Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/mainloop.c"),
             Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/nubevent.c"),
@@ -688,30 +693,34 @@ config.libs = [
     ),
     GenericLib(
         "amcstubs.a",
+        cflags_base,
         [
             Object(NonMatching, "amcstubs.a/AmcExi2Stubs.c"),
         ]
     ),
     GenericLib(
         "OdemuExi2.a",
+        cflags_base,
         [
             Object(NonMatching, "OdemuExi2.a/DebuggerDriver.c"),
         ]
     ),
     GenericLib(
         "odenotstub.a",
+        cflags_base,
         [
             Object(NonMatching, "odenotstub.a/odenotstub.c"),
         ]
     ),
 ]
 
+### Execute mode
+
 if args.mode == "configure":
     # Write build.ninja and objdiff.json
     generate_build(config)
 elif args.mode == "progress":
     # Print progress and write progress.json
-    config.progress_each_module = args.verbose
-    calculate_progress(config)
+    calculate_progress(config, args.progress_version)
 else:
     sys.exit("Unknown mode: " + args.mode)

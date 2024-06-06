@@ -103,6 +103,15 @@ def main() -> None:
             st = os.stat(output)
             os.chmod(output, st.st_mode | stat.S_IEXEC)
 
-
+    # Hack around CWParserSetOutputFileDirectory bug
+    if args.tool == "compilers":
+        compiler_path = output.joinpath("GC/1.1/mwldeppc.exe")
+        data = None
+        with open(compiler_path, "rb") as infile:
+            data = bytearray(infile.read())
+        data = data.replace(b"\xb9\x41\0\0\0\xf3\xa5\x8d\x44\x24\x04", b"\xb9\x51\0\0\0\xf3\xa5\x8d\x44\x24\x04")
+        with open(compiler_path, "wb") as outfile:
+            outfile.write(data)
+ 
 if __name__ == "__main__":
     main()
