@@ -3,10 +3,6 @@
 
 #include "dolphin/types.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define CTR 9
 #define XER 1
 #define LR 8
@@ -467,29 +463,30 @@ typedef union {
 #define FPSCR_NI_BIT 29 // Non-IEEE mode
 #endif
 
-u32 PPCMfmsr();
+u32 PPCMfmsr(void);
 void PPCMtmsr(u32 newMSR);
-u32 PPCOrMsr(u32 value);
-u32 PPCMfhid0();
+u32 PPCMfhid0(void);
 void PPCMthid0(u32 newHID0);
-u32 PPCMfl2cr();
+u32 PPCMfl2cr(void);
 void PPCMtl2cr(u32 newL2cr);
 void PPCMtdec(u32 newDec);
-void PPCSync();
-void PPCHalt();
-u32 PPCMffpscr();
-void PPCMtfpscr(u32 newFPSCR);
-u32 PPCMfhid2();
-void PPCMthid2(u32 newhid2);
-u32 PPCMfwpar();
-void PPCMtwpar(u32 newwpar);
-void PPCEnableSpeculation();
-void PPCDisableSpeculation();
-void PPCSetFpIEEEMode();
-void PPCSetFpNonIEEEMode();
-
-#ifdef __cplusplus
-}
+void PPCSync(void);
+void PPCHalt(void);
+#if IS_CE
+void PPCMtmmcr0(u32 newMmcr0);
+void PPCMtmmcr1(u32 newMmcr1);
+void PPCMtpmc1(u32 newPmc1);
+void PPCMtpmc2(u32 newPmc2);
+void PPCMtpmc3(u32 newPmc3);
+void PPCMtpmc4(u32 newPmc4);
 #endif
+u32 PPCMffpscr(void);
+void PPCMtfpscr(u32 newFPSCR);
+u32 PPCMfhid2(void);
+void PPCMthid2(u32 newhid2);
+void PPCMtwpar(u32 newwpar);
+void PPCEnableSpeculation(void);
+void PPCDisableSpeculation(void);
+void PPCSetFpNonIEEEMode(void);
 
 #endif

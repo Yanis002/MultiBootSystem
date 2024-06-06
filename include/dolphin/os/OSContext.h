@@ -3,10 +3,6 @@
 
 #include "dolphin/types.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define __OS_CONTEXT_FRAME 768
 
 #define OS_CONTEXT_R0 0
@@ -158,14 +154,15 @@ typedef struct OSContext {
 
 } OSContext;
 
-u32 OSSaveContext(OSContext* context);
-void OSClearContext(OSContext* context);
-OSContext* OSGetCurrentContext();
-void OSSetCurrentContext(OSContext* context);
-u32 OSGetStackPointer();
-
-#ifdef __cplusplus
-}
-#endif
+void OSSaveFPUContext(register OSContext* fpuContext);
+void OSSetCurrentContext(register OSContext* context);
+OSContext* OSGetCurrentContext(void);
+u32 OSSaveContext(register OSContext* context);
+void OSLoadContext(register OSContext* context);
+u32 OSGetStackPointer(void);
+void OSClearContext(register OSContext* context);
+void OSInitContext(register OSContext* context, register u32 pc, register u32 newsp);
+void OSDumpContext(OSContext* context);
+void __OSContextInit(void);
 
 #endif // _DOLPHIN_OSCONTEXT

@@ -1,10 +1,6 @@
 #ifndef _DOLPHIN_OSMESSAGE
 #define _DOLPHIN_OSMESSAGE
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "dolphin/os/OSThread.h"
 typedef struct OSMessageQueue OSMessageQueue;
 typedef void* OSMessage;
@@ -23,12 +19,7 @@ struct OSMessageQueue {
 #define OS_MESSAGE_BLOCK 1
 
 void OSInitMessageQueue(OSMessageQueue* mq, OSMessage* msgArray, s32 msgCount);
-BOOL OSSendMessage(OSMessageQueue* mq, OSMessage msg, s32 flags);
-BOOL OSJamMessage(OSMessageQueue* mq, OSMessage msg, s32 flags);
-BOOL OSReceiveMessage(OSMessageQueue* mq, OSMessage* msg, s32 flags);
-
-#ifdef __cplusplus
-}
-#endif
+bool OSSendMessage(OSMessageQueue* mq, OSMessage msg, s32 flags);
+bool OSReceiveMessage(OSMessageQueue* mq, OSMessage* msg, s32 flags);
 
 #endif // _DOLPHIN_OSMESSAGE

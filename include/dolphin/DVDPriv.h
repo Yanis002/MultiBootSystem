@@ -5,10 +5,6 @@
 #include "dolphin/hw_regs.h"
 #include "dolphin/types.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef struct DVDDriveInfo {
     u16 revisionLevel;
     u16 deviceCode;
@@ -37,14 +33,14 @@ typedef struct DVDBB2 {
 
 typedef void (*DVDOptionalCommandChecker)(DVDCommandBlock* block, void (*cb)(u32 intType));
 typedef void (*DVDLowCallback)(u32 intType);
-extern DVDDiskID* DVDGetCurrentDiskID();
-DVDLowCallback DVDLowClearCallback();
-BOOL DVDLowSeek(u32 offset, DVDLowCallback callback);
+extern DVDDiskID* DVDGetCurrentDiskID(void);
+DVDLowCallback DVDLowClearCallback(void);
+bool DVDLowSeek(u32 offset, DVDLowCallback callback);
 void __DVDLowSetWAType(u32 type, u32 location);
-DVDCommandBlock* __DVDPopWaitingQueue();
+DVDCommandBlock* __DVDPopWaitingQueue(void);
+bool DVDInquiryAsync(DVDCommandBlock* block, DVDDriveInfo* info, DVDCBCallback callback);
+void __DVDPrepareResetAsync(DVDCBCallback callback);
+bool DVDReadAbsAsyncPrio(DVDCommandBlock* block, void* addr, s32 length, s32 offset, DVDCBCallback callback, s32 prio);
+bool __DVDLowTestAlarm(struct OSAlarm* alarm);
 
-#ifdef __cplusplus
-}
 #endif // _DOLPHIN_DVDPRIV
-
-#endif __DVDPRIV_H__

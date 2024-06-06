@@ -14,8 +14,12 @@ typedef struct {
 } DVDDiskID;
 
 typedef struct DVDCommandBlock DVDCommandBlock;
+typedef struct DVDFileInfo DVDFileInfo;
+typedef struct DVDQueue DVDQueue;
 
+typedef void (*DVDCallback)(s32 result, DVDFileInfo* fileInfo);
 typedef void (*DVDCBCallback)(s32 result, DVDCommandBlock* block);
+typedef void (*DVDDoneReadCallback)(s32, DVDFileInfo*);
 
 struct DVDCommandBlock {
     /* 0x00 */ DVDCommandBlock* next;
@@ -32,15 +36,16 @@ struct DVDCommandBlock {
     /* 0x2C */ void* userData;
 };
 
-typedef struct DVDFileInfo DVDFileInfo;
-
-typedef void (*DVDCallback)(s32 result, DVDFileInfo* fileInfo);
-
 struct DVDFileInfo {
     /* 0x00 */ DVDCommandBlock cb;
     /* 0x30 */ u32 startAddr;
     /* 0x34 */ u32 length;
     /* 0x38 */ DVDCallback callback;
+};
+
+struct DVDQueue {
+    /* 0x00 */ DVDQueue* mHead;
+    /* 0x04 */ DVDQueue* mTail;
 };
 
 typedef struct DVDDir {
@@ -51,26 +56,31 @@ typedef struct DVDDir {
 
 typedef struct DVDDirEntry {
     u32 entryNum;
-    BOOL isDir;
+    bool isDir;
     char* name;
 } DVDDirEntry;
 
 void DVDInit(void);
-BOOL DVDOpen(const char* fileName, DVDFileInfo* fileInfo);
-BOOL DVDClose(DVDFileInfo*);
-BOOL DVDReadAsyncPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, DVDCallback callback, s32 prio);
+void DVDReset(void);
+bool DVDOpen(const char* fileName, DVDFileInfo* fileInfo);
+bool DVDClose(DVDFileInfo*);
+bool DVDReadAsyncPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, DVDCallback callback, s32 prio);
 s32 DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 prio);
 s32 DVDConvertPathToEntrynum(const char* pathPtr);
-BOOL DVDGetCurrentDir(char* path, u32 maxlen);
+bool DVDGetCurrentDir(char* path, u32 maxlen);
 s32 DVDGetCommandBlockStatus(const DVDCommandBlock* block);
 s32 DVDGetDriveStatus(void);
-BOOL DVDSetAutoInvalidation(BOOL autoInval);
+bool DVDSetAutoInvalidation(bool autoInval);
 void DVDResume(void);
-BOOL DVDCancelAsync(DVDCommandBlock* block, DVDCBCallback callback);
+bool DVDCancelAsync(DVDCommandBlock* block, DVDCBCallback callback);
+bool DVDCancelStreamAsync(DVDCommandBlock* block, DVDCBCallback callback);
 s32 DVDCancel(DVDCommandBlock* block);
 s32 DVDGetDriveStatus(void);
+bool DVDCheckDisk(void);
 DVDDiskID* DVDGetCurrentDiskID(void);
-BOOL DVDCompareDiskID(const DVDDiskID* id1, const DVDDiskID* id2);
+bool DVDCompareDiskID(const DVDDiskID* discID1, const DVDDiskID* discID2);
+void __DVDLowSetWAType(u32 type, u32 location);
+bool DVDReadAbsAsyncForBS(DVDCommandBlock* block, void* addr, s32 length, s32 offset, DVDCBCallback callback);
 
 #define DVDReadAsync(fileInfo, addr, length, offset, callback) \
     DVDReadAsyncPrio((fileInfo), (addr), (length), (offset), (callback), 2)
@@ -93,5 +103,12 @@ BOOL DVDCompareDiskID(const DVDDiskID* id1, const DVDDiskID* id2);
 #define DVD_STATE_IGNORED 9
 #define DVD_STATE_CANCELED 10
 #define DVD_STATE_RETRY 11
+
+#define DVD_MIN_TRANSFER_SIZE 32
+
+#define DVD_FILEINFO_READY 0
+#define DVD_FILEINFO_BUSY 1
+
+#define DVD_AIS_SUCCESS 0
 
 #endif

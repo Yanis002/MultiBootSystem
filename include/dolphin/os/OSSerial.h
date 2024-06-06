@@ -3,10 +3,6 @@
 
 #include "dolphin/types.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define SI_MAX_CHAN 4
 #define SI_MAX_COMCSR_INLNGTH 128
 #define SI_MAX_COMCSR_OUTLNGTH 128
@@ -39,12 +35,12 @@ extern "C" {
 #define SI_WIRELESS_STATE 0x02000000
 #define SI_WIRELESS_ORIGIN 0x00200000
 #define SI_WIRELESS_FIX_ID 0x00100000
-#define SI_WIRELESS_TYPE 0x000f0000
-#define SI_WIRELESS_LITE_MASK 0x000c0000
+#define SI_WIRELESS_TYPE 0x000F0000
+#define SI_WIRELESS_LITE_MASK 0x000C0000
 #define SI_WIRELESS_LITE 0x00040000
 #define SI_WIRELESS_CONT_MASK 0x00080000
 #define SI_WIRELESS_CONT 0x00000000
-#define SI_WIRELESS_ID 0x00c0ff00
+#define SI_WIRELESS_ID 0x00C0FF00
 #define SI_WIRELESS_TYPE_ID (SI_WIRELESS_TYPE | SI_WIRELESS_ID)
 #define SI_N64_CONTROLLER (SI_TYPE_N64 | 0x05000000)
 #define SI_N64_MIC (SI_TYPE_N64 | 0x00010000)
@@ -62,7 +58,4 @@ char* SIGetTypeString(u32 type);
 void SIRefreshSamplingRate(void);
 void SISetSamplingRate(u32 msec);
 
-#ifdef __cplusplus
-}
-#endif
 #endif // _DOLPHIN_OSSERIAL
