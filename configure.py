@@ -129,7 +129,7 @@ config.compilers_tag = "20231018"
 config.dtk_tag = "v0.8.3"
 config.sjiswrap_tag = "v1.1.1"
 config.wibo_tag = "0.6.11"
-config.linker_version = "GC/1.1"
+config.linker_version = "GC/1.1" # TBD
 
 ### Flags
 
@@ -153,7 +153,7 @@ cflags_base = [
     "-enum int",
     "-align powerpc",
     "-nosyspath",
-    "-RTTI off",
+    "-RTTI on",
     "-str reuse",
     "-multibyte",
     "-O4,p",
@@ -170,10 +170,10 @@ if config.non_matching:
 
 ### Helper functions
 
-def MultiBootLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+def MenuLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.1",
+        "mw_version": "GC/1.1", # TBD
         "cflags": [*cflags_base, "-inline deferred"],
         "host": False,
         "objects": objects,
@@ -185,6 +185,24 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "mw_version": "GC/1.2.5n",
         "cflags": cflags_base,
         "host": False,
+        "objects": objects,
+    }
+
+def JSystemLib(lib_name, objects):
+    return {
+        "lib": lib_name,
+        "mw_version": "GC/1.3.2",
+        "cflags": [
+            *cflags_base,
+            "-use_lmw_stmw off",
+            "-str reuse,pool,readonly",
+            "-inline noauto",
+            "-O3,s",
+            "-schedule off",
+            "-sym on",
+            "-fp_contract off",
+        ],
+        "host": True,
         "objects": objects,
     }
 
@@ -210,506 +228,480 @@ def MatchingFor(*versions):
     return versions
 
 config.libs = [
-    MultiBootLib(
-        "MultiBootSystem",
+    MenuLib(
+        "menu",
         [
-            Object(NonMatching, "main.c"),
-            Object(NonMatching, "dtk_stuff.c"),
-            Object(NonMatching, "graphics.c"),
-            Object(NonMatching, "mixedcontroller.c"),
-            Object(NonMatching, "mtrand.c"),
-            Object(Matching, "discerror.c"),
-            Object(NonMatching, "soundeffect.c"),
+            Object(NonMatching, "menu/main.c"),
+            Object(NonMatching, "menu/dtk_stuff.c"),
+            Object(NonMatching, "menu/graphics.c"),
+            Object(NonMatching, "menu/mixedcontroller.c"),
+            Object(NonMatching, "menu/mtrand.c"),
+            Object(Matching, "menu/discerror.c"),
+            Object(NonMatching, "menu/soundeffect.c"),
         ]
     ),
     DolphinLib(
-        "exec.a",
+        "exec",
         [
-            Object(NonMatching, "exec.a/exec.c"),
+            Object(NonMatching, "dolphin/exec/exec.c"),
         ]
     ),
     DolphinLib(
-        "base.a",
+        "base",
         [
-            Object(NonMatching, "base.a/PPCArch.c"),
+            Object(NonMatching, "dolphin/base/PPCArch.c"),
         ]
     ),
     DolphinLib(
-        "os.a",
+        "os",
         [
-            Object(NonMatching, "os.a/OS.c"),
-            Object(NonMatching, "os.a/OSAlarm.c"),
-            Object(NonMatching, "os.a/OSAlloc.c"),
-            Object(NonMatching, "os.a/OSArena.c"),
-            Object(NonMatching, "os.a/OSAudioSystem.c"),
-            Object(NonMatching, "os.a/OSCache.c"),
-            Object(NonMatching, "os.a/OSContext.c"),
-            Object(NonMatching, "os.a/OSError.c"),
-            Object(NonMatching, "os.a/OSFont.c"),
-            Object(NonMatching, "os.a/OSInterrupt.c"),
-            Object(NonMatching, "os.a/OSLink.c"),
-            Object(NonMatching, "os.a/OSMessage.c"),
-            Object(NonMatching, "os.a/OSMemory.c"),
-            Object(NonMatching, "os.a/OSMutex.c"),
-            Object(NonMatching, "os.a/OSReboot.c"),
-            Object(NonMatching, "os.a/OSReset.c"),
-            Object(NonMatching, "os.a/OSResetSW.c"),
-            Object(NonMatching, "os.a/OSRtc.c"),
-            Object(NonMatching, "os.a/OSSync.c"),
-            Object(NonMatching, "os.a/OSThread.c"),
-            Object(NonMatching, "os.a/OSTime.c"),
-            Object(NonMatching, "os.a/__ppc_eabi_init.cpp"),
+            Object(NonMatching, "dolphin/os/OS.c"),
+            Object(NonMatching, "dolphin/os/OSAlarm.c"),
+            Object(NonMatching, "dolphin/os/OSAlloc.c"),
+            Object(NonMatching, "dolphin/os/OSArena.c"),
+            Object(NonMatching, "dolphin/os/OSAudioSystem.c"),
+            Object(NonMatching, "dolphin/os/OSCache.c"),
+            Object(NonMatching, "dolphin/os/OSContext.c"),
+            Object(NonMatching, "dolphin/os/OSError.c"),
+            Object(NonMatching, "dolphin/os/OSFont.c"),
+            Object(NonMatching, "dolphin/os/OSInterrupt.c"),
+            Object(NonMatching, "dolphin/os/OSLink.c"),
+            Object(NonMatching, "dolphin/os/OSMessage.c"),
+            Object(NonMatching, "dolphin/os/OSMemory.c"),
+            Object(NonMatching, "dolphin/os/OSMutex.c"),
+            Object(NonMatching, "dolphin/os/OSReboot.c"),
+            Object(NonMatching, "dolphin/os/OSReset.c"),
+            Object(NonMatching, "dolphin/os/OSResetSW.c"),
+            Object(NonMatching, "dolphin/os/OSRtc.c"),
+            Object(NonMatching, "dolphin/os/OSSync.c"),
+            Object(NonMatching, "dolphin/os/OSThread.c"),
+            Object(NonMatching, "dolphin/os/OSTime.c"),
+            Object(NonMatching, "dolphin/os/__ppc_eabi_init.cpp"),
         ]
     ),
     DolphinLib(
-        "exi.a",
+        "exi",
         [
-            Object(NonMatching, "exi.a/EXIBios.c"),
-            Object(NonMatching, "exi.a/EXIUart.c"),
+            Object(NonMatching, "dolphin/exi/EXIBios.c"),
+            Object(NonMatching, "dolphin/exi/EXIUart.c"),
         ]
     ),
     DolphinLib(
-        "si.a",
+        "si",
         [
-            Object(NonMatching, "si.a/SIBios.c"),
-            Object(NonMatching, "si.a/SISamplingRate.c"),
+            Object(NonMatching, "dolphin/si/SIBios.c"),
+            Object(NonMatching, "dolphin/si/SISamplingRate.c"),
         ]
     ),
     DolphinLib(
-        "db.a",
+        "db",
         [
-            Object(NonMatching, "db.a/db.c"),
+            Object(NonMatching, "dolphin/db/db.c"),
         ]
     ),
     DolphinLib(
-        "mtx.a",
+        "mtx",
         [
-            Object(NonMatching, "mtx.a/mtx.c"),
-            Object(NonMatching, "mtx.a/mtxvec.c"),
-            Object(NonMatching, "mtx.a/mtx44.c"),
-            Object(NonMatching, "mtx.a/vec.c"),
+            Object(NonMatching, "dolphin/mtx/mtx.c"),
+            Object(NonMatching, "dolphin/mtx/mtxvec.c"),
+            Object(NonMatching, "dolphin/mtx/mtx44.c"),
+            Object(NonMatching, "dolphin/mtx/vec.c"),
         ]
     ),
     DolphinLib(
-        "dvd.a",
+        "dvd",
         [
-            Object(NonMatching, "dvd.a/dvdlow.c"),
-            Object(NonMatching, "dvd.a/dvdfs.c"),
-            Object(NonMatching, "dvd.a/dvd.c"),
-            Object(NonMatching, "dvd.a/dvdqueue.c"),
-            Object(NonMatching, "dvd.a/dvderror.c"),
-            Object(NonMatching, "dvd.a/dvdidutils.c"),
-            Object(NonMatching, "dvd.a/dvdFatal.c"),
-            Object(NonMatching, "dvd.a/fstload.c"),
+            Object(NonMatching, "dolphin/dvd/dvdlow.c"),
+            Object(NonMatching, "dolphin/dvd/dvdfs.c"),
+            Object(NonMatching, "dolphin/dvd/dvd.c"),
+            Object(NonMatching, "dolphin/dvd/dvdqueue.c"),
+            Object(NonMatching, "dolphin/dvd/dvderror.c"),
+            Object(NonMatching, "dolphin/dvd/dvdidutils.c"),
+            Object(NonMatching, "dolphin/dvd/dvdFatal.c"),
+            Object(NonMatching, "dolphin/dvd/fstload.c"),
         ]
     ),
     DolphinLib(
-        "vi.a",
+        "vi",
         [
-            Object(NonMatching, "vi.a/vi.c"),
+            Object(NonMatching, "dolphin/vi/vi.c"),
         ]
     ),
     DolphinLib(
-        "pad.a",
+        "pad",
         [
-            Object(NonMatching, "pad.a/Padclamp.c"),
-            Object(NonMatching, "pad.a/Pad.c"),
+            Object(NonMatching, "dolphin/pad/Padclamp.c"),
+            Object(NonMatching, "dolphin/pad/Pad.c"),
         ]
     ),
     DolphinLib(
-        "ai.a",
+        "ai",
         [
-            Object(NonMatching, "ai.a/ai.c"),
+            Object(NonMatching, "dolphin/ai/ai.c"),
         ]
     ),
     DolphinLib(
-        "ar.a",
+        "ar",
         [
-            Object(NonMatching, "ar.a/ar.c"),
-            Object(NonMatching, "ar.a/arq.c"),
+            Object(NonMatching, "dolphin/ar/ar.c"),
+            Object(NonMatching, "dolphin/ar/arq.c"),
         ]
     ),
     DolphinLib(
-        "ax.a",
+        "ax",
         [
-            Object(NonMatching, "ax.a/AX.c"),
-            Object(NonMatching, "ax.a/AXAlloc.c"),
-            Object(NonMatching, "ax.a/AXAux.c"),
-            Object(NonMatching, "ax.a/AXCL.c"),
-            Object(NonMatching, "ax.a/AXOut.c"),
-            Object(NonMatching, "ax.a/AXSPB.c"),
-            Object(NonMatching, "ax.a/AXVPB.c"),
-            Object(NonMatching, "ax.a/AXComp.c"),
-            Object(NonMatching, "ax.a/DSPCode.c"),
-            Object(NonMatching, "ax.a/AXProf.c"),
+            Object(NonMatching, "dolphin/ax/AX.c"),
+            Object(NonMatching, "dolphin/ax/AXAlloc.c"),
+            Object(NonMatching, "dolphin/ax/AXAux.c"),
+            Object(NonMatching, "dolphin/ax/AXCL.c"),
+            Object(NonMatching, "dolphin/ax/AXOut.c"),
+            Object(NonMatching, "dolphin/ax/AXSPB.c"),
+            Object(NonMatching, "dolphin/ax/AXVPB.c"),
+            Object(NonMatching, "dolphin/ax/AXComp.c"),
+            Object(NonMatching, "dolphin/ax/DSPCode.c"),
+            Object(NonMatching, "dolphin/ax/AXProf.c"),
         ]
     ),
     DolphinLib(
-        "mix.a",
+        "mix",
         [
-            Object(NonMatching, "mix.a/mix.c"),
+            Object(NonMatching, "dolphin/mix/mix.c"),
         ]
     ),
     DolphinLib(
-        "sp.a",
+        "sp",
         [
-            Object(NonMatching, "sp.a/sp.c"),
+            Object(NonMatching, "dolphin/sp/sp.c"),
         ]
     ),
     DolphinLib(
-        "am.a",
+        "am",
         [
-            Object(NonMatching, "am.a/am.c"),
+            Object(NonMatching, "dolphin/am/am.c"),
         ]
     ),
     DolphinLib(
-        "dsp.a",
+        "dsp",
         [
-            Object(NonMatching, "dsp.a/dsp.c"),
-            Object(NonMatching, "dsp.a/dsp_debug.c"),
-            Object(NonMatching, "dsp.a/dsp_task.c"),
+            Object(NonMatching, "dolphin/dsp/dsp.c"),
+            Object(NonMatching, "dolphin/dsp/dsp_debug.c"),
+            Object(NonMatching, "dolphin/dsp/dsp_task.c"),
         ]
     ),
     DolphinLib(
-        "dtk.a",
+        "dtk",
         [
-            Object(NonMatching, "dtk.a/dtk.c"),
+            Object(NonMatching, "dolphin/dtk/dtk.c"),
         ]
     ),
     DolphinLib(
-        "card.a",
+        "card",
         [
-            Object(NonMatching, "card.a/CARDBios.c"),
-            Object(NonMatching, "card.a/CARDMount.c"),
+            Object(NonMatching, "dolphin/card/CARDBios.c"),
+            Object(NonMatching, "dolphin/card/CARDMount.c"),
         ]
     ),
     DolphinLib(
-        "gx.a",
+        "gx",
         [
-            Object(NonMatching, "gx.a/GXInit.c"),
-            Object(NonMatching, "gx.a/GXFifo.c"),
-            Object(NonMatching, "gx.a/GXAttr.c"),
-            Object(NonMatching, "gx.a/GXMisc.c"),
-            Object(NonMatching, "gx.a/GXGeometry.c"),
-            Object(NonMatching, "gx.a/GXFrameBuf.c"),
-            Object(NonMatching, "gx.a/GXLight.c"),
-            Object(NonMatching, "gx.a/GXTexture.c"),
-            Object(NonMatching, "gx.a/GXBump.c"),
-            Object(NonMatching, "gx.a/GXTev.c"),
-            Object(NonMatching, "gx.a/GXPixel.c"),
-            Object(NonMatching, "gx.a/GXStubs.c"),
-            Object(NonMatching, "gx.a/GXDisplayList.c"),
-            Object(NonMatching, "gx.a/GXTransform.c"),
-            Object(NonMatching, "gx.a/GXPerf.c"),
+            Object(NonMatching, "dolphin/gx/GXInit.c"),
+            Object(NonMatching, "dolphin/gx/GXFifo.c"),
+            Object(NonMatching, "dolphin/gx/GXAttr.c"),
+            Object(NonMatching, "dolphin/gx/GXMisc.c"),
+            Object(NonMatching, "dolphin/gx/GXGeometry.c"),
+            Object(NonMatching, "dolphin/gx/GXFrameBuf.c"),
+            Object(NonMatching, "dolphin/gx/GXLight.c"),
+            Object(NonMatching, "dolphin/gx/GXTexture.c"),
+            Object(NonMatching, "dolphin/gx/GXBump.c"),
+            Object(NonMatching, "dolphin/gx/GXTev.c"),
+            Object(NonMatching, "dolphin/gx/GXPixel.c"),
+            Object(NonMatching, "dolphin/gx/GXStubs.c"),
+            Object(NonMatching, "dolphin/gx/GXDisplayList.c"),
+            Object(NonMatching, "dolphin/gx/GXTransform.c"),
+            Object(NonMatching, "dolphin/gx/GXPerf.c"),
         ]
     ),
     DolphinLib(
-        "gd.a",
+        "gd",
         [
-            Object(NonMatching, "gd.a/GDBase.c"),
-            Object(NonMatching, "gd.a/GDGeometry.c"),
+            Object(NonMatching, "dolphin/gd/GDBase.c"),
+            Object(NonMatching, "dolphin/gd/GDGeometry.c"),
+        ]
+    ),
+    JSystemLib(
+        "JKernel",
+        [
+            Object(NonMatching, "JSystem/JKernel/JKRHeap.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRStdHeap.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRExpHeap.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRSolidHeap.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRDisposer.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRThread.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRAram.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRAramHeap.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRAramBlock.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRAramPiece.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRAramStream.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRFileLoader.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRFileFinder.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRArchivePub.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRArchivePri.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRMemArchive.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRAramArchive.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRDvdArchive.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRCompArchive.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRDvdFile.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRDvdRipper.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRDvdAramRipper.cpp"),
+            Object(NonMatching, "JSystem/JKernel/JKRDecomp.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JSupport",
+        [
+            Object(NonMatching, "JSystem/JSupport/JSUList.cpp"),
+            Object(NonMatching, "JSystem/JSupport/JSUInputStream.cpp"),
+            Object(NonMatching, "JSystem/JSupport/JSUMemoryStream.cpp"),
+            Object(NonMatching, "JSystem/JSupport/JSUFileStream.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JGadget",
+        [
+            Object(NonMatching, "JSystem/JGadget/linklist.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JUtility",
+        [
+            Object(NonMatching, "JSystem/JUtility/JUTCacheFont.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTResource.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTTexture.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTPalette.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTNameTab.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTRect.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTGraphFifo.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTFont.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTResFont.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTDbPrint.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTGamePad.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTFontData_Ascfont_fix12.s"),
+            Object(NonMatching, "JSystem/JUtility/JUTException.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTDirectPrint.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTAssert.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTVideo.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTXfb.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTFader.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTProcBar.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTConsole.cpp"),
+            Object(NonMatching, "JSystem/JUtility/JUTDirectFile.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "J2DGraph",
+        [
+            Object(NonMatching, "JSystem/J2DGraph/J2DGrafContext.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DOrthoGraph.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DPrint.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DPane.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DScreen.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DWindow.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DPicture.cpp"),
+            Object(NonMatching, "JSystem/J2DGraph/J2DTextBox.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JRenderer",
+        [
+            Object(NonMatching, "JSystem/JRenderer/JRenderer.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "J3DGraphBase",
+        [
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DGD.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DSys.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DVertex.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DTransform.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DPacket.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DShapeMtx.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DShape.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DMaterial.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DMatBlock.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DTevs.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphBase/J3DDrawBuffer.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "J3DGraphAnimator",
+        [
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DModelData.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DModel.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DAnimation.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DMaterialAnm.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DCluster.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DJoint.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DNode.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphAnimator/J3DMaterialAttach.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "J3DGraphLoader",
+        [
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DMaterialFactory.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DMaterialFactory_v21.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DClusterLoader.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DModelLoader.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DModelLoaderCalcSize.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DJointFactory.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DShapeFactory.cpp"),
+            Object(NonMatching, "JSystem/J3DGraphLoader/J3DAnmLoader.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JMath",
+        [
+            Object(NonMatching, "JSystem/JMath/JMath.cpp"),
+            Object(NonMatching, "JSystem/JMath/random.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JFramework",
+        [
+            Object(NonMatching, "JSystem/JFramework/JFWSystem.cpp"),
+            Object(NonMatching, "JSystem/JFramework/JFWDisplay.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JPALoader",
+        [
+            Object(NonMatching, "JSystem/JPALoader/JPABaseShape.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPAExtraShape.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPASweepShape.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPAExTexShape.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPADynamicsBlock.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPAFieldBlock.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPAKeyBlock.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPATexture.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPAResourceManager.cpp"),
+            Object(NonMatching, "JSystem/JPALoader/JPAEmitterLoader.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JPABase",
+        [
+            Object(NonMatching, "JSystem/JPABase/JPAMath.cpp"),
+            Object(NonMatching, "JSystem/JPABase/JPAField.cpp"),
+            Object(NonMatching, "JSystem/JPABase/JPAEmitter.cpp"),
+            Object(NonMatching, "JSystem/JPABase/JPAParticle.cpp"),
+            Object(NonMatching, "JSystem/JPABase/JPAEmitterManager.cpp"),
+        ]
+    ),
+    JSystemLib(
+        "JPADraw",
+        [
+            Object(NonMatching, "JSystem/JPADraw/JPADrawVisitor.cpp"),
+            Object(NonMatching, "JSystem/JPADraw/JPADraw.cpp"),
+            Object(NonMatching, "JSystem/JPADraw/JPADrawSetupTev.cpp"),
         ]
     ),
     GenericLib(
-        "JKernel.a",
-        cflags_base,
+        "runtime",
+        [*cflags_base, "-inline deferred"],
         [
-            Object(NonMatching, "JKernel.a/JKRHeap.cpp"),
-            Object(NonMatching, "JKernel.a/JKRStdHeap.cpp"),
-            Object(NonMatching, "JKernel.a/JKRExpHeap.cpp"),
-            Object(NonMatching, "JKernel.a/JKRSolidHeap.cpp"),
-            Object(NonMatching, "JKernel.a/JKRDisposer.cpp"),
-            Object(NonMatching, "JKernel.a/JKRThread.cpp"),
-            Object(NonMatching, "JKernel.a/JKRAram.cpp"),
-            Object(NonMatching, "JKernel.a/JKRAramHeap.cpp"),
-            Object(NonMatching, "JKernel.a/JKRAramBlock.cpp"),
-            Object(NonMatching, "JKernel.a/JKRAramPiece.cpp"),
-            Object(NonMatching, "JKernel.a/JKRAramStream.cpp"),
-            Object(NonMatching, "JKernel.a/JKRFileLoader.cpp"),
-            Object(NonMatching, "JKernel.a/JKRFileFinder.cpp"),
-            Object(NonMatching, "JKernel.a/JKRArchivePub.cpp"),
-            Object(NonMatching, "JKernel.a/JKRArchivePri.cpp"),
-            Object(NonMatching, "JKernel.a/JKRMemArchive.cpp"),
-            Object(NonMatching, "JKernel.a/JKRAramArchive.cpp"),
-            Object(NonMatching, "JKernel.a/JKRDvdArchive.cpp"),
-            Object(NonMatching, "JKernel.a/JKRCompArchive.cpp"),
-            Object(NonMatching, "JKernel.a/JKRDvdFile.cpp"),
-            Object(NonMatching, "JKernel.a/JKRDvdRipper.cpp"),
-            Object(NonMatching, "JKernel.a/JKRDvdAramRipper.cpp"),
-            Object(NonMatching, "JKernel.a/JKRDecomp.cpp"),
+            Object(NonMatching, "runtime/__va_arg.c"),
+            Object(NonMatching, "runtime/global_destructor_chain.c"),
+            Object(NonMatching, "runtime/NMWException.cp"),
+            Object(NonMatching, "runtime/ptmf.c"),
+            Object(NonMatching, "runtime/runtime.c"),
+            Object(NonMatching, "runtime/__init_cpp_exceptions.cpp"),
+            Object(NonMatching, "runtime/Gecko_ExceptionPPC.cp"),
+            Object(NonMatching, "runtime/GCN_mem_alloc.c"),
         ]
     ),
     GenericLib(
-        "JSupport.a",
-        cflags_base,
+        "libc",
+        [*cflags_base, "-inline deferred"],
         [
-            Object(NonMatching, "JSupport.a/JSUList.cpp"),
-            Object(NonMatching, "JSupport.a/JSUInputStream.cpp"),
-            Object(NonMatching, "JSupport.a/JSUMemoryStream.cpp"),
-            Object(NonMatching, "JSupport.a/JSUFileStream.cpp"),
+            Object(NonMatching, "libc/abort_exit.c"),
+            Object(NonMatching, "libc/alloc.c"),
+            Object(NonMatching, "libc/errno.c"),
+            Object(NonMatching, "libc/ansi_files.c"),
+            Object(NonMatching, "libc/ansi_fp.c"),
+            Object(NonMatching, "libc/arith.c"),
+            Object(NonMatching, "libc/buffer_io.c"),
+            Object(NonMatching, "libc/ctype.c"),
+            Object(NonMatching, "libc/direct_io.c"),
+            Object(NonMatching, "libc/file_io.c"),
+            Object(NonMatching, "libc/FILE_POS.C"),
+            Object(NonMatching, "libc/mbstring.c"),
+            Object(NonMatching, "libc/mem.c"),
+            Object(NonMatching, "libc/mem_funcs.c"),
+            Object(NonMatching, "libc/misc_io.c"),
+            Object(NonMatching, "libc/printf.c"),
+            Object(NonMatching, "libc/float.c"),
+            Object(NonMatching, "libc/scanf.c"),
+            Object(NonMatching, "libc/string.c"),
+            Object(NonMatching, "libc/strtoul.c"),
+            Object(NonMatching, "libc/uart_console_io.c"),
+            Object(NonMatching, "libc/wchar_io.c"),
+            Object(NonMatching, "libc/e_acos.c"),
+            Object(NonMatching, "libc/e_atan2.c"),
+            Object(NonMatching, "libc/e_rem_pio2.c"),
+            Object(NonMatching, "libc/k_cos.c"),
+            Object(NonMatching, "libc/k_rem_pio2.c"),
+            Object(NonMatching, "libc/k_sin.c"),
+            Object(NonMatching, "libc/k_tan.c"),
+            Object(NonMatching, "libc/s_atan.c"),
+            Object(NonMatching, "libc/s_copysign.c"),
+            Object(NonMatching, "libc/s_cos.c"),
+            Object(NonMatching, "libc/s_floor.c"),
+            Object(NonMatching, "libc/s_frexp.c"),
+            Object(NonMatching, "libc/s_ldexp.c"),
+            Object(NonMatching, "libc/s_modf.c"),
+            Object(NonMatching, "libc/s_sin.c"),
+            Object(NonMatching, "libc/s_tan.c"),
+            Object(NonMatching, "libc/w_acos.c"),
+            Object(NonMatching, "libc/w_atan2.c"),
+            Object(NonMatching, "libc/math_ppc.c"),
         ]
     ),
     GenericLib(
-        "JGadget.a",
+        "metrotrk",
         cflags_base,
         [
-            Object(NonMatching, "JGadget.a/linklist.cpp"),
+            Object(NonMatching, "metrotrk/mainloop.c"),
+            Object(NonMatching, "metrotrk/nubevent.c"),
+            Object(NonMatching, "metrotrk/nubinit.c"),
+            Object(NonMatching, "metrotrk/msg.c"),
+            Object(NonMatching, "metrotrk/msgbuf.c"),
+            Object(NonMatching, "metrotrk/serpoll.c"),
+            Object(NonMatching, "metrotrk/usr_put.c"),
+            Object(NonMatching, "metrotrk/dispatch.c"),
+            Object(NonMatching, "metrotrk/msghndlr.c"),
+            Object(NonMatching, "metrotrk/support.c"),
+            Object(NonMatching, "metrotrk/mutex_TRK.c"),
+            Object(NonMatching, "metrotrk/notify.c"),
+            Object(NonMatching, "metrotrk/flush_cache.c"),
+            Object(NonMatching, "metrotrk/mem_TRK.c"),
+            Object(NonMatching, "metrotrk/targimpl.c"),
+            Object(NonMatching, "metrotrk/targsupp.s"),
+            Object(NonMatching, "metrotrk/dolphin_trk.c"),
+            Object(NonMatching, "metrotrk/mpc_7xx_603e.c"),
+            Object(NonMatching, "metrotrk/main_TRK.c"),
+            Object(NonMatching, "metrotrk/dolphin_trk_glue.c"),
+            Object(NonMatching, "metrotrk/targcont.c"),
+            Object(NonMatching, "metrotrk/target_options.c"),
+            Object(NonMatching, "metrotrk/mslsupp.c"),
         ]
     ),
     GenericLib(
-        "JUtility.a",
+        "debugger",
         cflags_base,
         [
-            Object(NonMatching, "JUtility.a/JUTCacheFont.cpp"),
-            Object(NonMatching, "JUtility.a/JUTResource.cpp"),
-            Object(NonMatching, "JUtility.a/JUTTexture.cpp"),
-            Object(NonMatching, "JUtility.a/JUTPalette.cpp"),
-            Object(NonMatching, "JUtility.a/JUTNameTab.cpp"),
-            Object(NonMatching, "JUtility.a/JUTRect.cpp"),
-            Object(NonMatching, "JUtility.a/JUTGraphFifo.cpp"),
-            Object(NonMatching, "JUtility.a/JUTFont.cpp"),
-            Object(NonMatching, "JUtility.a/JUTResFont.cpp"),
-            Object(NonMatching, "JUtility.a/JUTDbPrint.cpp"),
-            Object(NonMatching, "JUtility.a/JUTGamePad.cpp"),
-            Object(NonMatching, "JUtility.a/JUTFontData_Ascfont_fix12.s"),
-            Object(NonMatching, "JUtility.a/JUTException.cpp"),
-            Object(NonMatching, "JUtility.a/JUTDirectPrint.cpp"),
-            Object(NonMatching, "JUtility.a/JUTAssert.cpp"),
-            Object(NonMatching, "JUtility.a/JUTVideo.cpp"),
-            Object(NonMatching, "JUtility.a/JUTXfb.cpp"),
-            Object(NonMatching, "JUtility.a/JUTFader.cpp"),
-            Object(NonMatching, "JUtility.a/JUTProcBar.cpp"),
-            Object(NonMatching, "JUtility.a/JUTConsole.cpp"),
-            Object(NonMatching, "JUtility.a/JUTDirectFile.cpp"),
-        ]
-    ),
-    GenericLib(
-        "J2DGraph.a",
-        cflags_base,
-        [
-            Object(NonMatching, "J2DGraph.a/J2DGrafContext.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DOrthoGraph.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DPrint.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DPane.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DScreen.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DWindow.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DPicture.cpp"),
-            Object(NonMatching, "J2DGraph.a/J2DTextBox.cpp"),
-        ]
-    ),
-    GenericLib(
-        "JRenderer.a",
-        cflags_base,
-        [
-            Object(NonMatching, "JRenderer.a/JRenderer.cpp"),
-        ]
-    ),
-    GenericLib(
-        "J3DGraphBase.a",
-        cflags_base,
-        [
-            Object(NonMatching, "J3DGraphBase.a/J3DGD.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DSys.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DVertex.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DTransform.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DPacket.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DShapeMtx.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DShape.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DMaterial.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DMatBlock.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DTevs.cpp"),
-            Object(NonMatching, "J3DGraphBase.a/J3DDrawBuffer.cpp"),
-        ]
-    ),
-    GenericLib(
-        "J3DGraphAnimator.a",
-        cflags_base,
-        [
-            Object(NonMatching, "J3DGraphAnimator.a/J3DModelData.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DModel.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DAnimation.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DMaterialAnm.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DCluster.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DJoint.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DNode.cpp"),
-            Object(NonMatching, "J3DGraphAnimator.a/J3DMaterialAttach.cpp"),
-        ]
-    ),
-    GenericLib(
-        "J3DGraphLoader.a",
-        cflags_base,
-        [
-            Object(NonMatching, "J3DGraphLoader.a/J3DMaterialFactory.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DMaterialFactory_v21.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DClusterLoader.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DModelLoader.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DModelLoaderCalcSize.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DJointFactory.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DShapeFactory.cpp"),
-            Object(NonMatching, "J3DGraphLoader.a/J3DAnmLoader.cpp"),
-        ]
-    ),
-    GenericLib(
-        "JMath.a",
-        cflags_base,
-        [
-            Object(NonMatching, "JMath.a/JMath.cpp"),
-            Object(NonMatching, "JMath.a/random.cpp"),
-        ]
-    ),
-    GenericLib(
-        "JFramework.a",
-        cflags_base,
-        [
-            Object(NonMatching, "JFramework.a/JFWSystem.cpp"),
-            Object(NonMatching, "JFramework.a/JFWDisplay.cpp"),
-        ]
-    ),
-    GenericLib(
-        "JPALoader.a",
-        cflags_base,
-        [
-            Object(NonMatching, "JPALoader.a/JPABaseShape.cpp"),
-            Object(NonMatching, "JPALoader.a/JPAExtraShape.cpp"),
-            Object(NonMatching, "JPALoader.a/JPASweepShape.cpp"),
-            Object(NonMatching, "JPALoader.a/JPAExTexShape.cpp"),
-            Object(NonMatching, "JPALoader.a/JPADynamicsBlock.cpp"),
-            Object(NonMatching, "JPALoader.a/JPAFieldBlock.cpp"),
-            Object(NonMatching, "JPALoader.a/JPAKeyBlock.cpp"),
-            Object(NonMatching, "JPALoader.a/JPATexture.cpp"),
-            Object(NonMatching, "JPALoader.a/JPAResourceManager.cpp"),
-            Object(NonMatching, "JPALoader.a/JPAEmitterLoader.cpp"),
-        ]
-    ),
-    GenericLib(
-        "JPABase.a",
-        cflags_base,
-        [
-            Object(NonMatching, "JPABase.a/JPAMath.cpp"),
-            Object(NonMatching, "JPABase.a/JPAField.cpp"),
-            Object(NonMatching, "JPABase.a/JPAEmitter.cpp"),
-            Object(NonMatching, "JPABase.a/JPAParticle.cpp"),
-            Object(NonMatching, "JPABase.a/JPAEmitterManager.cpp"),
-        ]
-    ),
-    GenericLib(
-        "JPADraw.a",
-        cflags_base,
-        [
-            Object(NonMatching, "JPADraw.a/JPADrawVisitor.cpp"),
-            Object(NonMatching, "JPADraw.a/JPADraw.cpp"),
-            Object(NonMatching, "JPADraw.a/JPADrawSetupTev.cpp"),
-        ]
-    ),
-    GenericLib(
-        "Runtime.PPCEABI.H.a",
-        cflags_base,
-        [
-            Object(NonMatching, "Runtime.PPCEABI.H.a/__va_arg.c"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/global_destructor_chain.c"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/NMWException.cp"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/ptmf.c"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/runtime.c"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/__init_cpp_exceptions.cpp"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/Gecko_ExceptionPPC.cp"),
-            Object(NonMatching, "Runtime.PPCEABI.H.a/GCN_mem_alloc.c"),
-        ]
-    ),
-    GenericLib(
-        "MSL_C.PPCEABI.bare.H.a",
-        cflags_base,
-        [
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/abort_exit.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/alloc.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/errno.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/ansi_files.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/ansi_fp.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/arith.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/buffer_io.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/ctype.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/direct_io.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/file_io.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/FILE_POS.C"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/mbstring.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/mem.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/mem_funcs.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/misc_io.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/printf.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/float.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/scanf.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/string.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/strtoul.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/uart_console_io.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/wchar_io.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/e_acos.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/e_atan2.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/e_rem_pio2.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/k_cos.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/k_rem_pio2.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/k_sin.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/k_tan.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_atan.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_copysign.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_cos.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_floor.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_frexp.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_ldexp.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_modf.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_sin.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/s_tan.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/w_acos.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/w_atan2.c"),
-            Object(NonMatching, "MSL_C.PPCEABI.bare.H.a/math_ppc.c"),
-        ]
-    ),
-    GenericLib(
-        "TRK_MINNOW_DOLPHIN.a",
-        cflags_base,
-        [
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/mainloop.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/nubevent.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/nubinit.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/msg.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/msgbuf.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/serpoll.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/usr_put.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/dispatch.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/msghndlr.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/support.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/mutex_TRK.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/notify.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/flush_cache.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/mem_TRK.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/targimpl.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/targsupp.s"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/dolphin_trk.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/mpc_7xx_603e.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/main_TRK.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/dolphin_trk_glue.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/targcont.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/target_options.c"),
-            Object(NonMatching, "TRK_MINNOW_DOLPHIN.a/mslsupp.c"),
-        ]
-    ),
-    GenericLib(
-        "amcstubs.a",
-        cflags_base,
-        [
-            Object(NonMatching, "amcstubs.a/AmcExi2Stubs.c"),
-        ]
-    ),
-    GenericLib(
-        "OdemuExi2.a",
-        cflags_base,
-        [
-            Object(NonMatching, "OdemuExi2.a/DebuggerDriver.c"),
-        ]
-    ),
-    GenericLib(
-        "odenotstub.a",
-        cflags_base,
-        [
-            Object(NonMatching, "odenotstub.a/odenotstub.c"),
+            Object(NonMatching, "debugger/AmcExi2Stubs.c"),
+            Object(NonMatching, "debugger/DebuggerDriver.c"),
+            Object(NonMatching, "debugger/odenotstub.c"),
         ]
     ),
 ]

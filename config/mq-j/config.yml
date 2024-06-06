@@ -7,4 +7,4 @@ mw_comment_version: 8
 
 extract:
 - symbol: discerror
-  header: discerror.inc
+  header: discerror.inc # RARC archive
