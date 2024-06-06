@@ -36,7 +36,7 @@ typedef u32 OSTick;
 #define SECS_IN_DAY (SECS_IN_HOUR * 24)
 #define SECS_IN_YEAR (SECS_IN_DAY * 365)
 
-#define BIAS 0xB2575
+#define BIAS (2000 * 365 + (2000 + 3) / 4 - (2000 - 1) / 100 + (2000 - 1) / 400)
 
 OSTime OSGetTime(void);
 OSTick OSGetTick(void);

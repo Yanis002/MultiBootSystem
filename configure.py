@@ -254,54 +254,54 @@ config.libs = [
     DolphinLib(
         "base",
         [
-            Object(NonMatching, "dolphin/base/PPCArch.c"),
+            Object(MatchingFor("mq-j"), "dolphin/base/PPCArch.c"),
         ]
     ),
     DolphinLib(
         "os",
         [
-            Object(NonMatching, "dolphin/os/OS.c"),
-            Object(NonMatching, "dolphin/os/OSAlarm.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OS.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSAlarm.c"),
             Object(NonMatching, "dolphin/os/OSAlloc.c"),
-            Object(NonMatching, "dolphin/os/OSArena.c"),
-            Object(NonMatching, "dolphin/os/OSAudioSystem.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSArena.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSAudioSystem.c"),
             Object(NonMatching, "dolphin/os/OSCache.c"),
             Object(NonMatching, "dolphin/os/OSContext.c"),
-            Object(NonMatching, "dolphin/os/OSError.c"),
-            Object(NonMatching, "dolphin/os/OSFont.c"),
-            Object(NonMatching, "dolphin/os/OSInterrupt.c"),
-            Object(NonMatching, "dolphin/os/OSLink.c"),
-            Object(NonMatching, "dolphin/os/OSMessage.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSError.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSFont.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSInterrupt.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSLink.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSMessage.c"),
             Object(NonMatching, "dolphin/os/OSMemory.c"),
             Object(NonMatching, "dolphin/os/OSMutex.c"),
-            Object(NonMatching, "dolphin/os/OSReboot.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSReboot.c"),
             Object(NonMatching, "dolphin/os/OSReset.c"),
             Object(NonMatching, "dolphin/os/OSResetSW.c"),
             Object(NonMatching, "dolphin/os/OSRtc.c"),
-            Object(NonMatching, "dolphin/os/OSSync.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSSync.c"),
             Object(NonMatching, "dolphin/os/OSThread.c"),
-            Object(NonMatching, "dolphin/os/OSTime.c"),
-            Object(NonMatching, "dolphin/os/__ppc_eabi_init.cpp"),
+            Object(MatchingFor("mq-j"), "dolphin/os/OSTime.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/__ppc_eabi_init.c"),
         ]
     ),
     DolphinLib(
         "exi",
         [
-            Object(NonMatching, "dolphin/exi/EXIBios.c"),
-            Object(NonMatching, "dolphin/exi/EXIUart.c"),
+            Object(MatchingFor("mq-j"), "dolphin/exi/EXIBios.c"),
+            Object(MatchingFor("mq-j"), "dolphin/exi/EXIUart.c"),
         ]
     ),
     DolphinLib(
         "si",
         [
-            Object(NonMatching, "dolphin/si/SIBios.c"),
-            Object(NonMatching, "dolphin/si/SISamplingRate.c"),
+            Object(MatchingFor("mq-j"), "dolphin/si/SIBios.c"),
+            Object(MatchingFor("mq-j"), "dolphin/si/SISamplingRate.c"),
         ]
     ),
     DolphinLib(
         "db",
         [
-            Object(NonMatching, "dolphin/db/db.c"),
+            Object(MatchingFor("mq-j"), "dolphin/db/db.c"),
         ]
     ),
     DolphinLib(
@@ -316,14 +316,14 @@ config.libs = [
     DolphinLib(
         "dvd",
         [
-            Object(NonMatching, "dolphin/dvd/dvdlow.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvdlow.c"),
             Object(NonMatching, "dolphin/dvd/dvdfs.c"),
             Object(NonMatching, "dolphin/dvd/dvd.c"),
-            Object(NonMatching, "dolphin/dvd/dvdqueue.c"),
-            Object(NonMatching, "dolphin/dvd/dvderror.c"),
-            Object(NonMatching, "dolphin/dvd/dvdidutils.c"),
-            Object(NonMatching, "dolphin/dvd/dvdFatal.c"),
-            Object(NonMatching, "dolphin/dvd/fstload.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvdqueue.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvderror.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvdidutils.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvdFatal.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/fstload.c"),
         ]
     ),
     DolphinLib(
@@ -335,8 +335,8 @@ config.libs = [
     DolphinLib(
         "pad",
         [
-            Object(NonMatching, "dolphin/pad/Padclamp.c"),
-            Object(NonMatching, "dolphin/pad/Pad.c"),
+            Object(MatchingFor("mq-j"), "dolphin/pad/Padclamp.c"),
+            Object(MatchingFor("mq-j"), "dolphin/pad/Pad.c"),
         ]
     ),
     DolphinLib(
@@ -389,8 +389,8 @@ config.libs = [
         "dsp",
         [
             Object(NonMatching, "dolphin/dsp/dsp.c"),
-            Object(NonMatching, "dolphin/dsp/dsp_debug.c"),
-            Object(NonMatching, "dolphin/dsp/dsp_task.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dsp/dsp_debug.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dsp/dsp_task.c"),
         ]
     ),
     DolphinLib(
@@ -402,8 +402,8 @@ config.libs = [
     DolphinLib(
         "card",
         [
-            Object(NonMatching, "dolphin/card/CARDBios.c"),
-            Object(NonMatching, "dolphin/card/CARDMount.c"),
+            Object(MatchingFor("mq-j"), "dolphin/card/CARDBios.c"),
+            Object(MatchingFor("mq-j"), "dolphin/card/CARDMount.c"),
         ]
     ),
     DolphinLib(

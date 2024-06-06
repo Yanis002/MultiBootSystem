@@ -151,7 +151,7 @@ dolphin/os/OSThread.c:
 dolphin/os/OSTime.c:
 	.text       start:0x80014994 end:0x80014A18
 
-dolphin/os/__ppc_eabi_init.cpp:
+dolphin/os/__ppc_eabi_init.c:
 	.text       start:0x80014A18 end:0x80014AAC
 
 dolphin/exi/EXIBios.c:
