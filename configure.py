@@ -129,7 +129,7 @@ config.compilers_tag = "20231018"
 config.dtk_tag = "v0.8.3"
 config.sjiswrap_tag = "v1.1.1"
 config.wibo_tag = "0.6.11"
-config.linker_version = "GC/1.1" # TBD
+config.linker_version = "GC/1.3.2"
 
 ### Flags
 
@@ -178,8 +178,8 @@ if config.non_matching:
 def MenuLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.1", # TBD
-        "cflags": [*cflags_base, "-inline deferred"],
+        "mw_version": "GC/1.3.2",
+        "cflags": [*cflags_base, "-inline auto"],
         "host": False,
         "objects": objects,
     }
@@ -238,10 +238,10 @@ config.libs = [
         [
             Object(NonMatching, "menu/main.c"),
             Object(NonMatching, "menu/dtk_stuff.c"),
-            Object(NonMatching, "menu/graphics.c"),
+            Object(MatchingFor("mq-j"), "menu/graphics.cpp"),
             Object(NonMatching, "menu/mixedcontroller.c"),
             Object(NonMatching, "menu/mtrand.c"),
-            Object(Matching, "menu/discerror.c"),
+            Object(MatchingFor("mq-j"), "menu/discerror.c"),
             Object(NonMatching, "menu/soundeffect.c"),
         ]
     ),

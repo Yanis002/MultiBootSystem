@@ -28,7 +28,7 @@ menu/dtk_stuff.c:
 	.bss        start:0x8013FBF0 end:0x801405F0
 	.sbss       start:0x80169EF8 end:0x80169F00
 
-menu/graphics.c:
+menu/graphics.cpp:
 	.text       start:0x8000D27C end:0x8000D2D8
 	.sbss2      start:0x8016B020 end:0x8016B028
 

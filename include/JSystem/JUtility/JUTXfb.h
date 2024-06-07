@@ -29,6 +29,7 @@ class JUTXfb {
     s16 getDrawingXfbIndex() const { return mDrawingXfbIndex; }
     s16 getDisplayingXfbIndex() const { return mDisplayingXfbIndex; }
     s32 getSDrawingFlag() const { return mSDrawingFlag; }
+    void* getBuffer(int i) const { return mBuffer[i]; }
 
     void* getDrawnXfb() const {
         if (mDrawnXfbIndex >= 0) {

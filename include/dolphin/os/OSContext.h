@@ -134,6 +134,14 @@ extern "C" {
 
 #define OS_CONTEXT_STATE_FPSAVED 0x01u
 
+// Upper words of the masks, since UIMM is only 16 bits
+#define OS_CACHED_REGION_PREFIX 0x8000
+#define OS_UNCACHED_REGION_PREFIX 0xC000
+#define OS_PHYSICAL_MASK 0x3FFF
+
+#define OS_BASE_CACHED (OS_CACHED_REGION_PREFIX << 16)
+#define OS_BASE_UNCACHED (OS_UNCACHED_REGION_PREFIX << 16)
+
 typedef struct OSContext {
     u32 gpr[32];
     u32 cr;
