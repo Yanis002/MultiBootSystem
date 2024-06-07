@@ -40,6 +40,15 @@ u32 ARGetBaseAddress(void);
 u32 ARGetDMAStatus(void);
 void ARStartDMA(u32 type, u32 mainmem_addr, u32 aram_addr, u32 length);
 
+void ARQInit(void);
+void ARQReset(void);
+void ARQPostRequest(struct ARQRequest * request, u32 owner, u32 type, u32 priority, u32 source, u32 dest, u32 length, ARQCallback callback);
+void ARQRemoveRequest(struct ARQRequest * request);
+void ARQRemoveOwnerRequest(u32 owner);
+void ARQFlushQueue(void);
+void ARQSetChunkSize(u32 size);
+u32 ARQGetChunkSize(void);
+
 #define ARStartDMARead(mmem, aram, len) ARStartDMA(ARAM_DIR_ARAM_TO_MRAM, mmem, aram, len)
 #define ARStartDMAWrite(mmem, aram, len) ARStartDMA(ARAM_DIR_MRAM_TO_ARAM, mmem, aram, len)
 
