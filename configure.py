@@ -237,7 +237,7 @@ config.libs = [
         "menu",
         [
             Object(NonMatching, "menu/main.cpp"),
-            Object(NonMatching, "menu/dtk_stuff.cpp"),
+            Object(MatchingFor("mq-j"), "menu/dtk_stuff.cpp"),
             Object(MatchingFor("mq-j"), "menu/graphics.cpp"),
             Object(NonMatching, "menu/mixedcontroller.cpp"),
             Object(NonMatching, "menu/mtrand.cpp"),

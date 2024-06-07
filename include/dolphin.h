@@ -13,6 +13,7 @@ extern "C" {
 #include "dolphin/demo.h"
 #include "dolphin/dsp.h"
 #include "dolphin/dvd.h"
+#include "dolphin/dtk.h"
 #include "dolphin/exi.h"
 #include "dolphin/gx.h"
 #include "dolphin/mtx.h"
