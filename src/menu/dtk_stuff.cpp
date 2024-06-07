@@ -1,3 +1,4 @@
+#include "dolphin/types.h"
 #include "dolphin/dtk.h"
 #include "dolphin/ai.h"
 

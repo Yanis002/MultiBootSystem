@@ -239,7 +239,7 @@ config.libs = [
             Object(NonMatching, "menu/main.cpp"),
             Object(MatchingFor("mq-j"), "menu/dtk_stuff.cpp"),
             Object(MatchingFor("mq-j"), "menu/graphics.cpp"),
-            Object(NonMatching, "menu/mixedcontroller.cpp"),
+            Object(MatchingFor("mq-j"), "menu/mixedcontroller.cpp"),
             Object(NonMatching, "menu/mtrand.cpp"),
             Object(MatchingFor("mq-j"), "menu/discerror.c"),
             Object(NonMatching, "menu/soundeffect.cpp"),
