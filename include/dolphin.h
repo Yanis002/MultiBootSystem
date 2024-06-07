@@ -6,16 +6,16 @@ extern "C" {
 #endif
 
 #include "dolphin/ai.h"
-#include "dolphin/ar.h"
 #include "dolphin/am.h"
+#include "dolphin/ar.h"
 #include "dolphin/ax.h"
 #include "dolphin/base.h"
 #include "dolphin/card.h"
 #include "dolphin/db.h"
 #include "dolphin/demo.h"
 #include "dolphin/dsp.h"
-#include "dolphin/dvd.h"
 #include "dolphin/dtk.h"
+#include "dolphin/dvd.h"
 #include "dolphin/exi.h"
 #include "dolphin/gx.h"
 #include "dolphin/mix.h"

@@ -6,9 +6,9 @@ extern "C" {
 #endif
 
 #include "dolphin/gx.h"
+#include "dolphin/os/OSContext.h"
 #include "dolphin/types.h"
 #include "macros.h"
-#include "dolphin/os/OSContext.h"
 
 typedef s64 OSTime;
 typedef u32 OSTick;
