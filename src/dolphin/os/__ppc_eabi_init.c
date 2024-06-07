@@ -46,7 +46,9 @@ loop:
 #endif // clang-format on
 }
 
+#if IS_CE
 void InitMetroTRK_BBA(void) { return; }
+#endif
 
 void __init_user(void) { __init_cpp(); }
 

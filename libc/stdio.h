@@ -128,7 +128,7 @@ size_t vprintf(const char* format, va_list arg);
 size_t vsprintf(char* s, const char* format, va_list arg);
 size_t fread(const void*, size_t memb_size, size_t num_memb, FILE*);
 size_t fwrite(const void* buffer, size_t memb_size, size_t num_memb, FILE* file);
-size_t fseek(FILE* file, fpos_t offset, int mode);
+int fseek(FILE* file, fpos_t offset, int mode);
 size_t _fseek(FILE* file, fpos_t offset, int mode);
 size_t ftell(FILE* file);
 size_t __fwrite(const void*, size_t, size_t, FILE*);

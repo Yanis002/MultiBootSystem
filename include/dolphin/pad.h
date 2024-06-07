@@ -48,12 +48,13 @@ extern "C" {
 #define PAD_ERR_NOT_READY -2
 #define PAD_ERR_TRANSFER -3
 
-typedef enum PADMask {
-    PAD_CHAN3_BIT = (1 << 28),
-    PAD_CHAN2_BIT = (1 << 29),
-    PAD_CHAN1_BIT = (1 << 30),
-    PAD_CHAN0_BIT = (1 << 31),
-} PADMask;
+#define PAD_CHAN0_BIT 0x80000000
+#define PAD_CHAN1_BIT 0x40000000
+#define PAD_CHAN2_BIT 0x20000000
+#define PAD_CHAN3_BIT 0x10000000
+
+// JUTGamePad is using this as a type and an enum doesn't match PAD functions
+typedef int PADMask;
 
 typedef void (*PADSamplingCallback)(void);
 

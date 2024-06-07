@@ -90,7 +90,7 @@ size_t _fseek(FILE* file, fpos_t offset, int mode) {
     return 0;
 }
 
-size_t fseek(FILE* file, fpos_t offset, int mode) {
+int fseek(FILE* file, fpos_t offset, int mode) {
     int code;
     code = _fseek(file, offset, mode);
     return code;

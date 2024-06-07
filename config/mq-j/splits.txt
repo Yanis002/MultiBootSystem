@@ -50,6 +50,9 @@ menu/soundeffect.c:
 	.bss        start:0x80141040 end:0x80145260
 	.sbss       start:0x80169F00 end:0x80169F20
 
+dolphin/os/__start.c:
+	.init       start:0x80003200 end:0x80003454
+
 dolphin/exec/exec.c:
 	.text       start:0x8000D99C end:0x8000E1BC
 	.data       start:0x8012DC30 end:0x8012DD60
@@ -152,6 +155,7 @@ dolphin/os/OSTime.c:
 	.text       start:0x80014994 end:0x80014A18
 
 dolphin/os/__ppc_eabi_init.c:
+	.init       start:0x80003454 end:0x800034A8
 	.text       start:0x80014A18 end:0x80014AAC
 
 dolphin/exi/EXIBios.c:
@@ -1281,6 +1285,7 @@ metrotrk/flush_cache.c:
 	.text       start:0x800A0310 end:0x800A0348
 
 metrotrk/mem_TRK.c:
+	.init       start:0x800034A8 end:0x80003634
 	.text       start:0x800A0348 end:0x800A0404
 
 metrotrk/targimpl.c:
@@ -1292,7 +1297,11 @@ metrotrk/targimpl.c:
 metrotrk/targsupp.s: comment:0
 	.text       start:0x800A1CA0 end:0x800A1CC0
 
+metrotrk/__exception.c:
+	.init       start:0x80003634 end:0x80005568
+
 metrotrk/dolphin_trk.c:
+	.init       start:0x80005568 end:0x8000566C
 	.text       start:0x800A1CC0 end:0x800A1E00
 	.data       start:0x8013B328 end:0x8013B368
 	.bss        start:0x80166F68 end:0x80166F70

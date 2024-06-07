@@ -281,6 +281,7 @@ config.libs = [
             Object(MatchingFor("mq-j"), "dolphin/os/OSSync.c"),
             Object(NonMatching, "dolphin/os/OSThread.c"),
             Object(MatchingFor("mq-j"), "dolphin/os/OSTime.c"),
+            Object(MatchingFor("mq-j"), "dolphin/os/__start.c"),
             Object(MatchingFor("mq-j"), "dolphin/os/__ppc_eabi_init.c"),
         ]
     ),

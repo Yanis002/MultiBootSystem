@@ -377,25 +377,25 @@ u32 PADRead(PADStatus* status) {
         if (PendingBits & chanBit) {
             PADReset(0);
             status->err = PAD_ERR_NOT_READY;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
         if ((ResettingBits & chanBit) || ResettingChan == chan) {
             status->err = PAD_ERR_NOT_READY;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
         if (!(EnabledBits & chanBit)) {
             status->err = (s8)PAD_ERR_NO_CONTROLLER;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
         if (SIIsChanBusy(chan)) {
             status->err = PAD_ERR_TRANSFER;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
@@ -405,7 +405,7 @@ u32 PADRead(PADStatus* status) {
 
             if (WaitingBits & chanBit) {
                 status->err = (s8)PAD_ERR_NONE;
-                memset(status, 0, offsetof(PADStatus, err));
+                memset(status, 0, OFFSETOF(PADStatus, err));
 
                 if (!(CheckingBits & chanBit)) {
                     CheckingBits |= chanBit;
@@ -417,7 +417,7 @@ u32 PADRead(PADStatus* status) {
             PADDisable(chan);
 
             status->err = (s8)PAD_ERR_NO_CONTROLLER;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
@@ -427,13 +427,13 @@ u32 PADRead(PADStatus* status) {
 
         if (!SIGetResponse(chan, data)) {
             status->err = PAD_ERR_TRANSFER;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
         if (data[0] & 0x80000000) {
             status->err = PAD_ERR_TRANSFER;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
             continue;
         }
 
@@ -442,7 +442,7 @@ u32 PADRead(PADStatus* status) {
         // Check and clear PAD_ORIGIN bit
         if (status->button & 0x2000) {
             status->err = PAD_ERR_TRANSFER;
-            memset(status, 0, offsetof(PADStatus, err));
+            memset(status, 0, OFFSETOF(PADStatus, err));
 
             // Get origin. It is okay if the following transfer fails
             // since the PAD_ORIGIN bit remains until the read origin
@@ -668,6 +668,22 @@ static void SPEC2_MakeStatus(s32 chan, PADStatus* status, u32 data[2]) {
 }
 
 inline BOOL PADSync(void) { return ResettingBits == 0 && ResettingChan == 32 && !SIBusy(); }
+
+void PADSetAnalogMode(u32 mode) {
+    BOOL enabled;
+    u32 mask;
+
+    enabled = OSDisableInterrupts();
+    AnalogMode = mode << 8;
+    mask = EnabledBits;
+
+    EnabledBits &= ~mask;
+    WaitingBits &= ~mask;
+    CheckingBits &= ~mask;
+
+    SIDisablePolling(mask);
+    OSRestoreInterrupts(enabled);
+}
 
 static BOOL OnReset(BOOL f) {
     static BOOL recalibrated = false;

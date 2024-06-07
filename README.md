@@ -5,6 +5,8 @@ A work-in-progress decompilation of the main menu of the Zelda: OoT Master Quest
 
 This repository does **not** contain any game assets or assembly whatsoever. An existing copy of the game is required.
 
+Most of the SDK/libraries files were taken from [zeldaret/tww](https://github.com/zeldaret/tww) and [zeldaret/oot-gc](https://github.com/zeldaret/oot-gc).
+
 Supported versions:
 
 - `mq-j`
