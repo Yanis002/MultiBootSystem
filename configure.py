@@ -171,7 +171,7 @@ cflags_base = [
 ]
 
 if config.non_matching:
-    cflags_base.append("-DNON_MATCHING")
+    cflags_base.append("-DNON_MATCHING -DUNUSED")
 
 ### Helper functions
 
@@ -308,10 +308,10 @@ config.libs = [
     DolphinLib(
         "mtx",
         [
-            Object(NonMatching, "dolphin/mtx/mtx.c"),
-            Object(NonMatching, "dolphin/mtx/mtxvec.c"),
-            Object(NonMatching, "dolphin/mtx/mtx44.c"),
-            Object(NonMatching, "dolphin/mtx/vec.c"),
+            Object(MatchingFor("mq-j"), "dolphin/mtx/mtx.c"),
+            Object(MatchingFor("mq-j"), "dolphin/mtx/mtxvec.c"),
+            Object(MatchingFor("mq-j"), "dolphin/mtx/mtx44.c"),
+            Object(MatchingFor("mq-j"), "dolphin/mtx/vec.c"),
         ]
     ),
     DolphinLib(

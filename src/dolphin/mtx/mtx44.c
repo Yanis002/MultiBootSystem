@@ -3,6 +3,8 @@
 #include "macros.h"
 #include "math.h"
 
+#ifdef UNUSED
+
 void C_MTXPerspective(Mtx44 m, f32 fovY, f32 aspect, f32 n, f32 f) {
     f32 temp_f4;
     f32 temp_f3;
@@ -35,6 +37,8 @@ void C_MTXPerspective(Mtx44 m, f32 fovY, f32 aspect, f32 n, f32 f) {
     m[3][3] = 0.0f;
 }
 
+#endif
+
 void C_MTXOrtho(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f) {
     f32 temp_f8;
     f32 temp_f10;
@@ -63,6 +67,8 @@ void C_MTXOrtho(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f) {
     m[3][2] = 0.0f;
     m[3][3] = 1.0f;
 }
+
+#ifdef UNUSED
 
 ASM void PSMTX44Concat(const register Mtx44 mA, const register Mtx44 mB, register Mtx44 mAB) {
 #ifdef __MWERKS__ // clang-format off
@@ -134,3 +140,5 @@ ASM void PSMTX44Concat(const register Mtx44 mA, const register Mtx44 mB, registe
     blr
 #endif // clang-format on
 }
+
+#endif

@@ -6,14 +6,9 @@ extern "C" {
 #endif
 
 #include "dolphin/types.h"
+#include "dolphin/vec.h"
 
-typedef struct Vec {
-    f32 x, y, z;
-} Vec;
-
-typedef struct SVec {
-    s16 x, y, z;
-} SVec;
+#define MTXDegToRad(a) ((a) * 0.01745329252f)
 
 typedef struct Quaternion {
     f32 x, y, z, w;
@@ -40,12 +35,16 @@ void C_MTXPerspective(Mtx44 m, f32 fovY, f32 aspect, f32 n, f32 f);
 void C_MTXOrtho(Mtx44 m, f32 t, f32 b, f32 l, f32 r, f32 n, f32 f);
 void PSMTX44Concat(const Mtx44 a, const Mtx44 b, Mtx44 ab);
 
-void PSMTXCopy(const Mtx src, Mtx dst);
+void PSMTXCopy(const register Mtx src, register Mtx dst);
 u32 PSMTXInverse(const Mtx src, Mtx inv);
 void PSMTXRotRad(Mtx m, u8 axis, f32 rad);
-void PSMTXRotTrig(Mtx m, u8 axis, f32 sin, f32 cos);
+void PSMTXRotTrig(register Mtx m, register u8 axis, register f32 sinA, register f32 cosA);
 void PSMTXRotAxisRad(Mtx m, const Vec* axis, f32 rad);
 void PSMTXQuat(Mtx m, const Quaternion* q);
+
+void C_MTXLightPerspective(Mtx m, f32 fovY, f32 aspect, f32 scaleS, f32 scaleT, f32 transS, f32 transT);
+void PSMTXMultVecArray(const register Mtx m, const register Vec* srcBase, register Vec* dstBase, register u32 count);
+void PSMTXMultVecSR(const register Mtx m, const register Vec* src, register Vec* dst);
 
 #define MTXIdentity PSMTXIdentity
 #define MTXCopy PSMTXCopy
