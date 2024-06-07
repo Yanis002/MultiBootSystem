@@ -15,7 +15,7 @@ void OSFreeToHeap(OSHeapHandle heap, void* ptr);
 OSHeapHandle OSSetCurrentHeap(OSHeapHandle heap);
 void* OSInitAlloc(void* arenaStart, void* arenaEnd, int maxHeaps);
 OSHeapHandle OSCreateHeap(void* start, void* end);
-long OSCheckHeap(OSHeapHandle heap);
+s32 OSCheckHeap(OSHeapHandle heap);
 s32 OSReferentSize(void* ptr);
 void OSDumpHeap(OSHeapHandle handle);
 

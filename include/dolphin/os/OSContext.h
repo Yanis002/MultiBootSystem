@@ -176,6 +176,7 @@ void OSClearContext(register OSContext* context);
 void OSInitContext(register OSContext* context, register u32 pc, register u32 newsp);
 void OSDumpContext(OSContext* context);
 void __OSContextInit(void);
+void OSFillFPUContext(register OSContext* context);
 
 #ifdef __cplusplus
 };

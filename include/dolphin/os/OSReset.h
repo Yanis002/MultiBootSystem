@@ -42,6 +42,7 @@ struct OSResetFunctionInfo {
 void OSRegisterResetFunction(OSResetFunctionInfo* func);
 void OSResetSystem(int reset, u32 resetCode, BOOL forceMenu);
 u32 OSGetResetCode(void);
+BOOL __OSCallResetFunctions(u32 arg0);
 
 #ifdef __cplusplus
 };

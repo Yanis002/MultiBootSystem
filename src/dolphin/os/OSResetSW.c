@@ -26,6 +26,26 @@ void __OSResetSWInterruptHandler(__OSInterrupt interrupt, OSContext* context) {
     __PIRegs[0] = 2;
 }
 
+OSResetCallback OSSetResetCallback(OSResetCallback callback) {
+    BOOL enabled;
+    OSResetCallback prevCallback;
+
+    enabled = OSDisableInterrupts();
+    prevCallback = ResetCallback;
+    ResetCallback = callback;
+
+    if (callback) {
+        __PIRegs[0] = 2;
+        __OSUnmaskInterrupts(0x200);
+    } else {
+        __OSMaskInterrupts(0x200);
+    }
+
+    OSRestoreInterrupts(enabled);
+
+    return prevCallback;
+}
+
 #if IS_MQ
 #define GAME_CHOICE_MASK 0x3F
 #else
@@ -85,3 +105,5 @@ BOOL OSGetResetButtonState(void) {
     OSRestoreInterrupts(enabled);
     return state;
 }
+
+BOOL OSGetResetSwitchState(void) { return OSGetResetButtonState(); }

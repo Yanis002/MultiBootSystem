@@ -12,6 +12,7 @@ void DCFlushRange(void* addr, u32 nBytes);
 void DCStoreRange(void* addr, u32 nBytes);
 void DCFlushRangeNoSync(void* addr, u32 nBytes);
 void DCZeroRange(void* addr, u32 nBytes);
+void DCStoreRangeNoSync(register void* addr, register u32 nBytes);
 void ICInvalidateRange(void* addr, u32 nBytes);
 void ICFlashInvalidate(void);
 

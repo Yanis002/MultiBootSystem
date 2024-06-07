@@ -114,6 +114,26 @@ ASM void DCZeroRange(register void* addr, register u32 nBytes) {
 #endif // clang-format on
 }
 
+ASM void DCStoreRangeNoSync(register void* addr, register u32 nBytes) {
+#ifdef __MWERKS__ // clang-format off
+    nofralloc
+    cmplwi nBytes, 0
+    blelr
+    clrlwi r5, addr, 27
+    add nBytes, nBytes, r5
+    addi nBytes, nBytes, 31
+    srwi nBytes, nBytes, 5
+    mtctr nBytes
+
+@1
+    dcbst r0, addr
+    addi addr, addr, 32
+    bdnz @1
+
+    blr
+#endif // clang-format on
+}
+
 ASM void ICInvalidateRange(register void* addr, register u32 nBytes) {
 #ifdef __MWERKS__ // clang-format off
     nofralloc

@@ -24,6 +24,7 @@ volatile OSHeapHandle __OSCurrHeap = -1;
 
 #define ALIGNMENT 32
 #define MINOBJSIZE 64
+#define HEADERSIZE 32
 
 static inline void* DLAddFront(struct HeapCell* neighbor, struct HeapCell* cell) {
     cell->next = neighbor;
@@ -201,13 +202,20 @@ OSHeapHandle OSCreateHeap(void* start, void* end) {
     return -1;
 }
 
+void OSDestroyHeap(int heap) {
+    struct Heap* hd;
+
+    hd = &HeapArray[heap];
+    hd->size = -1;
+}
+
 #define ASSERTREPORT(line, cond)                               \
     if (!(cond)) {                                             \
         OSReport("OSCheckHeap: Failed " #cond " in %d", line); \
         return -1;                                             \
     }
 
-s32 OSCheckHeap(int heap) {
+s32 OSCheckHeap(OSHeapHandle heap) {
     struct Heap* hd;
     struct HeapCell* cell;
     long total = 0;
@@ -257,10 +265,35 @@ s32 OSCheckHeap(int heap) {
     return free;
 }
 
-// OSDumpHeap is unused but the strings from that function are present
-char D_800F0B4C[] = "\nOSDumpHeap(%d):\n";
-char D_800F0B60[] = "--------Inactive\n";
-char D_800F0B74[] = "addr\tsize\t\tend\tprev\tnext\n";
-char D_800F0B90[] = "--------Allocated\n";
-char D_800F0BA4[] = "%x\t%d\t%x\t%x\t%x\n";
-char D_800F0BB4[] = "--------Free\n";
+s32 OSReferentSize(void* ptr) {
+    struct HeapCell* cell;
+
+    cell = (void*)((u32)ptr - HEADERSIZE);
+
+    return (long)((u32)cell->size - HEADERSIZE);
+}
+
+void OSDumpHeap(OSHeapHandle heap) {
+    struct Heap* hd;
+    struct HeapCell* cell;
+
+    OSReport("\nOSDumpHeap(%d):\n", heap);
+
+    hd = &HeapArray[heap];
+
+    if (hd->size < 0) {
+        OSReport("--------Inactive\n");
+        return;
+    }
+
+    OSReport("addr\tsize\t\tend\tprev\tnext\n");
+    OSReport("--------Allocated\n");
+
+    for (cell = hd->allocated; cell; cell = cell->next) {
+        OSReport("%x\t%d\t%x\t%x\t%x\n", cell, cell->size, (char*)cell + cell->size, cell->prev, cell->next);
+    }
+    OSReport("--------Free\n");
+    for (cell = hd->free; cell; cell = cell->next) {
+        OSReport("%x\t%d\t%x\t%x\t%x\n", cell, cell->size, (char*)cell + cell->size, cell->prev, cell->next);
+    }
+}

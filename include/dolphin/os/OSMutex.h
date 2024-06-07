@@ -19,6 +19,7 @@ struct OSCond {
     OSThreadQueue queue;
 };
 
+void OSInitMutex(OSMutex* mutex);
 void OSLockMutex(OSMutex* mutex);
 void OSUnlockMutex(OSMutex* mutex);
 

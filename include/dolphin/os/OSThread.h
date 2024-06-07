@@ -85,18 +85,24 @@ volatile OSContext* __OSFPUContext AT_ADDRESS(OS_BASE_CACHED | 0x00D8);
 void __OSThreadInit(void);
 void OSInitThreadQueue(OSThreadQueue* queue);
 OSThread* OSGetCurrentThread(void);
+BOOL OSIsThreadTerminated(OSThread* thread);
 s32 OSDisableScheduler(void);
 s32 OSEnableScheduler(void);
 OSPriority __OSGetEffectivePriority(OSThread* thread);
+static OSThread* SetEffectivePriority(OSThread* thread, OSPriority priority);
+void __OSPromoteThread(OSThread* thread, OSPriority priority);
 void __OSReschedule(void);
+void OSYieldThread(void);
 BOOL OSCreateThread(OSThread* thread, void* (*func)(void*), void* param, void* stack, u32 stackSize,
                     OSPriority priority, u16 attr);
 void OSExitThread(void* val);
 void OSCancelThread(OSThread* thread);
+void OSDetachThread(OSThread* thread);
 s32 OSResumeThread(OSThread* thread);
 s32 OSSuspendThread(OSThread* thread);
 void OSSleepThread(OSThreadQueue* queue);
 void OSWakeupThread(OSThreadQueue* queue);
+OSPriority OSGetThreadPriority(OSThread* thread);
 void OSClearStack(u8 val);
 
 #ifdef __cplusplus

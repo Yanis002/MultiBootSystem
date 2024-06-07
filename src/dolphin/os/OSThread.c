@@ -132,6 +132,8 @@ void OSInitThreadQueue(OSThreadQueue* queue) { queue->head = queue->tail = NULL;
 
 OSThread* OSGetCurrentThread(void) { return __OSCurrentThread; }
 
+BOOL OSIsThreadTerminated(OSThread* thread) { return (thread->state == 8 || thread->state == 0) ? 1 : 0; }
+
 s32 OSDisableScheduler(void) {
     BOOL enabled;
     s32 count;
@@ -207,6 +209,18 @@ static OSThread* SetEffectivePriority(OSThread* thread, OSPriority priority) {
             break;
     }
     return NULL;
+}
+
+void __OSPromoteThread(OSThread* thread, OSPriority priority) {
+    while (true) {
+        if (thread->suspend > 0 || thread->priority <= priority) {
+            break;
+        }
+        thread = SetEffectivePriority(thread, priority);
+        if (thread == 0) {
+            break;
+        }
+    }
 }
 
 static inline void UpdatePriority(OSThread* thread) {
@@ -304,6 +318,13 @@ void __OSReschedule(void) {
     }
 
     SelectThread(false);
+}
+
+void OSYieldThread(void) {
+    BOOL enabled = OSDisableInterrupts();
+
+    SelectThread(true);
+    OSRestoreInterrupts(enabled);
 }
 
 BOOL OSCreateThread(OSThread* thread, void* (*func)(void*), void* param, void* stack, u32 stackSize,
@@ -430,6 +451,19 @@ void OSCancelThread(OSThread* thread) {
     return;
 }
 
+void OSDetachThread(OSThread* thread) {
+    BOOL enabled = OSDisableInterrupts();
+
+    thread->attr |= 1;
+    if (thread->state == 8) {
+        RemoveItem(&__OSActiveThreadQueue, thread, linkActive);
+        thread->state = 0;
+    }
+
+    OSWakeupThread(&thread->queueJoin);
+    OSRestoreInterrupts(enabled);
+}
+
 s32 OSResumeThread(OSThread* thread) {
     BOOL enabled;
     s32 suspendCount;
@@ -520,6 +554,8 @@ void OSWakeupThread(OSThreadQueue* queue) {
     __OSReschedule();
     OSRestoreInterrupts(enabled);
 }
+
+OSPriority OSGetThreadPriority(OSThread* thread) { return thread->base; }
 
 void OSClearStack(u8 val) {
     register u32 sp;

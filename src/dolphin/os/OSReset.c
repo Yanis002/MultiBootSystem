@@ -50,7 +50,7 @@ void OSRegisterResetFunction(OSResetFunctionInfo* func) {
     tmp->next = func;
 }
 
-static inline BOOL __OSCallResetFunctions(u32 arg0) {
+BOOL __OSCallResetFunctions(u32 arg0) {
     OSResetFunctionInfo* iter;
     s32 retCode = 0;
 
@@ -62,11 +62,14 @@ static inline BOOL __OSCallResetFunctions(u32 arg0) {
     {
         retCode |= !iter->func(arg0);
     }
+
     retCode |= !__OSSyncSram();
+
     if (retCode) {
-        return 0;
+        return false;
     }
-    return 1;
+
+    return true;
 }
 
 ASM void Reset(register s32 resetCode) {
@@ -154,8 +157,7 @@ void OSResetSystem(int reset, u32 resetCode, BOOL forceMenu) {
         disableRecalibration = __PADDisableRecalibration(true);
     }
 
-    while (!__OSCallResetFunctions(false))
-        ;
+    while (!__OSCallResetFunctions(false)) {}
 
     if (reset == OS_RESET_HOTRESET && forceMenu) {
         OSSram* sram;

@@ -44,6 +44,37 @@ static void MEMIntrruptHandler(__OSInterrupt interrupt, OSContext* context) {
     __OSUnhandledException(OS_ERROR_PROTECTION, context, cause, addr);
 }
 
+void OSProtectRange(u32 chan, void* addr, u32 nBytes, u32 control) {
+    BOOL enabled;
+    u32 start;
+    u32 end;
+    u16 reg;
+
+    if (chan >= 4) {
+        return;
+    }
+
+    control &= 3;
+    end = (u32)addr + nBytes;
+    start = (u32)addr & ~0x3FF;
+    end = (end + 0x3FF) & ~0x3FF;
+    DCFlushRange((void*)start, end - start);
+    enabled = OSDisableInterrupts();
+    __OSMaskInterrupts(OS_INTERRUPTMASK(chan));
+    __MEMRegs[chan * 2 + 0] = start >> 10;
+    __MEMRegs[chan * 2 + 1] = end >> 10;
+    reg = __MEMRegs[8];
+    reg &= ~(3 << (chan * 2));
+    reg |= control << (chan * 2);
+    __MEMRegs[8] = reg;
+
+    if (control != 3) {
+        __OSUnmaskInterrupts(OS_INTERRUPTMASK(chan));
+    }
+
+    OSRestoreInterrupts(enabled);
+}
+
 ASM void Config24MB(void) {
 #ifdef __MWERKS__ // clang-format off
     nofralloc

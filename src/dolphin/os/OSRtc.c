@@ -164,6 +164,7 @@ BOOL __OSUnlockSramEx(BOOL commit) { return UnlockSram(commit, sizeof(OSSram)); 
 BOOL __OSSyncSram(void) { return Scb.sync; }
 
 static inline OSSram* __OSLockSramHACK(void) { return LockSram(0); }
+
 u32 OSGetSoundMode(void) {
     OSSram* sram;
     u32 mode;
@@ -188,6 +189,31 @@ void OSSetSoundMode(u32 mode) {
     sram->flags &= ~4;
     sram->flags |= mode;
     __OSUnlockSram(true);
+}
+
+u32 OSGetProgressiveMode(void) {
+    OSSram* sram;
+    u32 mode;
+
+    sram = __OSLockSram();
+    mode = ((sram->flags >> 7) & 1);
+    __OSUnlockSram(false);
+    return mode;
+}
+
+void OSSetProgressiveMode(u32 mode) {
+    OSSram* sram;
+
+    mode <<= 7;
+    mode &= 0x80;
+    sram = __OSLockSram();
+    if (mode == (sram->flags & 0x80)) {
+        __OSUnlockSram(false);
+    } else {
+        sram->flags &= ~0x80;
+        sram->flags |= mode;
+        __OSUnlockSram(true);
+    }
 }
 
 u16 OSGetWirelessID(s32 channel) {

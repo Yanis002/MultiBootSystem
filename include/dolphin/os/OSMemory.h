@@ -21,6 +21,7 @@ void Config24MB(void);
 void Config48MB(void);
 void RealMode(register u32 addr);
 void __OSInitMemoryProtection(void);
+void OSProtectRange(u32 chan, void* addr, u32 nBytes, u32 control);
 
 #ifdef __cplusplus
 };
