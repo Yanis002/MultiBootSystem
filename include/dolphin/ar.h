@@ -5,6 +5,7 @@
 extern "C" {
 #endif
 
+#include "dolphin/arq.h"
 #include "dolphin/types.h"
 
 #define AR_STACK_INDEX_ENTRY_SIZE sizeof(u32)
@@ -19,36 +20,12 @@ extern "C" {
 #define __AR_ARAM_OS_BASE_ADDR 0x0000 // OS area at bottom of ARAM
 #define __AR_ARAM_USR_BASE_ADDR 0x4000 // USR area at 16KB (0x4000)
 
-typedef struct ARQRequest ARQRequest;
-
 typedef void (*ARCallback)(void);
-typedef void (*ARQCallback)(u32 ptrToRequest);
-
-struct ARQRequest {
-    /* 0x00 */ ARQRequest* next;
-    /* 0x04 */ u32 owner;
-    /* 0x08 */ u32 type;
-    /* 0x0C */ u32 priority;
-    /* 0x10 */ u32 source;
-    /* 0x14 */ u32 dest;
-    /* 0x18 */ u32 length;
-    /* 0x1C */ ARQCallback callback;
-};
 
 u32 ARInit(u32* stack_index_addr, u32 num_entries);
 u32 ARGetBaseAddress(void);
 u32 ARGetDMAStatus(void);
 void ARStartDMA(u32 type, u32 mainmem_addr, u32 aram_addr, u32 length);
-
-void ARQInit(void);
-void ARQReset(void);
-void ARQPostRequest(struct ARQRequest* request, u32 owner, u32 type, u32 priority, u32 source, u32 dest, u32 length,
-                    ARQCallback callback);
-void ARQRemoveRequest(struct ARQRequest* request);
-void ARQRemoveOwnerRequest(u32 owner);
-void ARQFlushQueue(void);
-void ARQSetChunkSize(u32 size);
-u32 ARQGetChunkSize(void);
 
 #define ARStartDMARead(mmem, aram, len) ARStartDMA(ARAM_DIR_ARAM_TO_MRAM, mmem, aram, len)
 #define ARStartDMAWrite(mmem, aram, len) ARStartDMA(ARAM_DIR_MRAM_TO_ARAM, mmem, aram, len)

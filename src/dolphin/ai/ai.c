@@ -65,11 +65,22 @@ u32 AIGetDMAStartAddr(void) {
     return startAddressHigh | startAddressLow;
 }
 
-inline void AIResetStreamSampleCount(void) {
+AISCallback AIRegisterStreamCallback(AISCallback callback) {
+    AISCallback old_callback;
+    BOOL old;
+
+    old_callback = __AIS_Callback;
+    old = OSDisableInterrupts();
+    __AIS_Callback = callback;
+    OSRestoreInterrupts(old);
+    return old_callback;
+}
+
+void AIResetStreamSampleCount(void) {
     __AIRegs[AI_CONTROL] = (__AIRegs[AI_CONTROL] & ~AI_CONTROL_STREAM_SAMPLE_COUNT) | AI_CONTROL_STREAM_SAMPLE_COUNT;
 }
 
-inline void AISetStreamTrigger(u32 trigger) { __AIRegs[AI_INTRPT_TIMING] = trigger; }
+void AISetStreamTrigger(u32 trigger) { __AIRegs[AI_INTRPT_TIMING] = trigger; }
 
 void AISetStreamPlayState(u32 playState) {
     s32 previousInterruptState;

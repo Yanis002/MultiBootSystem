@@ -199,6 +199,17 @@ static void __VIRetraceHandler(__OSInterrupt interrupt, OSContext* context) {
     OSSetCurrentContext(context);
 }
 
+VIRetraceCallback VISetPreRetraceCallback(VIRetraceCallback cb) {
+    BOOL enabled;
+    VIRetraceCallback oldcb;
+
+    oldcb = PreCB;
+    enabled = OSDisableInterrupts();
+    PreCB = cb;
+    OSRestoreInterrupts(enabled);
+    return oldcb;
+}
+
 VIRetraceCallback VISetPostRetraceCallback(VIRetraceCallback callback) {
     int interrupt;
     VIRetraceCallback oldCallback;
@@ -791,6 +802,32 @@ void VIConfigure(GXRenderModeObj* rm) {
     OSRestoreInterrupts(enabled);
 }
 
+void VIConfigurePan(u16 xOrg, u16 yOrg, u16 width, u16 height) {
+    BOOL enabled;
+    VITimingInfo* tm;
+
+    enabled = OSDisableInterrupts();
+    HorVer.panPosX = xOrg;
+    HorVer.panPosY = yOrg;
+    HorVer.panSizeX = width;
+    HorVer.panSizeY = height;
+    HorVer.dispSizeY = (HorVer.nonInter == 2)              ? HorVer.panSizeY
+                       : (HorVer.nonInter == 3)            ? HorVer.panSizeY
+                       : (HorVer.xfbMode == VI_XFBMODE_SF) ? (u16)(HorVer.panSizeY * 2)
+                                                           : HorVer.panSizeY;
+    tm = HorVer.timing;
+    AdjustPosition(tm->acv);
+    setScalingRegs(HorVer.panSizeX, HorVer.dispSizeX, HorVer.is3D);
+    setPicConfig(HorVer.fbSizeX, HorVer.xfbMode, HorVer.panPosX, HorVer.panSizeX, &HorVer.wordPerLine, &HorVer.std,
+                 &HorVer.wpl, &HorVer.xof);
+    if (FBSet != 0) {
+        setFbbRegs(&HorVer, &HorVer.tfbb, &HorVer.bfbb, &HorVer.rtfbb, &HorVer.rbfbb);
+    }
+    setVerticalRegs(HorVer.adjDispPosY, HorVer.dispSizeY, tm->equ, tm->acv, tm->prbOdd, tm->prbEven, tm->psbOdd,
+                    tm->psbEven, HorVer.isBlack);
+    OSRestoreInterrupts(enabled);
+}
+
 void VIFlush(void) {
     BOOL enabled;
     s32 regIndex;
@@ -831,6 +868,8 @@ void VISetBlack(BOOL isBlack) {
                     tm->psbEven, HorVer.isBlack);
     OSRestoreInterrupts(interrupt);
 }
+
+u32 VIGetRetraceCount(void) { return retraceCount; }
 
 static void GetCurrentDisplayPosition(u32* hct, u32* vct) {
     u32 hcount, vcount0, vcount;
@@ -988,4 +1027,14 @@ void __VIGetCurrentPosition(s16* x, s16* y) {
     u32 h, v;
     GetCurrentDisplayPosition(&h, &v);
     __VIDisplayPositionToXY(h, v, x, y);
+}
+
+u32 VIGetDTVStatus() {
+    u32 dtvStatus;
+    BOOL enabled;
+
+    enabled = OSDisableInterrupts();
+    dtvStatus = __VIRegs[55] & 3;
+    OSRestoreInterrupts(enabled);
+    return dtvStatus & 1;
 }

@@ -330,7 +330,7 @@ config.libs = [
     DolphinLib(
         "vi",
         [
-            Object(NonMatching, "dolphin/vi/vi.c"),
+            Object(MatchingFor("mq-j"), "dolphin/vi/vi.c"),
         ]
     ),
     DolphinLib(
@@ -343,14 +343,14 @@ config.libs = [
     DolphinLib(
         "ai",
         [
-            Object(NonMatching, "dolphin/ai/ai.c"),
+            Object(MatchingFor("mq-j"), "dolphin/ai/ai.c"),
         ]
     ),
     DolphinLib(
         "ar",
         [
-            Object(NonMatching, "dolphin/ar/ar.c"),
-            Object(NonMatching, "dolphin/ar/arq.c"),
+            Object(MatchingFor("mq-j"), "dolphin/ar/ar.c"),
+            Object(MatchingFor("mq-j"), "dolphin/ar/arq.c"),
         ]
     ),
     DolphinLib(
@@ -389,7 +389,7 @@ config.libs = [
     DolphinLib(
         "dsp",
         [
-            Object(NonMatching, "dolphin/dsp/dsp.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dsp/dsp.c"),
             Object(MatchingFor("mq-j"), "dolphin/dsp/dsp_debug.c"),
             Object(MatchingFor("mq-j"), "dolphin/dsp/dsp_task.c"),
         ]

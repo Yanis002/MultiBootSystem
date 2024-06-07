@@ -9,7 +9,7 @@ extern "C" {
 
 #define ARQ_CHUNK_SIZE_DEFAULT 4096
 
-typedef void (*ARQCallback)(u32 request_address);
+typedef void (*ARQCallback)(u32 ptrToRequest);
 
 typedef enum _ARamType {
     ARAM_DIR_MRAM_TO_ARAM,
@@ -22,19 +22,25 @@ typedef enum _ArqPriotity {
 } ArqPriotity;
 
 typedef struct ARQRequest {
-    struct ARQRequest* next;
-    u32 owner;
-    u32 type;
-    u32 priority;
-    u32 source;
-    u32 destination;
-    u32 length;
-    ARQCallback callback;
+    /* 0x00 */ struct ARQRequest* next;
+    /* 0x04 */ u32 owner;
+    /* 0x08 */ u32 type;
+    /* 0x0C */ u32 priority;
+    /* 0x10 */ u32 source;
+    /* 0x14 */ u32 dest;
+    /* 0x18 */ u32 length;
+    /* 0x1C */ ARQCallback callback;
 } ARQRequest;
 
 void ARQInit(void);
-void ARQPostRequest(ARQRequest* task, u32 owner, u32 type, u32 priority, u32 source, u32 destination, u32 length,
+void ARQReset(void);
+void ARQPostRequest(ARQRequest* request, u32 owner, u32 type, u32 priority, u32 source, u32 dest, u32 length,
                     ARQCallback callback);
+void ARQRemoveRequest(ARQRequest* request);
+void ARQRemoveOwnerRequest(u32 owner);
+void ARQFlushQueue(void);
+void ARQSetChunkSize(u32 size);
+u32 ARQGetChunkSize(void);
 
 #ifdef __cplusplus
 };

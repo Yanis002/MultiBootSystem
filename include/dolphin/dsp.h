@@ -47,6 +47,8 @@ extern DSPTaskInfo* __DSP_tmp_task;
 extern DSPTaskInfo* __DSP_last_task;
 extern DSPTaskInfo* __DSP_first_task;
 extern DSPTaskInfo* __DSP_curr_task;
+extern DSPTaskInfo* __DSP_rude_task;
+extern s32 __DSP_rude_task_pending;
 
 void DSPInit(void);
 u32 DSPCheckMailFromDSP(void);

@@ -23,6 +23,17 @@ static void __ARHandler(__OSInterrupt interrupt, OSContext* context);
 static void __ARChecksize(void);
 static void __ARClearArea(u32 start_addr, u32 length);
 
+ARCallback ARRegisterDMACallback(ARCallback callback) {
+    ARCallback old_callback;
+    BOOL old;
+
+    old_callback = __AR_Callback;
+    old = OSDisableInterrupts();
+    __AR_Callback = callback;
+    OSRestoreInterrupts(old);
+    return old_callback;
+}
+
 u32 ARGetDMAStatus() {
     BOOL enabled;
     u32 val;
@@ -51,6 +62,20 @@ void ARStartDMA(u32 type, u32 mainmem_addr, u32 aram_addr, u32 length) {
     __DSPRegs[DSP_ARAM_DMA_SIZE_LO] = (u16)(__DSPRegs[DSP_ARAM_DMA_SIZE_LO] & ~0xFFE0) | (u16)(length & 0xFFFF);
 
     OSRestoreInterrupts(enabled);
+}
+
+u32 ARAlloc(u32 length) {
+    u32 tmp;
+    BOOL old;
+
+    old = OSDisableInterrupts();
+    tmp = __AR_StackPointer;
+    __AR_StackPointer += length;
+    *__AR_BlockLength = length;
+    __AR_BlockLength += 1;
+    __AR_FreeBlocks -= 1;
+    OSRestoreInterrupts(old);
+    return tmp;
 }
 
 u32 ARInit(u32* stack_index_addr, u32 num_entries) {
@@ -86,6 +111,8 @@ u32 ARInit(u32* stack_index_addr, u32 num_entries) {
 
     return __AR_StackPointer;
 }
+
+u32 ARGetSize(void) { return __AR_Size; }
 
 u32 ARGetBaseAddress() { return __AR_ARAM_USR_BASE_ADDR; }
 

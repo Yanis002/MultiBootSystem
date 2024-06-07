@@ -26,6 +26,17 @@ void DSPSendMailToDSP(u32 mail) {
     __DSPRegs[DSP_MAILBOX_IN_LO] = mail;
 }
 
+inline void DSPAssertInt(void) {
+    BOOL old;
+    u16 tmp;
+
+    old = OSDisableInterrupts();
+    tmp = __DSPRegs[5];
+    tmp = (tmp & ~0xA8) | 2;
+    __DSPRegs[5] = tmp;
+    OSRestoreInterrupts(old);
+}
+
 void DSPInit() {
     u32 tmp;
     BOOL old;
@@ -52,6 +63,8 @@ void DSPInit() {
     OSRestoreInterrupts(old);
 }
 
+BOOL DSPCheckInit(void) { return __DSP_init_flag; }
+
 DSPTaskInfo* DSPAddTask(DSPTaskInfo* task) {
     BOOL old = OSDisableInterrupts();
 
@@ -64,4 +77,28 @@ DSPTaskInfo* DSPAddTask(DSPTaskInfo* task) {
         __DSP_boot_task(task);
     }
     return task;
+}
+
+DSPTaskInfo* DSPAssertTask(DSPTaskInfo* task) {
+    s32 old = OSDisableInterrupts();
+
+    if (__DSP_curr_task == task) {
+        __DSP_rude_task = task;
+        __DSP_rude_task_pending = 1;
+        OSRestoreInterrupts(old);
+        return task;
+    }
+
+    if (task->priority < __DSP_curr_task->priority) {
+        __DSP_rude_task = task;
+        __DSP_rude_task_pending = 1;
+        if (__DSP_curr_task->state == 1) {
+            DSPAssertInt();
+        }
+        OSRestoreInterrupts(old);
+        return task;
+    }
+
+    OSRestoreInterrupts(old);
+    return NULL;
 }
