@@ -13,7 +13,7 @@ Sections:
 	.sdata2     type:rodata align:32
 	.sbss2      type:bss align:32
 
-menu/main.c:
+menu/main.cpp:
 	.text       start:0x800057C0 end:0x8000D184
 	.ctors      start:0x800A3304 end:0x800A3308
 	.rodata     start:0x800A3380 end:0x800A3420
@@ -23,7 +23,7 @@ menu/main.c:
 	.sbss       start:0x80169EA0 end:0x80169EF8
 	.sdata2     start:0x8016A660 end:0x8016A6E8
 
-menu/dtk_stuff.c:
+menu/dtk_stuff.cpp:
 	.text       start:0x8000D184 end:0x8000D27C
 	.bss        start:0x8013FBF0 end:0x801405F0
 	.sbss       start:0x80169EF8 end:0x80169F00
@@ -32,11 +32,11 @@ menu/graphics.cpp:
 	.text       start:0x8000D27C end:0x8000D2D8
 	.sbss2      start:0x8016B020 end:0x8016B028
 
-menu/mixedcontroller.c:
+menu/mixedcontroller.cpp:
 	.text       start:0x8000D2D8 end:0x8000D3A4
 	.bss        start:0x801405F0 end:0x80140670
 
-menu/mtrand.c:
+menu/mtrand.cpp:
 	.text       start:0x8000D3A4 end:0x8000D510
 	.bss        start:0x80140670 end:0x80141040
 	.sdata      start:0x80169260 end:0x80169268
@@ -44,7 +44,7 @@ menu/mtrand.c:
 menu/discerror.c:
 	.data       start:0x800A8760 end:0x8012DBC0
 
-menu/soundeffect.c:
+menu/soundeffect.cpp:
 	.text       start:0x8000D510 end:0x8000D99C
 	.data       start:0x8012DBC0 end:0x8012DC30
 	.bss        start:0x80141040 end:0x80145260

@@ -236,13 +236,13 @@ config.libs = [
     MenuLib(
         "menu",
         [
-            Object(NonMatching, "menu/main.c"),
-            Object(NonMatching, "menu/dtk_stuff.c"),
+            Object(NonMatching, "menu/main.cpp"),
+            Object(NonMatching, "menu/dtk_stuff.cpp"),
             Object(MatchingFor("mq-j"), "menu/graphics.cpp"),
-            Object(NonMatching, "menu/mixedcontroller.c"),
-            Object(NonMatching, "menu/mtrand.c"),
+            Object(NonMatching, "menu/mixedcontroller.cpp"),
+            Object(NonMatching, "menu/mtrand.cpp"),
             Object(MatchingFor("mq-j"), "menu/discerror.c"),
-            Object(NonMatching, "menu/soundeffect.c"),
+            Object(NonMatching, "menu/soundeffect.cpp"),
         ]
     ),
     DolphinLib(
