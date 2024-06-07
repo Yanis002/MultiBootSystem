@@ -318,8 +318,8 @@ config.libs = [
         "dvd",
         [
             Object(MatchingFor("mq-j"), "dolphin/dvd/dvdlow.c"),
-            Object(NonMatching, "dolphin/dvd/dvdfs.c"),
-            Object(NonMatching, "dolphin/dvd/dvd.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvdfs.c"),
+            Object(MatchingFor("mq-j"), "dolphin/dvd/dvd.c"),
             Object(MatchingFor("mq-j"), "dolphin/dvd/dvdqueue.c"),
             Object(MatchingFor("mq-j"), "dolphin/dvd/dvderror.c"),
             Object(MatchingFor("mq-j"), "dolphin/dvd/dvdidutils.c"),

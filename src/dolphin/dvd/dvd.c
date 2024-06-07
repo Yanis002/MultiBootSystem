@@ -30,7 +30,7 @@ static void cbForStateGettingError(u32 p1);
 static void cbForStateGoToRetry(u32 p1);
 static void cbForUnrecoveredError(u32 p1);
 static void cbForUnrecoveredErrorRetry(u32 p1);
-static inline void cbForCancelStreamSync(s32 result, DVDCommandBlock* block);
+static void cbForCancelStreamSync(s32 result, DVDCommandBlock* block);
 static void defaultOptionalCommandChecker(DVDCommandBlock* block, DVDLowCallback cb);
 static void stateBusy(DVDCommandBlock*);
 static void stateCheckID2(DVDCommandBlock*);
@@ -902,7 +902,7 @@ void cbForStateBusy(u32 p1) {
     }
 }
 
-static inline BOOL issueCommand(s32 prio, DVDCommandBlock* block) {
+static BOOL issueCommand(s32 prio, DVDCommandBlock* block) {
     BOOL level;
     BOOL result;
 
@@ -965,6 +965,18 @@ BOOL DVDReadDiskID(DVDCommandBlock* block, DVDDiskID* diskID, DVDCBCallback call
     return idle;
 }
 
+BOOL DVDPrepareStreamAbsAsync(DVDCommandBlock* block, u32 length, u32 offset, DVDCBCallback callback) {
+    BOOL idle;
+
+    block->command = DVD_COMMAND_INIT_STREAM;
+    block->length = length;
+    block->offset = offset;
+    block->callback = callback;
+    idle = issueCommand(1, block);
+
+    return idle;
+}
+
 BOOL DVDCancelStreamAsync(DVDCommandBlock* block, DVDCBCallback callback) {
     BOOL idle;
     block->command = 7;
@@ -973,9 +985,62 @@ BOOL DVDCancelStreamAsync(DVDCommandBlock* block, DVDCBCallback callback) {
     return idle;
 }
 
-static inline void cbForCancelStreamSync(s32 result, DVDCommandBlock* block) {
+s32 DVDCancelStream(DVDCommandBlock* block) {
+    BOOL result;
+    s32 state;
+    BOOL enabled;
+    s32 retVal;
+
+    result = DVDCancelStreamAsync(block, cbForCancelStreamSync);
+
+    if (result == false) {
+        return -1;
+    }
+
+    enabled = OSDisableInterrupts();
+
+    while (true) {
+        state = ((volatile DVDCommandBlock*)block)->state;
+
+        if (state == 0 || state == -1 || state == 10) {
+            retVal = block->transferredSize;
+            break;
+        }
+
+        OSSleepThread(&__DVDThreadQueue);
+    }
+
+    OSRestoreInterrupts(enabled);
+    return retVal;
+}
+
+static void cbForCancelStreamSync(s32 result, DVDCommandBlock* block) {
     block->transferredSize = (u32)result;
     OSWakeupThread(&__DVDThreadQueue);
+}
+
+BOOL DVDStopStreamAtEndAsync(DVDCommandBlock* block, DVDCBCallback callback) {
+    BOOL idle;
+    block->command = 8;
+    block->callback = callback;
+    idle = issueCommand(1, block);
+    return idle;
+}
+
+BOOL DVDGetStreamErrorStatusAsync(DVDCommandBlock* block, DVDCBCallback callback) {
+    BOOL idle;
+    block->command = 9;
+    block->callback = callback;
+    idle = issueCommand(1, block);
+    return idle;
+}
+
+BOOL DVDGetStreamPlayAddrAsync(DVDCommandBlock* block, DVDCBCallback callback) {
+    BOOL idle;
+    block->command = 10;
+    block->callback = callback;
+    idle = issueCommand(1, block);
+    return idle;
 }
 
 BOOL DVDInquiryAsync(DVDCommandBlock* block, DVDDriveInfo* info, DVDCBCallback callback) {

@@ -85,6 +85,13 @@ DVDDiskID* DVDGetCurrentDiskID(void);
 BOOL DVDCompareDiskID(const DVDDiskID* discID1, const DVDDiskID* discID2);
 void __DVDLowSetWAType(u32 type, u32 location);
 BOOL DVDReadAbsAsyncForBS(DVDCommandBlock* block, void* addr, s32 length, s32 offset, DVDCBCallback callback);
+BOOL DVDFastOpen(s32 entrynum, DVDFileInfo* fileInfo);
+BOOL DVDPrepareStreamAsync(DVDFileInfo* fileInfo, u32 length, u32 offset, DVDCallback callback);
+BOOL DVDPrepareStreamAbsAsync(DVDCommandBlock* block, u32 length, u32 offset, DVDCBCallback callback);
+s32 DVDCancelStream(DVDCommandBlock* block);
+BOOL DVDStopStreamAtEndAsync(DVDCommandBlock* block, DVDCBCallback callback);
+BOOL DVDGetStreamErrorStatusAsync(DVDCommandBlock* block, DVDCBCallback callback);
+BOOL DVDGetStreamPlayAddrAsync(DVDCommandBlock* block, DVDCBCallback callback);
 
 #define DVDReadAsync(fileInfo, addr, length, offset, callback) \
     DVDReadAsyncPrio((fileInfo), (addr), (length), (offset), (callback), 2)
@@ -114,6 +121,8 @@ BOOL DVDReadAbsAsyncForBS(DVDCommandBlock* block, void* addr, s32 length, s32 of
 #define DVD_FILEINFO_BUSY 1
 
 #define DVD_AIS_SUCCESS 0
+
+#define DVD_COMMAND_INIT_STREAM 6
 
 #ifdef __cplusplus
 };

@@ -21,6 +21,7 @@ u32 __DVDLongFileNameFlag = 0;
 
 static void cbForReadAsync(s32 result, DVDCommandBlock* block);
 static void cbForReadSync(s32 result, DVDCommandBlock* block);
+static void cbForPrepareStreamAsync(s32 result, DVDCommandBlock* block);
 
 void __DVDFSInit() {
     BootInfo = (OSBootInfo*)OSPhysicalToCached(0);
@@ -39,6 +40,7 @@ void __DVDFSInit() {
 #define nextDir(i) (FstStart[i].nextEntryOrLength)
 #define filePosition(i) (FstStart[i].parentOrPosition)
 #define fileLength(i) (FstStart[i].nextEntryOrLength)
+#define Is32KBAligned(x) (((u32)(x) & (32 * 1024 - 1)) == 0)
 
 static inline BOOL isSame(const char* path, const char* string) {
     while (*string != '\0') {
@@ -154,6 +156,19 @@ s32 DVDConvertPathToEntrynum(const char* pathPtr) {
         dirLookAt = i;
         pathPtr += length + 1;
     }
+}
+
+BOOL DVDFastOpen(s32 entrynum, DVDFileInfo* fileInfo) {
+    if ((entrynum < 0) || (entrynum >= MaxEntryNum) || entryIsDir(entrynum)) {
+        return false;
+    }
+
+    fileInfo->startAddr = filePosition(entrynum);
+    fileInfo->length = fileLength(entrynum);
+    fileInfo->callback = (DVDCallback)NULL;
+    fileInfo->cb.state = DVD_STATE_END;
+
+    return true;
 }
 
 BOOL DVDOpen(const char* fileName, DVDFileInfo* fileInfo) {
@@ -318,3 +333,55 @@ s32 DVDReadPrio(DVDFileInfo* fileInfo, void* addr, s32 length, s32 offset, s32 p
 }
 
 static inline void cbForReadSync(s32 result, DVDCommandBlock* block) { OSWakeupThread(&__DVDThreadQueue); }
+
+// strings from unused functions (``DVDSeekAsyncPrio`` and ``DVDOpenDir``)
+static char unused1[] = "DVDSeek(): offset is out of the file  ";
+static char unused2[] = "Warning: DVDOpenDir(): file '%s' was not found under %s.\n";
+
+BOOL DVDPrepareStreamAsync(DVDFileInfo* fileInfo, u32 length, u32 offset, DVDCallback callback) {
+    u32 start;
+
+    start = fileInfo->startAddr + offset;
+
+    if (!Is32KBAligned(start)) {
+        OSPanic("dvdfs.c", 1189,
+                "DVDPrepareStreamAsync(): Specified start address (filestart(0x%x) + offset(0x%x)) is "
+                "not 32KB aligned",
+                fileInfo->startAddr, offset);
+    }
+
+    if (length == 0) {
+        length = fileInfo->length - offset;
+    }
+
+    if (!Is32KBAligned(length)) {
+        OSPanic("dvdfs.c", 1199, "DVDPrepareStreamAsync(): Specified length (0x%x) is not a multiple of 32768(32*1024)",
+                length);
+    }
+
+    if (!((offset < fileInfo->length) && (offset + length <= fileInfo->length))) {
+        OSPanic("dvdfs.c", 1207,
+                "DVDPrepareStreamAsync(): The area specified (offset(0x%x), length(0x%x)) is out of "
+                "the file",
+                offset, length);
+    }
+
+    fileInfo->callback = callback;
+    return DVDPrepareStreamAbsAsync(&(fileInfo->cb), length, fileInfo->startAddr + offset, cbForPrepareStreamAsync);
+}
+
+static void cbForPrepareStreamAsync(s32 result, DVDCommandBlock* block) {
+    DVDFileInfo* fileInfo;
+
+    fileInfo = (DVDFileInfo*)((char*)block - OFFSETOF(DVDFileInfo, cb));
+
+    if (fileInfo->callback) {
+        (fileInfo->callback)(result, fileInfo);
+    }
+}
+
+// strings from unused function ``DVDPrepareStream``
+static char unused3[] =
+    "DVDPrepareStream(): Specified start address (filestart(0x%x) + offset(0x%x)) is not 32KB aligned";
+static char unused4[] = "DVDPrepareStream(): Specified length (0x%x) is not a multiple of 32768(32*1024)";
+static char unused5[] = "DVDPrepareStream(): The area specified (offset(0x%x), length(0x%x)) is out of the file";
