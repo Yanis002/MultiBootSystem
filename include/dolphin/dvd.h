@@ -45,7 +45,7 @@ struct DVDFileInfo {
     /* 0x30 */ u32 startAddr;
     /* 0x34 */ u32 length;
     /* 0x38 */ DVDCallback callback;
-};
+}; // size = 0x3C
 
 struct DVDQueue {
     /* 0x00 */ DVDQueue* mHead;

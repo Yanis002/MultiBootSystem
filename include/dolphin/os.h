@@ -67,6 +67,9 @@ void OSInit(void);
 OSTime OSGetTime(void);
 OSTick OSGetTick(void);
 
+void __OSStopAudioSystem(void);
+void __OSDoHotReset(s32 resetcode);
+
 typedef struct OSCalendarTime {
     int sec; // seconds after the minute [0, 61]
     int min; // minutes after the hour [0, 59]

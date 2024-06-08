@@ -184,10 +184,10 @@ def MenuLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "objects": objects,
     }
 
-def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+def DolphinLib(lib_name: str, objects: List[Object], mw_version: str = "GC/1.2.5n") -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.2.5n",
+        "mw_version": mw_version,
         "cflags": cflags_base,
         "host": False,
         "objects": objects,
@@ -249,7 +249,8 @@ config.libs = [
         "exec",
         [
             Object(NonMatching, "dolphin/exec/exec.c"),
-        ]
+        ],
+        "GC/1.2.5" # TODO: figure out if this is real
     ),
     DolphinLib(
         "base",

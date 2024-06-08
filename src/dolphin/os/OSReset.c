@@ -50,7 +50,7 @@ void OSRegisterResetFunction(OSResetFunctionInfo* func) {
     tmp->next = func;
 }
 
-BOOL __OSCallResetFunctions(u32 arg0) {
+BOOL __OSCallResetFunctions(BOOL final) {
     OSResetFunctionInfo* iter;
     s32 retCode = 0;
 
@@ -60,7 +60,7 @@ BOOL __OSCallResetFunctions(u32 arg0) {
     for (iter = ResetFunctionQueue.first; iter != NULL && retCode == false; iter = iter->next)
 #endif
     {
-        retCode |= !iter->func(arg0);
+        retCode |= !iter->func(final);
     }
 
     retCode |= !__OSSyncSram();
@@ -134,11 +134,11 @@ inline void KillThreads(void) {
     }
 }
 
-void __OSDoHotReset(s32 arg0) {
+void __OSDoHotReset(s32 resetcode) {
     OSDisableInterrupts();
     __VIRegs[1] = 0;
     ICFlashInvalidate();
-    Reset(arg0 * 8);
+    Reset(resetcode * 8);
 }
 
 void OSResetSystem(int reset, u32 resetCode, BOOL forceMenu) {
