@@ -16,6 +16,7 @@ extern "C" {
 #include "dolphin/dsp.h"
 #include "dolphin/dtk.h"
 #include "dolphin/dvd.h"
+#include "dolphin/exec.h"
 #include "dolphin/exi.h"
 #include "dolphin/gx.h"
 #include "dolphin/mix.h"

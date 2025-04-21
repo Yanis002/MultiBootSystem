@@ -1,40 +1,6 @@
 #include "dolphin.h"
 #include "macros.h"
 
-// ---
-
-//! TODO: "dolphin/exec.h"
-
-#define TGC_MAGIC 0xAE0F38A2
-
-typedef void (*ExecCallback)(s32 arg0, struct ExecUnk* arg1);
-
-typedef struct TGCHeader {
-    /* 0x00 */ u32 magic; // see TGC_MAGIC
-    /* 0x04 */ u32 unk4; // usually 0x00000000
-    /* 0x08 */ u32 headerSize; // usually 0x00008000
-    /* 0x0C */ u32 unkC; // usually 0x00100000
-    /* 0x10 */ u32 fstOffset;
-    /* 0x14 */ u32 fstSize;
-    /* 0x18 */ u32 fstMaxSize;
-    /* 0x1C */ u32 bootDolOffset;
-    /* 0x20 */ u32 bootDolSize;
-    /* 0x24 */ u32 unk24;
-    /* 0x28 */ u32 unk28;
-    /* 0x2C */ u32 unk2C;
-    /* 0x30 */ u32 unk30;
-    /* 0x34 */ u32 unk34;
-} TGCHeader; // size = 0x38
-
-typedef struct ExecUnk {
-    char pad[0x34];
-    TGCHeader tgcHeader;
-    ExecCallback callback;
-    DVDFileInfo fileInfo;
-} ExecUnk;
-
-// ---
-
 TGCHeader THeader ATTRIBUTE_ALIGN(32);
 
 static volatile BOOL Prepared;
@@ -280,7 +246,7 @@ void cbForTGCOpenSync(s32 arg0, ExecUnk* arg1) { OSWakeupThread(&__TGCThreadQueu
 
 void __TgcExec(int nCount, char** aszArgument);
 
-void TGCExec(int nCount, char** aszArgument) {
+void TGCExec(ExecUnk* arg1, int nCount, char** aszArgument) {
     char** var_r6;
 
     if (aszArgument == NULL) {
