@@ -23,6 +23,9 @@ menu/main.cpp:
 	.sbss       start:0x80169EA0 end:0x80169EF8
 	.sdata2     start:0x8016A660 end:0x8016A6E8
 
+menu/discerror.c:
+	.data       start:0x800A8760 end:0x8012DBC0
+
 menu/dtk_stuff.cpp:
 	.text       start:0x8000D184 end:0x8000D27C
 	.bss        start:0x8013FBF0 end:0x801405F0
@@ -41,17 +44,11 @@ menu/mtrand.cpp:
 	.bss        start:0x80140670 end:0x80141040
 	.sdata      start:0x80169260 end:0x80169268
 
-menu/discerror.c:
-	.data       start:0x800A8760 end:0x8012DBC0
-
 menu/soundeffect.cpp:
 	.text       start:0x8000D510 end:0x8000D99C
 	.data       start:0x8012DBC0 end:0x8012DC30
 	.bss        start:0x80141040 end:0x80145260
 	.sbss       start:0x80169F00 end:0x80169F20
-
-dolphin/os/__start.c:
-	.init       start:0x80003200 end:0x80003454
 
 dolphin/exec/exec.c:
 	.text       start:0x8000D99C end:0x8000E1BC
@@ -153,6 +150,9 @@ dolphin/os/OSThread.c:
 
 dolphin/os/OSTime.c:
 	.text       start:0x80014994 end:0x80014A18
+
+dolphin/os/__start.c:
+	.init       start:0x80003200 end:0x80003454
 
 dolphin/os/__ppc_eabi_init.c:
 	.init       start:0x80003454 end:0x800034A8

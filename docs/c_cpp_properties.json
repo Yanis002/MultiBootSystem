@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "mq-j",
+            "intelliSenseMode": "${default}",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/libc",
+                "${workspaceFolder}/libcpp",
+                "${workspaceFolder}/build/mq-j/include"
+            ],
+            "defines": ["VERSION=MQ_J"]
+        }
+    ],
+    "version": 4
+}

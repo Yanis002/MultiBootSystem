@@ -31,7 +31,7 @@ extern s32 __OSIsGcam;
 
 static volatile BOOL Prepared = false;
 
-void __OSDoHotReset(int);
+void __OSDoHotReset(s32 resetCode);
 
 #if IS_MQ
 static void ReadApploader(void* addr, long length, long offset) {
