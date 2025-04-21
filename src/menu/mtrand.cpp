@@ -1,9 +1,18 @@
 #include "dolphin.h"
 
-u8 mt[0x9C0];
+u32 mt[0x270];
+s32 mti = 0x271;
 
-s32 mti = 0x00000271;
+u32 sgenrand(u32 arg0) {
+    int i;
 
-s32 sgenrand(u32 arg0) {
+    for (i = 0; i < 0x270; i++) {
+        mt[i] = arg0 & ~0xFFFF;
+        arg0 = arg0 * 0x10DCD + 1;
+        mt[i] |= (arg0 >> 0x10);
+        arg0 = arg0 * 0x10DCD + 1;
+    }
 
+    mti = 0x270;
+    return arg0;
 }

@@ -280,7 +280,7 @@ def GenericLib(lib_name: str, cflags: List[str], objects: List[Object]) -> Dict[
         "lib": lib_name,
         "mw_version": "GC/1.3.2",
         "cflags": cflags,
-        "progress_category": "misc",
+        "progress_category": lib_name,
         "objects": objects,
     }
 
@@ -305,7 +305,7 @@ config.libs = [
             Object(LinkedFor("mq-j"), "menu/dtk_stuff.cpp"),
             Object(LinkedFor("mq-j"), "menu/graphics.cpp"),
             Object(LinkedFor("mq-j"), "menu/mixedcontroller.cpp"),
-            Object(NotLinked, "menu/mtrand.cpp"),
+            Object(LinkedFor("mq-j"), "menu/mtrand.cpp"),
             Object(LinkedFor("mq-j"), "menu/discerror.c"),
             Object(NotLinked, "menu/soundeffect.cpp"),
         ]
@@ -801,9 +801,12 @@ def link_order_callback(module_id: int, objects: List[str]) -> List[str]:
 # Adjust as desired for your project
 config.progress_categories = [
     ProgressCategory("menu", "Menu Code"),
-    ProgressCategory("dolphin", "Dolphin SDK Code"),
-    ProgressCategory("jsystem", "JSystem SDK Code"),
-    ProgressCategory("misc", "Misc Code"),
+    ProgressCategory("dolphin", "Dolphin SDK"),
+    ProgressCategory("jsystem", "JSystem SDK"),
+    ProgressCategory("runtime", "Runtime"),
+    ProgressCategory("libc", "Libc"),
+    ProgressCategory("metrotrk", "MetroTRK"),
+    ProgressCategory("debugger", "Debugger Driver"),
 ]
 config.progress_each_module = args.verbose
 
