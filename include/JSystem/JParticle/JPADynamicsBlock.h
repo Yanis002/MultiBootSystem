@@ -37,7 +37,7 @@ struct JPADynamicsBlockData {
 
 class JPADynamicsBlock {
   public:
-    virtual ~JPADynamicsBlock(){};
+    virtual ~JPADynamicsBlock() {};
     virtual u32 getDataFlag() = 0;
     virtual u32 getUseKeyFlag() = 0;
     virtual void getEmitterScl(JGeometry::TVec3<f32>&) = 0;

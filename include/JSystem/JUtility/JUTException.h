@@ -4,11 +4,11 @@
 #include "JSystem/JKernel/JKRThread.h"
 #include "JSystem/JUtility/JUTGamePad.h"
 #include "dolphin/gx/GXEnum.h"
+#include "dolphin/gx/GXStruct.h"
 #include "dolphin/os/OSError.h"
 #include "macros.h"
 #include "stdarg.h"
 
-typedef struct GXRenderModeObj GXRenderModeObj;
 typedef struct OSContext OSContext;
 class JUTDirectPrint;
 
@@ -55,7 +55,7 @@ class JUTException : public JKRThread {
     };
 
     JUTException(JUTDirectPrint*);
-    virtual ~JUTException(){};
+    virtual ~JUTException() {};
 
     void showFloatSub(int, f32);
     void showFloat(OSContext*);

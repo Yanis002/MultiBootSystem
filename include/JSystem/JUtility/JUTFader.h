@@ -15,7 +15,7 @@ class JUTFader {
     void control();
     void setStatus(JUTFader::EStatus, int);
 
-    virtual ~JUTFader(){};
+    virtual ~JUTFader() {};
     virtual bool startFadeIn(int);
     virtual bool startFadeOut(int);
     virtual void draw();

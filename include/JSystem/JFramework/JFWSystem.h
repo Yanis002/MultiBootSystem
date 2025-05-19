@@ -2,8 +2,8 @@
 #define JFWSYSTEM_H
 
 #include "JSystem/JUtility/JUTAssert.h"
+#include "dolphin/gx/GXStruct.h"
 
-typedef struct GXRenderModeObj GXRenderModeObj;
 class JKRExpHeap;
 class JKRThread;
 class JUTConsole;

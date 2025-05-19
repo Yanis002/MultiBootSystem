@@ -1,5 +1,5 @@
-#include "dolphin/types.h"
 #include "dolphin/pad.h"
+#include "dolphin/types.h"
 
 PADStatus s_pad[PAD_MAX_CONTROLLERS];
 PADStatus s_prev_pad[PAD_MAX_CONTROLLERS];

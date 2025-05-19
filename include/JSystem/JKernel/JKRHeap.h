@@ -3,6 +3,7 @@
 
 #include "JSystem/JKernel/JKRDisposer.h"
 #include "dolphin/os/OSMutex.h"
+#include "stddef.h"
 
 class JKRHeap;
 typedef void (*JKRErrorHandler)(void*, u32, int);

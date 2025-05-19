@@ -1,6 +1,10 @@
 #ifndef _MENU_SOUNDEFFECT_HPP
 #define _MENU_SOUNDEFFECT_HPP
 
+#include "dolphin/ax.h"
+#include "dolphin/sp.h"
+#include "dolphin/types.h"
+
 #define NUM_VOICE 64
 
 typedef struct SEVoice {

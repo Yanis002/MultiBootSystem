@@ -1,7 +1,7 @@
-#include "dolphin.h"
-#include "JSystem/JUtility/JUTVideo.h"
+#include "JSystem/JKernel/JKRHeap.h"
 #include "JSystem/JUtility/JUTException.h"
-#include "new.hpp"
+#include "JSystem/JUtility/JUTVideo.h"
+#include "dolphin.h"
 #include "menu/soundEffect.hpp"
 
 static ExecUnk tgc_4840;
@@ -73,13 +73,9 @@ void resetSystem(void) {
     }
 }
 
-void myExceptionCallback(u16 arg0, OSContext* context, u32 arg2, u32 arg3) {
-    JUTException::waitTime(3000);
-}
+void myExceptionCallback(u16 arg0, OSContext* context, u32 arg2, u32 arg3) { JUTException::waitTime(3000); }
 
-void fault_callback_scroll(u16 arg0, OSContext* arg1, u32 arg2, u32 arg3) {
-
-}
+void fault_callback_scroll(u16 arg0, OSContext* arg1, u32 arg2, u32 arg3) {}
 
 void initSound(void) {
     DVDCommandBlock block;
@@ -116,37 +112,14 @@ void exec(int arg0, int arg1) {
     u32 var_ctr;
 
     static char* tgcPaths[14] = {
-        "zlj_f.tgc",
-        "zlj_f.tgc",
-        "S_MarioParty4.tgc",
-        "S_Biohazard0.tgc",
-        "S_KinnikuManII.tgc",
-        "S_MrDori.tgc",
-        "S_FZero.tgc",
-        "S_Biohazard4.tgc",
-        "S_DeadPhoenix.tgc",
-        "S_VJ.tgc",
-        "S_PN03.tgc",
-        "S_Killer7.tgc",
-        "S_ZeldaADV.tgc",
-        "S_FinalFantasyADV.tgc",
+        "zlj_f.tgc",    "zlj_f.tgc",     "S_MarioParty4.tgc", "S_Biohazard0.tgc",      "S_KinnikuManII.tgc",
+        "S_MrDori.tgc", "S_FZero.tgc",   "S_Biohazard4.tgc",  "S_DeadPhoenix.tgc",     "S_VJ.tgc",
+        "S_PN03.tgc",   "S_Killer7.tgc", "S_ZeldaADV.tgc",    "S_FinalFantasyADV.tgc",
     };
 
     static char* romNames[14] = {
-        "zlj_f.n64",
-        "urazlj_f.n64",
-        "movie1",
-        "movie2",
-        "movie3",
-        "movie4",
-        "movie5",
-        "movie6",
-        "movie7",
-        "movie8",
-        "movie9",
-        "movie10",
-        "movie11",
-        "movie12",
+        "zlj_f.n64", "urazlj_f.n64", "movie1", "movie2", "movie3",  "movie4",  "movie5",
+        "movie6",    "movie7",       "movie8", "movie9", "movie10", "movie11", "movie12",
     };
 
     static char* argv[10];
@@ -200,7 +173,7 @@ void exec(int arg0, int arg1) {
         var_r3 = argc - 8;
 
         if (argc > 8) {
-            var_ctr = (u32) (var_r3 + 7) >> 3U;
+            var_ctr = (u32)(var_r3 + 7) >> 3U;
             if (var_r3 > 0) {
                 do {
                     var_r6 += 8;
@@ -233,10 +206,6 @@ void exec(int arg0, int arg1) {
     TGCExec(&tgc_4840, 0, argv);
 }
 
-void dtkCallback(u32) {
+void dtkCallback(u32) {}
 
-}
-
-void musicstopCallback(void) {
-
-}
+void musicstopCallback(void) {}

@@ -28,7 +28,7 @@ struct JPASweepShapeData {
 
 class JPASweepShape {
   public:
-    virtual ~JPASweepShape(){};
+    virtual ~JPASweepShape() {};
     virtual u8 getType() = 0;
     virtual u8 getDirType() = 0;
     virtual u8 getRotType() = 0;
@@ -67,7 +67,7 @@ class JPASweepShape {
 class JPASweepShapeArc : public JPASweepShape {
   public:
     JPASweepShapeArc(const u8*);
-    virtual ~JPASweepShapeArc(){};
+    virtual ~JPASweepShapeArc() {};
     virtual u8 getType() { return (mpData->mFlag >> 0) & 0x0F; }
     virtual u8 getDirType() { return (mpData->mFlag >> 4) & 0x07; }
     virtual u8 getRotType() { return (mpData->mFlag >> 7) & 0x07; }

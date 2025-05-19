@@ -45,7 +45,7 @@ s32 PackArgs(char* arg0, s32 arg1, s32 arg2) {
         var_r27 = UNK_812FF000;
         var_r29 = arg2 + (var_r26 * 4);
 
-loop_4:
+    loop_4:
         if (var_r26 >= 0) {
             var_r27 -= strlen((char*)&var_r29) + 1;
             strcpy((char*)var_r27, (char*)var_r29);
@@ -63,7 +63,7 @@ loop_4:
         if (temp_r3 > 1U) {
             temp_r3_2 = temp_r31 - 7;
             if (temp_r31 > 8U) {
-                var_ctr = (u32) (temp_r3_2 + 6) >> 3U;
+                var_ctr = (u32)(temp_r3_2 + 6) >> 3U;
                 // var_r3 = arg2 + 4;
                 // var_r4 = temp_r6 + 4;
                 if (temp_r3_2 > 1U) {

@@ -5,11 +5,11 @@
 #include "JSystem/JUtility/JUTDirectPrint.h"
 #include "JSystem/JUtility/JUTFader.h"
 #include "JSystem/JUtility/JUTXfb.h"
+#include "dolphin/gx/GXStruct.h"
 #include "dolphin/os/OSAlarm.h"
 #include "dolphin/types.h"
 
 typedef struct _GXColor GXColor;
-typedef struct GXRenderModeObj GXRenderModeObj;
 class JKRHeap;
 
 typedef void (*JFWDisplayUnkFunc)(void);

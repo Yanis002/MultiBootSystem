@@ -1,7 +1,7 @@
-#include "dolphin.h"
-#include "JSystem/JKernel/JKRAram.h"
-#include "macros.h"
 #include "menu/soundEffect.hpp"
+#include "JSystem/JKernel/JKRAram.h"
+#include "dolphin.h"
+#include "macros.h"
 
 u32 aramMemArray[3];
 SEVoice se_voice[NUM_VOICE];

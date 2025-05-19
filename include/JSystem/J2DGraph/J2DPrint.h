@@ -14,7 +14,7 @@ class J2DPrint {
     };
 
     J2DPrint(JUTFont*, f32, f32, JUtility::TColor, JUtility::TColor, JUtility::TColor, JUtility::TColor);
-    virtual ~J2DPrint(){};
+    virtual ~J2DPrint() {};
     void private_initiate(JUTFont*, f32, f32, JUtility::TColor, JUtility::TColor, JUtility::TColor, JUtility::TColor,
                           bool);
     static char* setBuffer(u32);

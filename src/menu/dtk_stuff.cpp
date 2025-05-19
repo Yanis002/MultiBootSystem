@@ -1,6 +1,6 @@
-#include "dolphin/types.h"
-#include "dolphin/dtk.h"
 #include "dolphin/ai.h"
+#include "dolphin/dtk.h"
+#include "dolphin/types.h"
 
 DTKTrack __Free_Tracks[32];
 static u32 free_track_index;

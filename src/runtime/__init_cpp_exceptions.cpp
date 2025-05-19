@@ -1,6 +1,6 @@
-#include "runtime/global_destructor_chain.h"
 #include "__ppc_eabi_linker.h"
 #include "macros.h"
+#include "runtime/global_destructor_chain.h"
 
 #if __MWERKS__
 #pragma exceptions off

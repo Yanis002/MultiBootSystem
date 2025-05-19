@@ -35,7 +35,7 @@ class J3DMatColorAnm {
 
 class J3DTexNoAnm {
   public:
-    ~J3DTexNoAnm(){};
+    ~J3DTexNoAnm() {};
     J3DTexNoAnm() {
         mAnmTexPattern = NULL;
         mAnmIndex = 0;

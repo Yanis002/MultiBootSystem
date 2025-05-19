@@ -2,8 +2,8 @@
 #define JUTXFB_H
 
 #include "JSystem/JUtility/JUTVideo.h"
+#include "dolphin/gx/GXStruct.h"
 
-typedef struct GXRenderModeObj GXRenderModeObj;
 class JKRHeap;
 
 class JUTXfb {
