@@ -1,21 +1,7 @@
 #include "dolphin.h"
 #include "JSystem/JKernel/JKRAram.h"
 #include "macros.h"
-
-typedef struct SEVoice {
-    /* 0x00 */ AXVPb* axvpb;
-    /* 0x04 */ SPSoundEntry* pSoundEntry;
-} SEVoice; // size = 0x08
-
-typedef struct SEStatus {
-    /* 0x00 */ char pad0[4];
-    /* 0x04 */ s32 okaiVolume;
-    /* 0x08 */ s32 cancelVolume;
-    /* 0x0C */ s32 selectVolume;
-    /* 0x10 */ s32 startVolume;
-} SEStatus; // size = 0x14
-
-#define NUM_VOICE 64
+#include "menu/soundEffect.hpp"
 
 u32 aramMemArray[3];
 SEVoice se_voice[NUM_VOICE];

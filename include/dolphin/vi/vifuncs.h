@@ -20,6 +20,7 @@ void VISetBlack(BOOL black);
 u32 VIGetNextField(void);
 u32 VIGetCurrentLine(void);
 void __VIGetCurrentPosition(s16* x, s16* y);
+VIRetraceCallback VISetPreRetraceCallback(VIRetraceCallback cb);
 
 #ifdef __cplusplus
 };

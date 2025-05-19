@@ -1,23 +1,104 @@
 #include "dolphin.h"
 #include "JSystem/JUtility/JUTVideo.h"
 #include "JSystem/JUtility/JUTException.h"
+#include "new.hpp"
+#include "menu/soundEffect.hpp"
 
 static ExecUnk tgc_4840;
 
 static s32 vibrationMode;
 static s32 progressiveMode;
+static s32 s_errorState;
+static SEStatus s_seStatus;
 
-extern void seQuit(void);
 extern void resetSystem(void);
 extern void musicstopCallback(void);
 extern void waitDTKStop(void);
+extern void Init_DTK_System(void);
 
 extern char* UNK_80003100 AT_ADDRESS(OS_BASE_CACHED | 0x3100);
 extern u8 UNK_80003120 AT_ADDRESS(OS_BASE_CACHED | 0x3120);
 extern u8 UNK_80003121 AT_ADDRESS(OS_BASE_CACHED | 0x3121);
 
+void resetSystem(void) {
+    JUTGamePad gamepad(JUTGamePad::Port_1);
+    s32 sp8;
+
+    JUTVideo::destroyManager();
+    GXSetDrawDoneCallback(NULL);
+    VISetBlack(true);
+    VIFlush();
+    VIWaitForRetrace();
+
+    while ((gamepad.getButton() & 0x1600) == 0x1600) {
+        gamepad.read();
+    }
+
+    if (sp8 != 0) {
+        sp8 = gamepad.mButtonReset.sResetOccurredPort;
+    }
+
+    if (gamepad.mButtonReset.sResetOccurredPort != 0) {
+        if (sp8 < 0) {
+            gamepad.clearForReset();
+        } else {
+            gamepad.mSuppressPadReset = 0xF0000000;
+            gamepad.mRumble.setEnabled(0);
+            gamepad.clearForReset();
+        }
+    } else {
+        gamepad.clearForReset();
+    }
+
+    DTKFlushTracks(musicstopCallback);
+    seQuit();
+    OSDisableScheduler();
+    OSSetResetCallback(NULL);
+    PADSetSamplingCallback(NULL);
+    GXSetTexRegionCallback(NULL);
+    GXSetTlutRegionCallback(NULL);
+    GXSetBreakPtCallback(NULL);
+    GXSetDrawSyncCallback(NULL);
+    GXSetDrawDoneCallback(NULL);
+    AIRegisterDMACallback(NULL);
+    AIRegisterStreamCallback(NULL);
+    VISetPreRetraceCallback(NULL);
+    VISetPostRetraceCallback(NULL);
+    __PADDisableRecalibration(false);
+
+    if (s_errorState & 0x08) {
+        OSResetSystem(1, 0x80000000, false);
+    } else {
+        OSResetSystem(0, 0x80000000, false);
+    }
+}
+
 void myExceptionCallback(u16 arg0, OSContext* context, u32 arg2, u32 arg3) {
     JUTException::waitTime(3000);
+}
+
+void fault_callback_scroll(u16 arg0, OSContext* arg1, u32 arg2, u32 arg3) {
+
+}
+
+void initSound(void) {
+    DVDCommandBlock block;
+
+    if (DVDGetDriveStatus() != -1) {
+        DVDCancelStream(&block);
+
+        if (DVDGetDriveStatus() != -1) {
+            Init_DTK_System();
+
+            if (DVDGetDriveStatus() != -1) {
+                DTKSetVolume(s_seStatus.volumeLeft, s_seStatus.volumeRight);
+
+                if (DVDGetDriveStatus() != -1) {
+                    seInit(&s_seStatus);
+                }
+            }
+        }
+    }
 }
 
 void exec(int arg0, int arg1) {
@@ -150,4 +231,12 @@ void exec(int arg0, int arg1) {
     DTKFlushTracks(musicstopCallback);
     waitDTKStop();
     TGCExec(&tgc_4840, 0, argv);
+}
+
+void dtkCallback(u32) {
+
+}
+
+void musicstopCallback(void) {
+
 }

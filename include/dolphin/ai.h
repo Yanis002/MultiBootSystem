@@ -36,6 +36,8 @@ void AISetStreamVolRight(u8 volume);
 u8 AIGetStreamVolRight(void);
 void AIInit(u8* stack);
 
+AISCallback AIRegisterStreamCallback(AISCallback callback);
+
 #ifdef __cplusplus
 };
 #endif
