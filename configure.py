@@ -307,7 +307,7 @@ config.libs = [
             Object(LinkedFor("mq-j"), "menu/mixedcontroller.cpp"),
             Object(LinkedFor("mq-j"), "menu/mtrand.cpp"),
             Object(LinkedFor("mq-j"), "menu/discerror.c"),
-            Object(NotLinked, "menu/soundeffect.cpp"),
+            Object(LinkedFor("mq-j"), "menu/soundeffect.cpp"),
         ]
     ),
     DolphinLib(

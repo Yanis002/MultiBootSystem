@@ -27,9 +27,9 @@ class JKRAram : public JKRThread {
     /* 0x6C */ u32 mAudioMemorySize;
     /* 0x70 */ u32 mGraphMemoryPtr;
     /* 0x74 */ u32 mGraphMemorySize;
+    /* 0x80 */ JKRAramHeap* mAramHeap;
     /* 0x78 */ u32 mAramMemoryPtr;
     /* 0x7C */ u32 mAramMemorySize;
-    /* 0x80 */ JKRAramHeap* mAramHeap;
     /* 0x84 */ u32 mStackArray[3];
 
   public:

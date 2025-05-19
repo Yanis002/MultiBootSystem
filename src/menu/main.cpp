@@ -1,5 +1,6 @@
 #include "dolphin.h"
 #include "JSystem/JUtility/JUTVideo.h"
+#include "JSystem/JUtility/JUTException.h"
 
 static ExecUnk tgc_4840;
 
@@ -14,6 +15,10 @@ extern void waitDTKStop(void);
 extern char* UNK_80003100 AT_ADDRESS(OS_BASE_CACHED | 0x3100);
 extern u8 UNK_80003120 AT_ADDRESS(OS_BASE_CACHED | 0x3120);
 extern u8 UNK_80003121 AT_ADDRESS(OS_BASE_CACHED | 0x3121);
+
+void myExceptionCallback(u16 arg0, OSContext* context, u32 arg2, u32 arg3) {
+    JUTException::waitTime(3000);
+}
 
 void exec(int arg0, int arg1) {
     // JUTVideo* var_r3;

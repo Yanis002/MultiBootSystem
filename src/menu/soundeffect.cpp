@@ -1,17 +1,28 @@
 #include "dolphin.h"
 #include "JSystem/JKernel/JKRAram.h"
+#include "macros.h"
+
+typedef struct SEVoice {
+    /* 0x00 */ AXVPb* axvpb;
+    /* 0x04 */ SPSoundEntry* pSoundEntry;
+} SEVoice; // size = 0x08
 
 typedef struct SEStatus {
-    AXVPb* axvpb;
-    SPSoundEntry* pSoundEntry;
-} SEStatus;
+    /* 0x00 */ char pad0[4];
+    /* 0x04 */ s32 okaiVolume;
+    /* 0x08 */ s32 cancelVolume;
+    /* 0x0C */ s32 selectVolume;
+    /* 0x10 */ s32 startVolume;
+} SEStatus; // size = 0x14
+
+#define NUM_VOICE 64
 
 u32 aramMemArray[3];
-SEStatus se_voice[64];
-u8 xfer_buffer[0x4000];
+SEVoice se_voice[NUM_VOICE];
+u8 xfer_buffer[0x4000] ATTRIBUTE_ALIGN(32);
 
 static u32 aramZeroBase;
-static u32 aramUserBase;
+static u32* aramUserBase;
 static SPSoundTable* sp_table;
 static s32 okaiVolume;
 static s32 selectVolume;
@@ -30,8 +41,7 @@ void ax_se_callback() {
     }
 }
 
-// non-matching
-void seInit(SEStatus*) {
+void seInit(SEStatus* status) {
     s32 i;
 
     DVDInit();
@@ -41,28 +51,28 @@ void seInit(SEStatus*) {
     AXInit();
     MIXInit();
 
-    JKRAllocFromAram(0x800000, JKRAramHeap::HEAD);
-    // aramUserBase = alloc__11JKRAramHeapFUlQ211JKRAramHeap10EAllocMode(sAramObject__7JKRAram.unk0->unk78, 0x800000U, (JKRAramHeap::EAllocMode) 0);
+    aramUserBase = (u32*)JKRAllocFromAram(0x800000, JKRAramHeap::HEAD);
 
-    AMInit(aramUserBase, 0x800000);
+    AMInit((u32)aramUserBase, 0x800000);
     aramZeroBase = AMGetZeroBuffer();
     sp_table = (SPSoundTable*)AMLoadFile("multiple_se.spt", NULL);
-    aramUserBase = __AMPushBuffered("multiple_se.spd", xfer_buffer, sizeof(xfer_buffer), NULL, false);
-    SPInitSoundTable(sp_table, aramUserBase, aramZeroBase);
+    aramUserBase = (u32*)__AMPushBuffered("multiple_se.spd", xfer_buffer, sizeof(xfer_buffer), NULL, false);
+    SPInitSoundTable(sp_table, (u32)aramUserBase, aramZeroBase);
 
-    for (i = 0; i < 64 /* ARRAY_COUNT(se_voice) */; i++) {
+    // for some reasons ARRAY_COUNT(U) doesn't work here
+    for (i = 0; i < NUM_VOICE; i++) {
         se_voice[i].axvpb = NULL;
         se_voice[i].pSoundEntry = NULL;
     }
 
     AXRegisterCallback(ax_se_callback);
-    // okaiVolume = status->okaiVolume;
-    // selectVolume = status->selectVolume;
-    // cancelVolume = status->cancelVolume;
-    // startVolume = status->startVolume;
+    okaiVolume = status->okaiVolume;
+    selectVolume = status->selectVolume;
+    cancelVolume = status->cancelVolume;
+    startVolume = status->startVolume;
 }
 
-static SEStatus* seGetStatus() {
+static SEVoice* seGetVoice() {
     s32 iStatus;
 
     for (iStatus = 0; iStatus < ARRAY_COUNT(se_voice); iStatus++) {
@@ -75,11 +85,11 @@ static SEStatus* seGetStatus() {
 }
 
 void sePlaySE(u32 index) {
-    SEStatus* pSEVoice;
+    SEVoice* pSEVoice;
     BOOL interrupts;
 
     interrupts = OSDisableInterrupts();
-    pSEVoice = seGetStatus();
+    pSEVoice = seGetVoice();
 
     if (pSEVoice != NULL) {
         pSEVoice->axvpb = AXAcquireVoice(0xF, NULL, 0);
